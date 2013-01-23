@@ -1,2 +1,4 @@
-# Teamprojekt 2013
-Erstellen einer Kanban-Anwendung
+# Team project 2013
+
+## Run application
+```mvn exec:java``
