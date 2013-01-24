@@ -11,7 +11,7 @@ import nu.xom.Serializer;
 
 import org.junit.Test;
 
-public class Xom {
+public class XomTest {
 
 	@Test
 	public void readDocument() throws Exception {
