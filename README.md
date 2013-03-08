@@ -21,17 +21,17 @@ mvn exec:java
 + Open board
 + Save board
 + Save as…
-+ Export to html, pdf
++ Export to html
 + Export backlog to csv, pdf
 + Warn user if modifications have not been saved
 + Preferences dialog for colors, name of board, columns, wips
-+ Cos (Fixed date, standard, intagible, expedite)
++ CoS (Fixed date, standard, intagible, expedite)
 + Card properties (uuid, headline, description, size, value, created, started, finished)
 + Validate on wip limits
-+ Move cards between columns
++ Move cards between adjacent columns
 + Full text search backlog and board by headline, description, CoS, size, value
 + Store board as xml
 + Tests for all major parts of the application
-+ Edit didalog for card
-+ Backlogs displays cards in 3 * n Grid 
++ Edit dialog for card
++ Backlogs displays cards in 3 columns grid 
 + Backlog can be sorted by creation time (default), headline, value, size
