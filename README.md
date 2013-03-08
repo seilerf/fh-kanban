@@ -22,7 +22,7 @@ mvn exec:java
 + Save board
 + Save as…
 + Export to html, pdf
-+ Export backlog to csv
++ Export backlog to csv, pdf
 + Warn user if modifications have not been saved
 + Preferences dialog for colors, name of board, columns, wips
 + Cos (Fixed date, standard, intagible, expedite)
