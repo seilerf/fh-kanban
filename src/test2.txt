@@ -1,0 +1,3 @@
+leere textdatei ohne kot
+
+zuerst pullen, , dann committen, dann pushen!
