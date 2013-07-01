@@ -40,7 +40,8 @@ public class Kanban {
 	
 		JTabbedPane pane = new JTabbedPane();
 		pane.addTab("Backlog", backlogView.getComponent());
-		pane.addTab("Boad", boardView.getComponent());
+		pane.addTab("Board", boardView.getComponent());
+		
 		
 		JFrame frame = new JFrame();
 		frame.setJMenuBar(menubar);
