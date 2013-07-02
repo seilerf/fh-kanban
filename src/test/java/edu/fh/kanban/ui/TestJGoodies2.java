@@ -8,6 +8,8 @@ import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 import java.awt.BorderLayout;
 import java.awt.Panel;
+
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -34,6 +36,7 @@ public class TestJGoodies2 {
         frame.setLayout(new BorderLayout());
         frame.add(panel);
         frame.setTitle("Teamproject 2013 - Kanban");
+        //frame.add(new JComboBox());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(700, 500);
         frame.setLocationByPlatform(true);
