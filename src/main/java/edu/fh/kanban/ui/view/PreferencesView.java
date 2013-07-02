@@ -25,7 +25,7 @@ import java.awt.GridBagConstraints;
  *
  * @author vs
  */
-public class PreferencesModel {
+public class PreferencesView {
 
     public static void main(String[] args) {
         FormLayout formLayout = new FormLayout("p,2dlu,p:grow");
