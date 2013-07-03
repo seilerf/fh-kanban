@@ -12,7 +12,7 @@ import org.jdom2.output.XMLOutputter;
 
 public class XMLReader {
 
-	public static void main(String[] args) {
+	public void read(){
 
         Document xmlDoc = null;
         File f = new File("board.xml");

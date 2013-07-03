@@ -2,12 +2,14 @@ package edu.fh.kanban;
 
 import java.awt.BorderLayout;
 import java.util.logging.Logger;
+
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
 
+import edu.fh.kanban.dao.DataManager;
 import edu.fh.kanban.domain.BoardModel;
 import edu.fh.kanban.ui.view.BacklogView;
 import edu.fh.kanban.ui.view.BoardView;
@@ -37,6 +39,8 @@ public class Kanban {
 		
 		View backlogView = new BacklogView();
 		BoardModel board = new BoardModel();
+		DataManager dm = new DataManager();
+		dm.readXML();
 		
 		View boardView = new BoardView();
 	
