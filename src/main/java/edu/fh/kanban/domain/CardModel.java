@@ -3,6 +3,7 @@ package edu.fh.kanban.domain;
 import java.util.Date;
 
 public class CardModel {
+	
 	private int id;
 	private int workload;
 	private int value;
