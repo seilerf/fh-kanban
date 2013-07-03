@@ -48,7 +48,7 @@ public class XMLReader {
             	List karten = (List) spalte.getChildren();
             	// Alle Karten innerhalb einer Spalte ausgeben
             	int j = 0;
-            	for (j = 0; j < spalten.size(); j++){
+            	for (j = 0; j < karten.size(); j++){
             		Element karte = (Element) karten.get(j);
             		System.out.println(j+1 + ". Karte: " + karte.getAttributeValue("name") + " gehört zu " 
             		+ karte.getParentElement().getAttributeValue("name"));
