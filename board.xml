@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Board name="TestBoard">
+    <Column name="Testspalte">
+		<Card name="Testkarte"/>
+		<Card name="2.Testkarte"/>
+		<Card name="3.Karte"/>
+	</Column>
+	<Column name="2.Testspalte">
+		<Card name="Spalte 2, Karte 1"/>
+		<Card name="Spalte 2, Karte 2"/>
+	</Column>
+</Board>
