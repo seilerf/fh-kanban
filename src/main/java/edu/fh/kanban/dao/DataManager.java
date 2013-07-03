@@ -13,11 +13,8 @@ public class DataManager {
 		xmlreader.read();
 	}
 	
-	public void wirteXML(){
-		
-	}
 	
-	public void writeXLM(){
+	public void writeXML(){
 		
 	}
 	
