@@ -50,6 +50,7 @@ public class DataManager {
             for (i = 0; i < spalten.size(); i++) {
             	System.out.println("\n" + (i+1) + ". Spalte: " + ((Element) spalten.get(i)).getAttributeValue("name"));
             	
+            	this.readCardsFromXML( ((Element)spalten.get(i)));
             	
             }
 
@@ -60,7 +61,11 @@ public class DataManager {
         }
     }
 	
-	public void readCardsFromXML(Element spalte, int size) {
+	public void readColumnsFromXML(Element root, int size) {
+		
+	}
+	
+	public void readCardsFromXML(Element spalte) {
 		
     	List karten = (List) spalte.getChildren();
     	// Alle Karten innerhalb einer Spalte ausgeben
