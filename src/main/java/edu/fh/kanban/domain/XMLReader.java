@@ -54,13 +54,12 @@ public class XMLReader {
             		+ karte.getParentElement().getAttributeValue("name"));
             	}
             }
-            
+
         } catch (JDOMException e) { 
-            e.printStackTrace(); 
-        } catch (IOException e) { 
-            e.printStackTrace(); 
-        } 
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
-		
 }
 	
