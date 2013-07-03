@@ -40,7 +40,7 @@ public class Kanban {
 		View backlogView = new BacklogView();
 		Board board = new Board();
 		DataManager dm = new DataManager();
-		dm.readXML();
+		dm.readXML(null);
 		
 		View boardView = new BoardView();
 	

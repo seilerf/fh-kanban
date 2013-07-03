@@ -10,27 +10,27 @@ import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.XMLOutputter;
 
-import edu.fh.kanban.domain.XMLReader;
-
 public class DataManager {
 
 	public DataManager(){
 		
 	}
 	
-	public void readXML(){
+	//Methode, die eine XML-Datei verarbeitet und in den Speicher liest
+	public void readXML(File file){
 
         Document xmlDoc = null;
-        File f = new File("board.xml");
+        File xmlFile = new File("board.xml");
 
         try {
-            // Das Dokument erstellen
+        	// SAX := Simple API for XML
             SAXBuilder builder = new SAXBuilder();
-            xmlDoc = builder.build(f);
-            XMLOutputter fmt = new XMLOutputter();
+            // Das Dokument erstellen
+            xmlDoc = builder.build(xmlFile);
 
             // komplettes Dokument ausgeben
-            fmt.output(xmlDoc, System.out);
+            XMLOutputter outStream = new XMLOutputter();
+            outStream.output(xmlDoc, System.out);
 
             // Wurzelelement ausgeben
             Element rootElement = xmlDoc.getRootElement();
@@ -51,10 +51,11 @@ public class DataManager {
         }
     }
 	
+	//Methode, um Spalten eines Boards aus einer XML-Datei auszulesen
 	public void readColumnsFromXML(Element root) {
 	
 		// Eine Liste aller Spalten erstellen
-        List spalten = (List) root.getChildren();
+		List spalten = (List) root.getChildren();
         
         //Alle Spalten ausgeben
         int i = 0;
@@ -66,6 +67,7 @@ public class DataManager {
         }
 	}
 	
+	//Methode, um Karten, die einer Spalte angehören, aus einem XML-Dokument auszulesen 
 	public void readCardsFromXML(Element spalte) {
 		
 		//Eine Liste aller Karten erstellen
@@ -74,7 +76,7 @@ public class DataManager {
     	int j = 0;
     	for (j = 0; j < karten.size(); j++){
     		Element karte = (Element) karten.get(j);
-    		System.out.println(j+1 + ". Karte: " + karte.getAttributeValue("name") + " gehört zu " 
+    		System.out.println(j+1 + ". Karte: " + karte.getAttributeValue("description") + " gehört zu " 
     		+ karte.getParentElement().getAttributeValue("name"));
     	}
 	}

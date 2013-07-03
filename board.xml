@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Board name="TestBoard">
     <Column name="Testspalte">
-		<Card name="Testkarte"/>
-		<Card name="2.Testkarte"/>
-		<Card name="3.Karte"/>
+		<Card id="1" workload="5" value="17" description="1.Testkarte" created="" started="" done="">
+			<Blocker>
+			</Blocker>
+		</Card>
+		<Card description="2.Testkarte"/>
+		<Card description="3.Karte"/>
 	</Column>
 	<Column name="2.Testspalte">
-		<Card name="Spalte 2, Karte 1"/>
-		<Card name="Spalte 2, Karte 2"/>
+		<Card description="Karte 1"/>
+		<Card description="Karte 2"/>
 	</Column>
 </Board>
