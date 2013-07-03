@@ -41,18 +41,8 @@ public class DataManager {
             
             //Attribut (Name) des Boards ausgeben
             System.out.println("Name des Boards:" + rootElement.getAttributeValue("name"));
-
-            // Eine Liste aller Spalten erstellen
-            List spalten = (List) rootElement.getChildren();
             
-            //Alle Spalten ausgeben
-            int i = 0;
-            for (i = 0; i < spalten.size(); i++) {
-            	System.out.println("\n" + (i+1) + ". Spalte: " + ((Element) spalten.get(i)).getAttributeValue("name"));
-            	
-            	this.readCardsFromXML( ((Element)spalten.get(i)));
-            	
-            }
+            this.readColumnsFromXML(rootElement);            
 
         } catch (JDOMException e) { 
             e.printStackTrace();
@@ -61,12 +51,24 @@ public class DataManager {
         }
     }
 	
-	public void readColumnsFromXML(Element root, int size) {
-		
+	public void readColumnsFromXML(Element root) {
+	
+		// Eine Liste aller Spalten erstellen
+        List spalten = (List) root.getChildren();
+        
+        //Alle Spalten ausgeben
+        int i = 0;
+        for (i = 0; i < spalten.size(); i++) {
+        	System.out.println("\n" + (i+1) + ". Spalte: " + ((Element) spalten.get(i)).getAttributeValue("name"));
+        	
+        	this.readCardsFromXML( ((Element)spalten.get(i)));
+        	
+        }
 	}
 	
 	public void readCardsFromXML(Element spalte) {
 		
+		//Eine Liste aller Karten erstellen
     	List karten = (List) spalte.getChildren();
     	// Alle Karten innerhalb einer Spalte ausgeben
     	int j = 0;
