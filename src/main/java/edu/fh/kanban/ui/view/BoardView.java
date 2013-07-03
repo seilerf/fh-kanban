@@ -1,5 +1,6 @@
 package edu.fh.kanban.ui.view;
 
+import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -12,7 +13,7 @@ import com.jgoodies.forms.layout.FormLayout;
 
 public class BoardView extends JPanel implements View{
 
-	private JTextField textfield = new JTextField();
+	
 	
 	@Override
 	public JComponent getComponent() {
@@ -20,13 +21,10 @@ public class BoardView extends JPanel implements View{
 	}
 	
 	public BoardView(){
-		 FormLayout formLayout = new FormLayout("p,2dlu,p:grow");
-	     CellConstraints cc = new CellConstraints();
-	        
-	    DefaultFormBuilder builder = new DefaultFormBuilder(formLayout); 
-		JLabel label = new JLabel("Hallo");
-		add(label);
-		add(textfield);
+		JButton button = new JButton();
+		button.addChangeListener(null);
+		add(button);
+	
 	}
 
 	

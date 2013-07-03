@@ -2,13 +2,13 @@ package edu.fh.kanban;
 
 import java.awt.BorderLayout;
 import java.util.logging.Logger;
-
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
 
+import edu.fh.kanban.domain.BoardModel;
 import edu.fh.kanban.ui.view.BacklogView;
 import edu.fh.kanban.ui.view.BoardView;
 import edu.fh.kanban.ui.view.View;
@@ -36,6 +36,8 @@ public class Kanban {
 		menubar.add(new JMenu("File"));
 		
 		View backlogView = new BacklogView();
+		BoardModel board = new BoardModel();
+		
 		View boardView = new BoardView();
 	
 		JTabbedPane pane = new JTabbedPane();
