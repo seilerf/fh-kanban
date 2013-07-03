@@ -2,7 +2,7 @@ package edu.fh.kanban.domain;
 
 import java.util.Date;
 
-public class CardModel {
+public class Card {
 	
 	private int id;
 	private int workload;

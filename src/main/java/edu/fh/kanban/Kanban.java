@@ -10,7 +10,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
 
 import edu.fh.kanban.dao.DataManager;
-import edu.fh.kanban.domain.BoardModel;
+import edu.fh.kanban.domain.Board;
 import edu.fh.kanban.ui.view.BacklogView;
 import edu.fh.kanban.ui.view.BoardView;
 import edu.fh.kanban.ui.view.View;
@@ -38,7 +38,7 @@ public class Kanban {
 		menubar.add(new JMenu("File"));
 		
 		View backlogView = new BacklogView();
-		BoardModel board = new BoardModel();
+		Board board = new Board();
 		DataManager dm = new DataManager();
 		dm.readXML();
 		

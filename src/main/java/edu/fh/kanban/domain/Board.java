@@ -4,13 +4,13 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class BoardModel {
+public class Board {
 
 	private PropertyChangeSupport changes ;
 	private String name;
 	private int id;
 	
-	public BoardModel(){
+	public Board(){
 		//merkt sich die Listener
 		changes = new PropertyChangeSupport(this);
 
