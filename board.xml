@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Board name="TestBoard">
-    <Column name="Testspalte">
+    <Column name="Next" limit="3" maxCol="1">
 		<Card id="1" workload="5" value="17" description="1.Testkarte" created="" started="" done="">
 			<Blocker>
 			</Blocker>
@@ -8,8 +8,12 @@
 		<Card description="2.Testkarte"/>
 		<Card description="3.Karte"/>
 	</Column>
-	<Column name="2.Testspalte">
+	<Column name="Development" limit="2" maxCol="2">
 		<Card description="Karte 1"/>
 		<Card description="Karte 2"/>
+	</Column>
+	<Column name ="Test" limit="4" maxCol="2">
+	</Column>
+	<Column name ="Done" maxCol="1">
 	</Column>
 </Board>
