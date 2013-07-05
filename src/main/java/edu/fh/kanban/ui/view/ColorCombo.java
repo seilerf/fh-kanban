@@ -5,20 +5,20 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class ColorCombo extends JFrame {
-    private JToolBar toolbar;
+public class ColorCombo extends JPanel {
+    private JPanel toolbar; 
     private ColorBox colorBox;
-    public ColorCombo() {
-        super("Combo Colors Demo");
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        toolbar = new JToolBar();
+    public  ColorCombo() {
+        super();
+        //setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        toolbar = new JPanel();
         //Create the ColorBox:
         colorBox = new ColorBox();
         //Layout:
-        toolbar.add(colorBox, BorderLayout.NORTH);
-        getContentPane().add(toolbar, BorderLayout.NORTH);
-        pack();
-        setLocationRelativeTo(null);
+       toolbar.add(new ColorBox());
+        //getContentPane().add(toolbar, BorderLayout.NORTH);
+        //pack();
+        //setLocationRelativeTo(null);
         //Listener:
         colorBox.addItemListener(new ItemListener() {
             public void itemStateChanged(final ItemEvent e) {
@@ -33,7 +33,7 @@ public class ColorCombo extends JFrame {
     }
     public static void main(final String args[]) {new ColorCombo().setVisible(true);}
 }
-class ColorBox extends JComboBox{
+class ColorBox extends JComboBox {
     private final Icon[] COLOR_ICONS;
     public final String LABELS[] = {
         "BLACK","BLUE","CYAN","DARK_GRAY","GRAY","GREEN","LIGHT_GRAY",
@@ -44,7 +44,9 @@ class ColorBox extends JComboBox{
         Color.MAGENTA,Color.ORANGE,Color.PINK,Color.RED,Color.WHITE,Color.YELLOW
     };
     public ColorBox(){
-        super();
+   
+    	super();
+    	
         //Load the COLOR_ICONS and create an array of indexes:
         COLOR_ICONS = new Icon[LABELS.length];
         final Integer[] INT_ARRAY = new Integer[LABELS.length];
@@ -52,8 +54,12 @@ class ColorBox extends JComboBox{
             INT_ARRAY[i] = new Integer(i);
             COLOR_ICONS[i] = new ColorIcon(COLORS[i], new Dimension(100, 20));
         }
+        
         setModel(new DefaultComboBoxModel(INT_ARRAY));
         setRenderer(new ComboBoxRenderer());
+        
+        
+        
     }
     class ComboBoxRenderer extends JLabel implements ListCellRenderer {
         public ComboBoxRenderer() {setOpaque(true);}
@@ -70,6 +76,10 @@ class ColorBox extends JComboBox{
             int selectedIndex = ((Integer)value).intValue();
             setIcon(COLOR_ICONS[selectedIndex]);
             setText(LABELS[selectedIndex]);
+            
+            
+            
+            
             return this;
         }
     }
@@ -87,4 +97,36 @@ class ColorBox extends JComboBox{
         public int getIconWidth() {return size.width;}
         public int getIconHeight() {return size.height;}
     }
+}
+
+class SpaltenCombo extends JComboBox 
+{
+	String[] lang = {
+		      "Next", "Dev", "Test", "Done"
+		    };
+		    public SpaltenCombo()
+		    {
+		     JComboBox combo1 = new JComboBox();
+		   for ( String s : lang )
+		    
+		      combo1.addItem( s );
+		    
+		    setModel(new DefaultComboBoxModel(lang));
+		   
+		    combo1.addItemListener( new ItemListener() {
+		        public void itemStateChanged( ItemEvent e ) {
+		          JComboBox selectedChoice = (JComboBox)e.getSource();
+		         //int selectedIndex = combo1.getSelectedIndex();
+		          System.out.println(e.toString());
+		          System.out.println(selectedChoice.getSelectedItem().toString());
+		          
+		        //  JComboBox selectedChoice = (JComboBox)e.getSource();
+		          //if ( selectedChoice.getSelectedItem()
+		          
+		        }
+		      } );
+		      
+
+}
+		    
 }
