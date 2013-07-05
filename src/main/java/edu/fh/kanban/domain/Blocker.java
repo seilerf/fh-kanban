@@ -1,5 +1,5 @@
 package edu.fh.kanban.domain;
 
-public class Blocker {
+public class Blocker extends AbstractModel {
 
 }

@@ -1,10 +1,8 @@
 package edu.fh.kanban.domain;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class Board {
+public class Board extends AbstractModel {
 
 	private PropertyChangeSupport changes ;
 	private String name;
@@ -22,9 +20,5 @@ public class Board {
 		changes.firePropertyChange("name", oldName, name);
 	}
 	
-	 public void addPropertyChangeListener(PropertyChangeListener l) {
-		 changes.addPropertyChangeListener(l);
-	 }
-
 
 }
