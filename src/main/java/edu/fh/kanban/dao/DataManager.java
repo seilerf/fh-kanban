@@ -69,21 +69,21 @@ public class DataManager {
 	public void readColumnsFromXML(Element root) {
 	
 		// Eine Liste aller Spalten erstellen
-		List columns = (List) root.getChildren();
+		List<Element> columns = (List<Element>) root.getChildren();
 		String name;
         
         //Alle Spalten ausgeben
         int i = 0;
         for (i = 0; i < columns.size(); i++) {
         	
-        	System.out.println("\n" + (i+1) + ". Spalte: " + ((Element) columns.get(i)).getAttributeValue("name"));
+        	System.out.println("\n" + (i+1) + ". Spalte: " + columns.get(i).getAttributeValue("name"));
         	
-        	name = ((Element) columns.get(i)).getAttributeValue("name");
+        	name = (columns.get(i)).getAttributeValue("name");
         	this.columnList.add(new Column(name));
         	
         	System.out.println("Anzahl Spalten: " + this.columnList.size());
         	
-        	this.readCardsFromXML( ((Element)columns.get(i)));
+        	this.readCardsFromXML(columns.get(i));
         	
         }
 	}
@@ -92,13 +92,12 @@ public class DataManager {
 	public void readCardsFromXML(Element spalte) {
 		
 		//Eine Liste aller Karten erstellen
-    	List karten = (List) spalte.getChildren();
+    	List<Element> karten = (List<Element>) spalte.getChildren();
     	// Alle Karten innerhalb einer Spalte ausgeben
     	int j = 0;
     	for (j = 0; j < karten.size(); j++){
-    		Element karte = (Element) karten.get(j);
-    		System.out.println(j+1 + ". Karte: " + karte.getAttributeValue("description") + " gehört zu " 
-    		+ karte.getParentElement().getAttributeValue("name"));
+    		Element karte = karten.get(j);
+    		System.out.println(j+1 + ". Karte: " + karte.getAttributeValue("description"));
     	}
 	}
 	
