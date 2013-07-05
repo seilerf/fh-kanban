@@ -1,5 +1,8 @@
 package edu.fh.kanban.ui.view;
 
+import java.util.Iterator;
+import java.util.LinkedList;
+
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -7,32 +10,44 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 
-import com.jgoodies.forms.factories.CC;
 
+
+
+
+
+import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
+
+import edu.fh.kanban.dao.DataManager;
+import edu.fh.kanban.domain.Column;
 
 
 public class BoardView extends JPanel implements View{
 	
 	
-	private final String columnWidth = "60dlu";
+	private final String columnWidth = "90dlu";
 	private final String rowHeight = "13dlu";
 	private final String padding = "4dlu";
-	
-	private String colSpec;
-	private String rowSpec;
-	
+		
 	//Constructor
-	public BoardView(){
+	public BoardView(DataManager dm){
 		
-		//Aufbau des Boards mit maximal 5 möglichen Spalten
-		this.setLayout(new FormLayout(this.getColSpec(5), getRowSpec(8)));
+		//Aufbau des Boards mit der Anzahl Spalten, die für die Darstellung notwendig sind;
+		this.setLayout(new FormLayout(this.getColSpec(dm.getCols().size()), getRowSpec(8)));
 		
-		this.add(new JLabel("Spalte 1"), CC.xy(2, 2));
-		this.add(new JLabel("Spalte 2"), CC.xy(4, 2));
-		this.add(new JLabel("Spalte 3"), CC.xy(6, 2));
-		this.add(new JLabel("Spalte 4"), CC.xy(8, 2));
-		this.add(new JLabel("Spalte 5"), CC.xy(10, 2));
+		this.writeColumns(dm.getCols());
+	}
+	
+	//Methode, die die Spalten in das GUI überträgt
+	private void writeColumns(LinkedList<Column> columns) {
+		
+		int count = 1;
+		//Spaltenüberschriften in das GUI schreiben
+		for (Iterator<Column> i = columns.iterator(); i.hasNext();){
+			
+			add(new JLabel(i.next().getName()), CC.xy((2*count), 2));
+			count++;
+		}
 		
 	}
 	
@@ -42,6 +57,7 @@ public class BoardView extends JPanel implements View{
 		
 		int i = 0;
 		for (i = 0; i < columns; i++){
+			// Zusammenfügung des Strings für die Spezifikation der Spalten im FormLayoutManager
 			colSpec = colSpec + colSpec;
 		}
 		return colSpec;
@@ -59,7 +75,6 @@ public class BoardView extends JPanel implements View{
 	}
 	
 	// Methode, die alle GUI-Elemente für das Board-GUI erzeugt
-	
 	public void buildBoard() {
 		
 	}

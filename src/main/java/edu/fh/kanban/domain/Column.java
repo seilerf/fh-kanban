@@ -10,4 +10,7 @@ public class Column {
 		this.name = name;
 	}
 
+	public String getName() {
+		return this.name;
+	}
 }

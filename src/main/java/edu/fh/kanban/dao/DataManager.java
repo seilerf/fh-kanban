@@ -2,7 +2,9 @@ package edu.fh.kanban.dao;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Collection;
 
 import org.jdom2.Document;
 import org.jdom2.Element;
@@ -10,9 +12,21 @@ import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.XMLOutputter;
 
+import edu.fh.kanban.domain.Board;
+import edu.fh.kanban.domain.Card;
+import edu.fh.kanban.domain.Column;
+
 public class DataManager {
+	
+	private Board board;
+	private LinkedList<Column> columnList;
+	private LinkedList<Card> cardList;
 
 	public DataManager(){
+		
+		this.board = new Board();						// prüfen...
+		this.columnList = new LinkedList <Column>();
+		this.cardList = new LinkedList <Card>();
 		
 	}
 	
@@ -55,14 +69,21 @@ public class DataManager {
 	public void readColumnsFromXML(Element root) {
 	
 		// Eine Liste aller Spalten erstellen
-		List spalten = (List) root.getChildren();
+		List columns = (List) root.getChildren();
+		String name;
         
         //Alle Spalten ausgeben
         int i = 0;
-        for (i = 0; i < spalten.size(); i++) {
-        	System.out.println("\n" + (i+1) + ". Spalte: " + ((Element) spalten.get(i)).getAttributeValue("name"));
+        for (i = 0; i < columns.size(); i++) {
         	
-        	this.readCardsFromXML( ((Element)spalten.get(i)));
+        	System.out.println("\n" + (i+1) + ". Spalte: " + ((Element) columns.get(i)).getAttributeValue("name"));
+        	
+        	name = ((Element) columns.get(i)).getAttributeValue("name");
+        	this.columnList.add(new Column(name));
+        	
+        	System.out.println("Anzahl Spalten: " + this.columnList.size());
+        	
+        	this.readCardsFromXML( ((Element)columns.get(i)));
         	
         }
 	}
@@ -88,6 +109,10 @@ public class DataManager {
 	
 	public void writePDF(){
 		
+	}
+	
+	public LinkedList<Column> getCols() {
+		return this.columnList;
 	}
 	
 }

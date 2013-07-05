@@ -38,11 +38,12 @@ public class Kanban {
 		menubar.add(new JMenu("File"));
 		
 		View backlogView = new BacklogView();
-		Board board = new Board();
+		
 		DataManager dm = new DataManager();
 		dm.readXML(null);
 		
-		View boardView = new BoardView();
+		Board board = new Board();
+		View boardView = new BoardView(dm);
 	
 		JTabbedPane pane = new JTabbedPane();
 		pane.addTab("Backlog", backlogView.getComponent());
