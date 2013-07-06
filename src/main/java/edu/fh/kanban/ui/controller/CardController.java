@@ -25,20 +25,20 @@ public class CardController {
 	 * Methode zum Hinzufügen der benötigten Listener. 
 	 */
 	private void addListener() {
-		this.cardView.setBtnIdSpeichern(new CardIdSpeichernListener());
-		this.cardView.setBtnIdLoeschen(new CardIdLoeschenListener());
-		this.cardView.setBtnAufwandSpeichern(new AufwandSpeichernListener());
-		this.cardView.setBtnAufwandLoeschen(new AufwandLoeschenListener());
-		this.cardView.setBtnBeschreibungSpeichern(new BeschreibungSpeichernListener());
-		this.cardView.setBtnBeschreibungLoeschen(new BeschreibungLoeschenListener());
-		this.cardView.setBtnWertSpeichern(new WertSpeichernListener());
-		this.cardView.setBtnWertLoeschen(new WertLoeschenListener());
-		this.cardView.setBlockerToggleButton(new BlockerSpeichernListener());
-		this.cardView.setBlockerToggleButton(new BlockerLoeschenListener());
+		this.cardView.setBtnIdSave(new CardIdSaveListener());
+		this.cardView.setBtnIdDelete(new CardIdDeleteListener());
+		this.cardView.setBtnWorkloadSave(new WorkloadSaveListener());
+		this.cardView.setBtnWorkloadDelete(new WorkloadDeleteListener());
+		this.cardView.setBtnDescriptionSave(new DescriptionSaveListener());
+		this.cardView.setBtnDescriptionDelete(new DescriptionDeleteListener());
+		this.cardView.setBtnValueSave(new ValueSaveListener());
+		this.cardView.setBtnValueDelete(new ValueDeleteListener());
+		this.cardView.setBlockerToggleButton(new BlockerSaveListener());
+		this.cardView.setBlockerToggleButton(new BlockerDeleteListener());
 		this.cardView.setCreatedJRadioButton(new JRadioButtonSelectedListener());
 		this.cardView.setStartedJRadioButton(new JRadioButtonSelectedListener());
 		this.cardView.setDoneJRadioButton(new JRadioButtonSelectedListener());
-		this.cardView.setBtnJRadioSelectedLoeschen(new JRadioButtonDeleteListener());
+		this.cardView.setBtnJRadioSelectedDelete(new JRadioButtonDeleteListener());
 	}
 	
 	/**
@@ -46,7 +46,7 @@ public class CardController {
 	 * @author AdminMax
 	 *
 	 */
-	class CardIdSpeichernListener implements ActionListener {
+	class CardIdSaveListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			int wert = Integer.valueOf(cardView.getId());
 			card.setId(wert);	
@@ -58,7 +58,7 @@ public class CardController {
 	 * @author AdminMax
 	 *
 	 */
-	class CardIdLoeschenListener implements ActionListener {
+	class CardIdDeleteListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			cardView.resetId();
 			card.cardIdReset();
@@ -70,9 +70,9 @@ public class CardController {
 	 * @author AdminMax
 	 *
 	 */
-	class AufwandSpeichernListener implements ActionListener {
+	class WorkloadSaveListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {	
-			int wert = Integer.valueOf(cardView.getAufwand());
+			int wert = Integer.valueOf(cardView.getWorkload());
 			card.setValue(wert);
 		}
 	}
@@ -82,9 +82,9 @@ public class CardController {
 	 * @author AdminMax
 	 *
 	 */
-	class AufwandLoeschenListener implements ActionListener {
+	class WorkloadDeleteListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			cardView.resetAufwand();
+			cardView.resetWorkload();
 			card.aufwandReset();
 		}
 		
@@ -95,9 +95,9 @@ public class CardController {
 	 * @author AdminMax
 	 *
 	 */
-	class BeschreibungSpeichernListener implements ActionListener {
+	class DescriptionSaveListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			card.setDescription(cardView.getBeschreibung());
+			card.setDescription(cardView.getDescription());
 		}	
 	}
 	
@@ -106,9 +106,9 @@ public class CardController {
 	 * @author AdminMax
 	 *
 	 */
-	class BeschreibungLoeschenListener implements ActionListener {
+	class DescriptionDeleteListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			cardView.resetBeschreibung();
+			cardView.resetDescription();
 			card.beschreibungReset();
 		}	
 	}
@@ -119,9 +119,9 @@ public class CardController {
 	 * @author AdminMax
 	 *
 	 */
-	class WertSpeichernListener implements ActionListener {
+	class ValueSaveListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			card.setValue(cardView.getWert());
+			card.setValue(cardView.getValue());
 			cardView.setJPanelColor();
 			card.setBackground(cardView.getBackground());
 		}
@@ -132,9 +132,9 @@ public class CardController {
 	 * @author AdminMax
 	 *
 	 */
-	class WertLoeschenListener implements ActionListener {
+	class ValueDeleteListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			cardView.resetWert();
+			cardView.resetValue();
 			cardView.setJPanelColor();
 			card.wertReset();
 		}
@@ -145,7 +145,7 @@ public class CardController {
 	 * @author AdminMax
 	 *
 	 */
-	class BlockerSpeichernListener implements ActionListener {
+	class BlockerSaveListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			card.setBlocker(cardView.getBlocker());
 		}
@@ -156,7 +156,7 @@ public class CardController {
 	 * @author AdminMax
 	 *
 	 */
-	class BlockerLoeschenListener implements ActionListener {
+	class BlockerDeleteListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			cardView.resetBlocker();
 			card.blockerReset();
