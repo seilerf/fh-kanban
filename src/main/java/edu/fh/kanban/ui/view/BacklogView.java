@@ -76,7 +76,7 @@ public class BacklogView extends JPanel implements View{
 		headlineButton.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent event) {
-                headlineSortActionPerformed(event);
+            	showCardsSortedByHeadline(null);
             }
         });
         
@@ -124,7 +124,7 @@ public class BacklogView extends JPanel implements View{
 	}
 	
 	private void headlineSortActionPerformed(ActionEvent event) {
-        BacklogController.sortByHeadline();
+        
     };
 	
 	public void showCardsSortedByCreationTime(){

@@ -79,13 +79,5 @@ public class SortClass extends AbstractModel{
 		return cards;
 		
 	}
-	@Override
-	public void callModelMethod(String name){
-		switch(name){
-		case BacklogController.HEADLINE_PROPERTY: {
-			sortByHeadline();
-			}break;
-		}
-	}
 
 }
