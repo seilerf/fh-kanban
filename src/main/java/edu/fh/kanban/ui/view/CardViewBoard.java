@@ -2,17 +2,29 @@ package edu.fh.kanban.ui.view;
 
 import javax.swing.JComponent;
 import javax.swing.JPanel;
+
 import java.awt.FlowLayout;
+
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
+
 import javax.swing.border.LineBorder;
+
 import java.awt.Color;
+
 import javax.swing.border.TitledBorder;
+
 import com.jgoodies.forms.factories.FormFactory;
+
 import javax.swing.JLabel;
+
 import com.jgoodies.forms.factories.DefaultComponentFactory;
+
+import edu.fh.kanban.domain.Card;
+
 import javax.swing.JTextField;
+
 import java.awt.Font;
 import java.util.Calendar;
 
@@ -38,7 +50,7 @@ public class CardViewBoard extends JPanel implements View {
 	/**
 	 * Create the panel.
 	 */
-	public CardViewBoard() {
+	public CardViewBoard(Card card) {
 		setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Karte", TitledBorder.CENTER, TitledBorder.TOP, null, Color.BLACK));
 		FormLayout formLayout = new FormLayout(new ColumnSpec[] {
 				FormFactory.RELATED_GAP_COLSPEC,
@@ -81,7 +93,7 @@ public class CardViewBoard extends JPanel implements View {
 		idLabel.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		add(idLabel, "2, 2, right, fill");
 		
-		this.idTextField = new JTextField();
+		this.idTextField = new JTextField(String.valueOf(card.getId()));
 		add(this.idTextField, "4, 2, fill, fill");
 		this.idTextField.setColumns(1);
 		
@@ -89,7 +101,7 @@ public class CardViewBoard extends JPanel implements View {
 		aufwandLabel.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		add(aufwandLabel, "2, 4, right, fill");
 		
-		this.workloadTextField = new JTextField();
+		this.workloadTextField = new JTextField(String.valueOf(card.getWorkload()));
 		add(this.workloadTextField, "4, 4, fill, fill");
 		this.workloadTextField.setColumns(1);
 		
@@ -112,6 +124,7 @@ public class CardViewBoard extends JPanel implements View {
 		add(beschreibungLabel, "2, 8, right, top");
 		
 		this.descriptionTextPane = new JTextPane();
+		descriptionTextPane.setText(card.getDescription());
 		add(this.descriptionTextPane, "4, 8, 3, 2, fill, fill");
 		
 		this.rdbtnCreated = new JRadioButton("Created");
@@ -128,6 +141,8 @@ public class CardViewBoard extends JPanel implements View {
 		this.buttonGroup.add(rdbtnDone);
 		this.rdbtnDone.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		add(this.rdbtnDone, "6, 10, center, fill");
+		
+		this.setVisible(true);
 
 	}
 	

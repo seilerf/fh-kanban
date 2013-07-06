@@ -16,7 +16,11 @@ import javax.swing.JTextField;
 
 
 
+
+
+import com.itextpdf.text.Font;
 import com.jgoodies.forms.factories.CC;
+import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
 import edu.fh.kanban.dao.DataManager;
@@ -27,8 +31,8 @@ import edu.fh.kanban.domain.Column;
 public class BoardView extends JPanel implements View{
 	
 	
-	private final String columnWidth = "90dlu";
-	private final String rowHeight = "13dlu";
+	private final String columnWidth = "160dlu";
+	private final String rowHeight = "130dlu";
 	private final String padding = "4dlu";
 		
 	//Constructor
@@ -48,7 +52,10 @@ public class BoardView extends JPanel implements View{
 		for (Iterator<Column> i = columns.iterator(); i.hasNext();){
 			Column column = i.next();
 			String name = column.getName();
-			add(new JLabel(name), CC.xy((count), 2));
+			JLabel columnLabel = new JLabel(name);
+			columnLabel.setAlignmentY(CENTER_ALIGNMENT);
+			columnLabel.setFont(columnLabel.getFont().deriveFont(columnLabel.getFont().getStyle() | Font.BOLD));
+			add(columnLabel, CC.xy(count, 2, CellConstraints.CENTER, CellConstraints.CENTER));
 			
 			// Karten übertragen
 			LinkedList<Card> cardList = column.getCards();
@@ -75,10 +82,11 @@ public class BoardView extends JPanel implements View{
 	private String getRowSpec(int rows) {
 			String rowSpec = padding + ", " + rowHeight + ", ";
 			
-			int i = 0;
-			for (i = 0; i < rows; i++){
+			for (int i = 0; i < rows; i++)
 				rowSpec = rowSpec + rowSpec;
-			}
+			
+			String columns = "4dlu ,13dlu, ";
+			rowSpec = "4dlu, 13dlu, " + rowSpec;
 			return rowSpec;
 	}
 	
@@ -88,8 +96,8 @@ public class BoardView extends JPanel implements View{
 		if (cardList != null) {
 			int row = 4;
 			for (Iterator<Card> iCard = cardList.iterator(); iCard.hasNext();){
-				iCard.next();
-				add(new CardViewBoard(), CC.xy(column, row));
+				Card card = iCard.next();
+				add(new CardViewBoard(card), CC.xy(column, row));
 				row+=2;
 			}
 		}

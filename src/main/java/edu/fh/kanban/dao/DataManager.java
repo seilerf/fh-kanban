@@ -46,7 +46,7 @@ public class DataManager {
         try {
         	// SAX := Simple API for XML
             SAXBuilder builder = new SAXBuilder();
-            // Das Dokument erstellen
+            // Das Dokument im Speicher erstellen
             xmlDoc = builder.build(xmlFile);
 
             // komplettes Dokument ausgeben
@@ -55,13 +55,6 @@ public class DataManager {
 
             // Wurzelelement ausgeben
             Element rootElement = xmlDoc.getRootElement();
-            System.out.println("\nWurzelelement: " + rootElement);
-
-            // Wurzelelementnamen ausgeben
-            System.out.println("Wurzelelementname: " + rootElement.getName());
-            
-            //Attribut (Name) des Boards ausgeben
-            System.out.println("Name des Boards:" + rootElement.getAttributeValue("name"));
             
             this.readColumnsFromXML(rootElement);            
 
@@ -116,8 +109,6 @@ public class DataManager {
     		Color backGround = Color.BLUE;
     		
     		cardList.add(new Card(id, workload, value, description, blocker, size, headline, backGround));
-    		
-    		System.out.println(i+1 + ". Karte: " + headline);
     	}
     	
     	if (cardList.isEmpty())
