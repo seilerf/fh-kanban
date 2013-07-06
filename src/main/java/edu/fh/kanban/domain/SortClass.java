@@ -15,6 +15,8 @@ import edu.fh.kanban.ui.controller.BacklogController;
 public class SortClass extends AbstractModel{
 	
 	public static List addIntoList(LinkedList<Card>list){
+		//Zum Testen: (kann später entfernt werden)
+		System.out.println("Ich wurde aufgerufen!");
 		
 		List cards = new ArrayList();
 		Iterator<Card> lit = list.iterator();
