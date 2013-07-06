@@ -1,6 +1,8 @@
 package edu.fh.kanban.ui.view;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -26,6 +28,7 @@ import edu.fh.kanban.domain.Card;
 import edu.fh.kanban.domain.CardNameComparator;
 import edu.fh.kanban.domain.CardValueComparator;
 import edu.fh.kanban.domain.SortClass;
+import edu.fh.kanban.ui.controller.BacklogController;
 
 public class BacklogView extends JPanel implements View{
 	
@@ -70,6 +73,15 @@ public class BacklogView extends JPanel implements View{
 		createButton = new JButton("Erstellung");
 		searchButton = new JButton("suche");
 		
+		headlineButton.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                headlineSortActionPerformed(event);
+            }
+        });
+        
+        
+       
 		buttons.addButton(createButton);
 	    buttons.addButton(headlineButton);
 	    buttons.addButton(valueButton);
@@ -110,6 +122,10 @@ public class BacklogView extends JPanel implements View{
 	    
 	    
 	}
+	
+	private void headlineSortActionPerformed(ActionEvent event) {
+        BacklogController.sortByHeadline();
+    };
 	
 	public void showCardsSortedByCreationTime(){
 		

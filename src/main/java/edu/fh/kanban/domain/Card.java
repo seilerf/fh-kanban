@@ -105,6 +105,7 @@ public class Card extends AbstractModel{
 	}
 	//Setter ID
 	public void setId(int id) {
+		
 		this.id = id;
 	}
 	//Getter Workload

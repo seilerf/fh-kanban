@@ -7,11 +7,12 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import edu.fh.kanban.ui.controller.BacklogController;
+
 /*
  * Autor: Inna Maier
  */
-public class SortClass {
-	
+public class SortClass extends AbstractModel{
 	
 	public static List addIntoList(LinkedList<Card>list){
 		
@@ -77,6 +78,14 @@ public class SortClass {
 		
 		return cards;
 		
+	}
+	@Override
+	public void callModelMethod(String name){
+		switch(name){
+		case BacklogController.HEADLINE_PROPERTY: {
+			sortByHeadline();
+			}break;
+		}
 	}
 
 }

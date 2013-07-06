@@ -23,4 +23,8 @@ public abstract class AbstractModel {
 	    protected void firePropertyChange(String propertyName, Object oldValue, Object newValue) {
 	        changes.firePropertyChange(propertyName, oldValue, newValue);
 	    }
+	    
+	    public static void callModelMethod(String name){
+	    	
+	    }
 }
