@@ -17,6 +17,8 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import java.awt.GridBagLayout;
@@ -30,11 +32,11 @@ import java.awt.event.ItemListener;
  *
  * @author vs
  */
-public class PreferencesView {
+public class PreferencesView extends JMenuItem {
 
 	
 	
-    public static void main(String[] args) {
+    public PreferencesView() {
     	final JFrame frame = new JFrame();
         FormLayout formLayout = new FormLayout("p,2dlu,p:grow");
         CellConstraints cc = new CellConstraints();
@@ -106,14 +108,18 @@ public class PreferencesView {
          final ColorBox cb1= new ColorBox();
         builder3.append(cb1);
         
-        cb1.addItemListener(new ItemListener() {
-            public void itemStateChanged(final ItemEvent e) {
-                //colorBoxItemStateChanged(e);
-                int selectedIndex = cb1.getSelectedIndex();
-                System.out.println(cb1.LABELS[selectedIndex]/*+" "+cb1.COLORS[selectedIndex]*/);
+        cb1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e)
+            {
+            	
+            	int selectedIndex = cb1.getSelectedIndex();
+                //Execute when button is pressed
+            	 System.out.println(cb1.LABELS[selectedIndex]/*+" "+cb1.COLORS[selectedIndex]*/);
+                System.out.println("cb1 wurde angeklickt");
+                frame.setVisible(false);
+
             }
-       
-        });
+        }); 
         
         
         /**
@@ -129,7 +135,7 @@ public class PreferencesView {
             public void itemStateChanged(final ItemEvent e) {
                 //colorBoxItemStateChanged(e);
                 int selectedIndex = cb2.getSelectedIndex();
-                System.out.println(cb2.LABELS[selectedIndex]/*+" "+cb1.COLORS[selectedIndex]*/);
+                System.out.println(cb2.LABELS[selectedIndex]+" "+cb1.COLORS[selectedIndex]);
             }
        
         });
