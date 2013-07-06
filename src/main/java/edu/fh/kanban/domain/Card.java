@@ -1,5 +1,7 @@
 package edu.fh.kanban.domain;
 
+import java.awt.Color;
+import java.util.Calendar;
 import java.util.Date;
 
 public class Card extends AbstractModel{
@@ -8,16 +10,45 @@ public class Card extends AbstractModel{
 	private int workload;
 	private int value;
 	private String description;
-	private Blocker blocker;
-	private Date created;
-	private Date started;
-	private Date done;
+	private boolean blocker;
+	private Calendar created;
+	private Calendar started;
+	private Calendar done;
+	private int size;
+	private String headline;
+	private Color backGround;
 	
-	
-	//Constuctor
-	public Card() {
 		
+	public Card(int id, int workload, int value, String description,
+			boolean blocker, int size, String headline, Color backGround) {
+		this.id = id;
+		this.workload = workload;
+		this.value = value;
+		this.description = description;
+		this.blocker = blocker;
+		this.size = size;
+		this.headline = headline;
+		this.backGround = backGround;
 	}
+
+
+	public int getSize() {
+		return size;
+	}
+
+	public void setSize(int size) {
+		this.size = size;
+	}
+
+	public String getHeadline() {
+		return headline;
+	}
+
+	public void setHeadline(String headline) {
+		this.headline = headline;
+	}
+
+	
 	
 	//Getter ID
 	public int getId() {
@@ -51,37 +82,54 @@ public class Card extends AbstractModel{
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	//Getter Blocker
-	public Blocker getBlocker() {
-		return blocker;
-	}
-	//Setter Blocker
-	public void setBlocker(Blocker blocker) {
-		this.blocker = blocker;
-	}
+	
 	//Getter Erstellungsdatum
-	public Date getCreated() {
+	public Calendar getCreated() {
 		return created;
 	}
 	//Setter Erstellungsdatum
-	public void setCreated(Date created) {
+	public void setCreated(Calendar created) {
 		this.created = created;
 	}
+	/**
+	 * Setzt das Blocker-Attribut auf False.
+	 */
+	public void blockerReset() {
+		this.blocker = false;
+	}
+	/**
+	 * Setter für das BackGround-Attribut.
+	 * @return
+	 */
+	public Color setBackground(Color c) {
+		this.backGround = c;
+		return this.backGround;
+	}
+	
+	/**
+	 * Getter für das BackGround-Attribut.
+	 * @return
+	 */
+	public Color getBackGround() {
+		return this.backGround;
+	}
 	//Getter Startdatum
-	public Date getStarted() {
+	public Calendar getStarted() {
 		return started;
 	}
 	//Setter Startdatum
-	public void setStarted(Date started) {
+	public void setStarted(Calendar started) {
 		this.started = started;
 	}
 	//Getter Datum der Fertigstellung
-	public Date getDone() {
+	public Calendar getDone() {
 		return done;
 	}
 	//Setter Datum der Fertigstellung
-	public void setDone(Date done) {
+	public void setDone(Calendar done) {
 		this.done = done;
 	}
+	
+	
 
 }
