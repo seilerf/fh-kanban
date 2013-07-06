@@ -21,10 +21,9 @@ public class Kanban {
 
 	static Logger LOGGER = Logger.getLogger(Kanban.class.getName());
 	
-	/**
-	 * @param args
-	 */
+	
 	public static void main(String[] args) {
+		
 		LOGGER.info("Starting kanban app.");
 		
 		LOGGER.info("Setting look and feel.");
@@ -39,27 +38,42 @@ public class Kanban {
 		JMenuBar menubar = new JMenuBar();
 		menubar.add(new JMenu("File"));
 		
+		DataManager dm = new DataManager();
+		
+		dm.readXML(null);
+		//Views erstellen
+		View boardView = new BoardView(dm);
 		View backlogView = new BacklogView();
 		CardView cview = new CardView();
+		PreferencesView pv = new PreferencesView();
+		
+		
 		JFrame frame2 = new JFrame();
 		frame2.add(cview);
+		frame2.setSize(800,400);
 		frame2.setVisible(true);
 		
-		PreferencesView pv = new PreferencesView();
+		
 		JMenu prefmenu= new JMenu("Einstellungen");
 		//prefmenu.add(menuItem)
 		menubar.add(prefmenu);
 		
 		
-		DataManager dm = new DataManager();
-		dm.readXML(null);
+	
 		
 		Board board = new Board();
-		View boardView = new BoardView(dm);
+		
+		
+		
+		
+		//Controller erstellen
+		
+		
 	
 		JTabbedPane pane = new JTabbedPane();
-		pane.addTab("Backlog", backlogView.getComponent());
 		pane.addTab("Board", boardView.getComponent());
+		pane.addTab("Backlog", backlogView.getComponent());
+	
 		
 		
 		JFrame frame = new JFrame();

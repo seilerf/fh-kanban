@@ -1,16 +1,23 @@
 package edu.fh.kanban.ui.view;
 
 import javax.swing.JPanel;
+
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.factories.FormFactory;
+
 import javax.swing.JLabel;
+
 import com.jgoodies.forms.factories.DefaultComponentFactory;
+
 import java.awt.Font;
+
 import javax.swing.JTextField;
 import javax.swing.JButton;
+
 import java.awt.Color;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputMethodListener;
 
@@ -23,9 +30,11 @@ import javax.swing.JComponent;
 import javax.swing.JTextPane;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
-import java.awt.SystemColor;
 
-public class CardView extends JPanel implements View {
+import java.awt.SystemColor;
+import java.beans.PropertyChangeEvent;
+
+public class CardView extends AbstractView implements View {
 	private JTextField idTextField;
 	private JTextField workloadTextField;
 	private JToggleButton blockerToggleButton;
@@ -97,6 +106,21 @@ public class CardView extends JPanel implements View {
 		
 		this.btnIdSave = new JButton("Speichern");
 		add(this.btnIdSave, "6, 2");
+		
+		btnIdSave.addActionListener(new ActionListener(){
+			/* Hier wird die Methode "actionPerformed"
+			 * des neuen ActionListeneres vom SaveIDButton überschrieben.
+			 * Sie löst aus, dass bei einem Klick auf den Button 
+			 * der Controller der Karte aufgerufen wird.
+			 * Dieser 
+			 */
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				
+			}
+			
+		});
 		
 		JLabel aufwandLabel = DefaultComponentFactory.getInstance().createLabel("Aufwand:");
 		aufwandLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -407,6 +431,11 @@ public class CardView extends JPanel implements View {
 		this.rdbtnCreated.setSelected(false);
 		this.rdbtnStarted.setSelected(false);
 		this.rdbtnDone.setSelected(false);
+	}
+	@Override
+	public void modelPropertyChange(PropertyChangeEvent event) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

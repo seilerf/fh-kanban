@@ -2,24 +2,22 @@ package edu.fh.kanban.ui.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import edu.fh.kanban.domain.Card;
 import edu.fh.kanban.ui.view.CardView;
-
-public class CardController {
+/**
+ *  Der CardController ke
+ * 
+ *
+ */
+public class CardController extends AbstractController {
 	private Card card;
 	private CardView cardView;
 	
-	/**
-	 * Konstruktor der CardController-Klasse.
-	 */
-	public CardController() {
-		this.card = new Card(0, 0, 0, null, false, 0, null, null);
-		this.cardView = new CardView();
-		
-		addListener();
-	}
+	public static final String CARDID_PROPERTY   = "CardId";
+
 	
 	/**
 	 * Methode zum Hinzufügen der benötigten Listener. 
@@ -39,6 +37,10 @@ public class CardController {
 		this.cardView.setStartedJRadioButton(new JRadioButtonSelectedListener());
 		this.cardView.setDoneJRadioButton(new JRadioButtonSelectedListener());
 		this.cardView.setBtnJRadioSelectedDelete(new JRadioButtonDeleteListener());
+	}
+	
+	public void changeCardId(int newCardId){
+		setModelProperty(CARDID_PROPERTY,newCardId);
 	}
 	
 	/**
