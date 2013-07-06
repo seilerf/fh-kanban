@@ -13,6 +13,7 @@ import edu.fh.kanban.dao.DataManager;
 import edu.fh.kanban.domain.Board;
 import edu.fh.kanban.ui.view.BacklogView;
 import edu.fh.kanban.ui.view.BoardView;
+import edu.fh.kanban.ui.view.CardView;
 import edu.fh.kanban.ui.view.View;
 
 public class Kanban {
@@ -38,7 +39,10 @@ public class Kanban {
 		menubar.add(new JMenu("File"));
 		
 		View backlogView = new BacklogView();
-		
+		CardView cview = new CardView();
+		JFrame frame2 = new JFrame();
+		frame2.add(cview);
+		frame2.setVisible(true);
 		DataManager dm = new DataManager();
 		dm.readXML(null);
 		

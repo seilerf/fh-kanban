@@ -48,6 +48,55 @@ public class Card extends AbstractModel{
 		this.headline = headline;
 	}
 
+	/**
+	 * Setzt das CardId-Attribut auf Null.
+	 */
+	public void cardIdReset() {
+		this.id = 0;
+	}
+	
+	/**
+	 * Setzt das Beschreibung-Attribut auf Null.
+	 */
+	public void beschreibungReset() {
+		this.description = "";
+	}
+	
+	/**
+	 * Setzt das Aufwand-Attribut auf Null.
+	 */
+	public void aufwandReset() {
+		this.value = 0;
+	}
+	
+	/**
+	 * Setzt das Wert-Attribut auf Null.
+	 */
+	public void wertReset() {
+		this.value = 0;
+	}
+	
+	
+	/**
+	 * Setzt das Started-Attribut auf Null.
+	 */
+	public void startedReset() {
+		this.started = null;
+	}
+	
+	/**
+	 * Setzt das Created-Attribut auf Null.
+	 */
+	public void createdReset() {
+		this.created = null;
+	}
+	
+	/**
+	 * Setzt das Done-Attribut auf Null.
+	 */
+	public void doneReset() {
+		this.done = null;
+	}
 	
 	
 	//Getter ID
@@ -130,6 +179,17 @@ public class Card extends AbstractModel{
 		this.done = done;
 	}
 	
+	/**
+	 * Setter für das Blocker-Attribut
+	 * @param b
+	 * @return
+	 */
+	public boolean setBlocker(boolean b) {
+		this.blocker = b;
+		return this.blocker;
+	}
+
+
 	
 
 }
