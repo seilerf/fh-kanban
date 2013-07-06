@@ -15,10 +15,12 @@ import javax.swing.JTextField;
 
 
 
+
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
 
 import edu.fh.kanban.dao.DataManager;
+import edu.fh.kanban.domain.Card;
 import edu.fh.kanban.domain.Column;
 
 
@@ -33,20 +35,26 @@ public class BoardView extends JPanel implements View{
 	public BoardView(DataManager dm){
 		
 		//Aufbau des Boards mit der Anzahl Spalten, die für die Darstellung notwendig sind;
-		this.setLayout(new FormLayout(this.getColSpec(dm.getCols().size()), getRowSpec(8)));
+		this.setLayout(new FormLayout(this.getColSpec(dm.getColumns().size()), getRowSpec(8)));
 		
-		this.writeColumns(dm.getCols());
+		this.writeColumns(dm.getColumns());
 	}
 	
 	//Methode, die die Spalten in das GUI überträgt
 	private void writeColumns(LinkedList<Column> columns) {
 		
-		int count = 1;
+		int count = 2;
 		//Spaltenüberschriften in das GUI schreiben
 		for (Iterator<Column> i = columns.iterator(); i.hasNext();){
+			Column column = i.next();
+			String name = column.getName();
+			add(new JLabel(name), CC.xy((count), 2));
 			
-			add(new JLabel(i.next().getName()), CC.xy((2*count), 2));
-			count++;
+			// Karten übertragen
+			LinkedList<Card> cardList = column.getCards();
+			this.createCards(count, cardList); 
+			
+			count+=2;
 		}
 		
 	}
@@ -72,6 +80,19 @@ public class BoardView extends JPanel implements View{
 				rowSpec = rowSpec + rowSpec;
 			}
 			return rowSpec;
+	}
+	
+	// Methode, die die Karten in das Board-GUI schreibt
+	private void createCards(int column, LinkedList<Card> cardList){
+		
+		if (cardList != null) {
+			int row = 4;
+			for (Iterator<Card> iCard = cardList.iterator(); iCard.hasNext();){
+				iCard.next();
+				add(new CardViewBoard(), CC.xy(column, row));
+				row+=2;
+			}
+		}
 	}
 	
 	// Methode, die alle GUI-Elemente für das Board-GUI erzeugt

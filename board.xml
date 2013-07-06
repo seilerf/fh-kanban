@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Board name="TestBoard">
     <Column name="Next" limit="3" maxCol="1">
-		<Card id="1" workload="5" value="17" description="1.Testkarte" created="" started="" done="">
-			<Blocker>
-			</Blocker>
-		</Card>
-		<Card description="2.Testkarte"/>
-		<Card description="3.Karte"/>
+		<Card id="1" workload="5" value="17" headline="Karte 1" description="Kartenbeschreibung"  blocker="false"  backGround ="" created="" started="" done="" size="3"/>
+		<Card id="2" workload="5" value="17" headline="Karte 2" description="Kartenbeschreibung"  blocker="false"  backGround ="" created="" started="" done="" size="4"/>
+		<Card id="3" workload="5" value="17" headline="Karte 3" description="Kartenbeschreibung"  blocker="false"  backGround ="" created="" started="" done="" size="7"/>
 	</Column>
 	<Column name="Development" limit="2" maxCol="2">
-		<Card description="Karte 1"/>
-		<Card description="Karte 2"/>
 	</Column>
 	<Column name ="Test" limit="4" maxCol="2">
+		<Card id="4" workload="5" value="17" headline="Karte 4" description="Kartenbeschreibung"  blocker="false"  backGround ="" created="" started="" done="" size="1"/>
+		<Card id="5" workload="5" value="17" headline="Karte 5" description="Kartenbeschreibung"  blocker="false"  backGround ="" created="" started="" done="" size="3"/>
 	</Column>
 	<Column name ="Done" maxCol="1">
 	</Column>

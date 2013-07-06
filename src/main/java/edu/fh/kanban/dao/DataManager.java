@@ -1,10 +1,11 @@
 package edu.fh.kanban.dao;
 
+import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Collection;
 
 import org.jdom2.Document;
 import org.jdom2.Element;
@@ -12,6 +13,7 @@ import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.XMLOutputter;
 
+import edu.fh.kanban.domain.Blocker;
 import edu.fh.kanban.domain.Board;
 import edu.fh.kanban.domain.Card;
 import edu.fh.kanban.domain.Column;
@@ -20,16 +22,21 @@ public class DataManager {
 	
 	private Board board;
 	private LinkedList<Column> columnList;
-	private LinkedList<Card> cardList;
 
 	public DataManager(){
 		
 		this.board = new Board();						// prüfen...
 		this.columnList = new LinkedList <Column>();
-		this.cardList = new LinkedList <Card>();
 		
 	}
 	
+	/**
+	 * @return the board
+	 */
+	public Board getBoard() {
+		return board;
+	}
+
 	//Methode, die eine XML-Datei verarbeitet und in den Speicher liest
 	public void readXML(File file){
 
@@ -64,41 +71,59 @@ public class DataManager {
             e.printStackTrace();
         }
     }
-	
+
 	//Methode, um Spalten eines Boards aus einer XML-Datei auszulesen
 	public void readColumnsFromXML(Element root) {
 	
 		// Eine Liste aller Spalten erstellen
 		List<Element> columns = (List<Element>) root.getChildren();
 		String name;
+		int limit;
+		LinkedList<Card> cards;
         
-        //Alle Spalten ausgeben
+        //Alle Spalten erstellen
         int i = 0;
         for (i = 0; i < columns.size(); i++) {
         	
-        	System.out.println("\n" + (i+1) + ". Spalte: " + columns.get(i).getAttributeValue("name"));
+        	//System.out.println("\n" + (i+1) + ". Spalte: " + columns.get(i).getAttributeValue("name"));
         	
-        	name = (columns.get(i)).getAttributeValue("name");
-        	this.columnList.add(new Column(name));
+        	name = columns.get(i).getAttributeValue("name");
+        	limit = 8;
+        	//limit = Integer.valueOf(columns.get(i).getAttributeValue("limit"));
         	
-        	System.out.println("Anzahl Spalten: " + this.columnList.size());
+        	// Liste der Karten, die zu dieser Spalte gehören, erstellen
+        	cards = this.readCardsFromXML(columns.get(i));
         	
-        	this.readCardsFromXML(columns.get(i));
-        	
+        	this.columnList.add(new Column(name, limit, cards));
         }
 	}
 	
-	//Methode, um Karten, die einer Spalte angehören, aus einem XML-Dokument auszulesen 
-	public void readCardsFromXML(Element spalte) {
+	//Methode, um Karten, die einer Spalte angehören, in eine Datenstruktur zu schreiben 
+	public LinkedList<Card> readCardsFromXML(Element column) {
 		
-		//Eine Liste aller Karten erstellen
-    	List<Element> karten = (List<Element>) spalte.getChildren();
-    	// Alle Karten innerhalb einer Spalte ausgeben
-    	int j = 0;
-    	for (j = 0; j < karten.size(); j++){
-    		Element karte = karten.get(j);
-    		System.out.println(j+1 + ". Karte: " + karte.getAttributeValue("description"));
+    	// Alle Karten innerhalb einer Spalte in eine Liste lesen
+		LinkedList<Card> cardList = new LinkedList<Card>();
+    	int i = 0;
+    	for (i = 0; i < column.getChildren().size(); i++){
+    		
+    		int id = Integer.valueOf(column.getChildren().get(i).getAttributeValue("id"));
+    		int workload = Integer.valueOf(column.getChildren().get(i).getAttributeValue("workload"));
+    		int value = Integer.valueOf(column.getChildren().get(i).getAttributeValue("value"));
+    		String description = column.getChildren().get(i).getAttributeValue("description");
+    		boolean blocker = Boolean.valueOf(column.getChildren().get(i).getAttributeValue("blocker"));
+    		int size = Integer.valueOf(column.getChildren().get(i).getAttributeValue("size"));
+    		String headline = column.getChildren().get(i).getAttributeValue("headline");
+    		Color backGround = Color.BLUE;
+    		
+    		cardList.add(new Card(id, workload, value, description, blocker, size, headline, backGround));
+    		
+    		System.out.println(i+1 + ". Karte: " + headline);
     	}
+    	
+    	if (cardList.isEmpty())
+    		return null;
+    	else
+    		return cardList;
 	}
 	
 	
@@ -110,7 +135,7 @@ public class DataManager {
 		
 	}
 	
-	public LinkedList<Column> getCols() {
+	public LinkedList<Column> getColumns() {
 		return this.columnList;
 	}
 	
