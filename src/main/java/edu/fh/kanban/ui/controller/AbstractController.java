@@ -63,7 +63,8 @@ public abstract class AbstractController implements PropertyChangeListener {
      *  Daraufhin wird per
      *  method.invoke(Card,12) die Methode auf dem aktuellen
      *  Modell gestartet
-     */
+    */
+
     protected void setModelProperty(String propertyName, Object newValue) {
     	System.out.println("neuer Wert:" + newValue);
     	
@@ -89,7 +90,6 @@ public abstract class AbstractController implements PropertyChangeListener {
             	 System.out.println("Konnte nicht gefunden werden!");
             }
         }
-    }
-
+    } 
 
 }

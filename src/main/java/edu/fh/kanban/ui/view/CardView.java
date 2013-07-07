@@ -112,27 +112,50 @@ public class CardView extends AbstractView implements View {
 		this.btnIdSave = new JButton("Speichern");
 		add(this.btnIdSave, "6, 2");
 		
-		btnIdSave.addActionListener(new ActionListener(){
-			@Override
+		this.btnIdDelete = new JButton("Löschen");
+		add(this.btnIdDelete, "6, 4");
+		
+		this.workloadTextField = new JTextField();
+		add(this.workloadTextField, "10, 2, fill, fill");
+		this.workloadTextField.setColumns(10);
+		
+		this.descriptionTextPane = new JTextPane();
+		add(this.descriptionTextPane, "8, 12, 3, 5, fill, fill");
+		
+		this.valueComboBox = new JComboBox();
+		this.valueComboBox.setToolTipText("1: Blau = Intangible\r\n2: Orange = Standard\r\n3: Rot = Expedite\r\n4: Grün = Fixed date\r\n");
+		this.valueComboBox.setModel(new DefaultComboBoxModel(new String[] {"Wähle aus", "1: Blau", "2: Orange", "3: Rot", "4: Grün"}));
+		add(this.valueComboBox, "4, 6, fill, default");
+		
+		this.blockerToggleButton = new JToggleButton("Blocker");
+		this.blockerToggleButton.setForeground(Color.RED);
+		this.blockerToggleButton.setBackground(Color.BLACK);
+		this.blockerToggleButton.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		add(this.blockerToggleButton, "10, 8, 2, 2, fill, fill");
+		
+		this.background = Color.LIGHT_GRAY;
+		
+		this.btnIdSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnIdSaveActionPerformed(e);				
 			}
-			
+		});
+		this.btnIdDelete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnIdDeleteActionPerformed(e);
+			}
 		});
 		
 		JLabel aufwandLabel = DefaultComponentFactory.getInstance().createLabel("Aufwand:");
 		aufwandLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		add(aufwandLabel, "8, 2, right, default");
 		
-		this.workloadTextField = new JTextField();
-		add(this.workloadTextField, "10, 2, fill, fill");
-		this.workloadTextField.setColumns(10);
+		
 		
 		this.btnWorkloadSave = new JButton("Speichern");
 		add(this.btnWorkloadSave, "12, 2");
 		
-		this.btnIdDelete = new JButton("Löschen");
-		add(this.btnIdDelete, "6, 4");
+		
 		
 		this.btnWorkloadDelete = new JButton("Löschen");
 		add(this.btnWorkloadDelete, "12, 4");
@@ -141,10 +164,7 @@ public class CardView extends AbstractView implements View {
 		wertLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		add(wertLabel, "2, 6, right, default");
 		
-		this.valueComboBox = new JComboBox();
-		this.valueComboBox.setToolTipText("1: Blau = Intangible\r\n2: Orange = Standard\r\n3: Rot = Expedite\r\n4: Grün = Fixed date\r\n");
-		this.valueComboBox.setModel(new DefaultComboBoxModel(new String[] {"Wähle aus", "1: Blau", "2: Orange", "3: Rot", "4: Grün"}));
-		add(this.valueComboBox, "4, 6, fill, default");
+		
 		
 		this.btnValueSave = new JButton("Speichern");
 		add(this.btnValueSave, "6, 6");
@@ -152,11 +172,7 @@ public class CardView extends AbstractView implements View {
 		this.btnValueDelete = new JButton("Löschen");
 		add(this.btnValueDelete, "6, 8, default, top");
 		
-		this.blockerToggleButton = new JToggleButton("Blocker");
-		this.blockerToggleButton.setForeground(Color.RED);
-		this.blockerToggleButton.setBackground(Color.BLACK);
-		this.blockerToggleButton.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		add(this.blockerToggleButton, "10, 8, 2, 2, fill, fill");
+		
 		
 		this.blockerLabel = DefaultComponentFactory.getInstance().createLabel("Blocker:");
 		this.blockerLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -184,8 +200,7 @@ public class CardView extends AbstractView implements View {
 		this.rdbtnDone.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		add(this.rdbtnDone, "4, 14, left, fill");
 		
-		this.descriptionTextPane = new JTextPane();
-		add(this.descriptionTextPane, "8, 12, 3, 5, fill, fill");
+		
 		
 		this.btnDescriptionDelete = new JButton("Löschen");
 		add(this.btnDescriptionDelete, "12, 14");
@@ -195,9 +210,21 @@ public class CardView extends AbstractView implements View {
 
 	}
 	private void btnIdSaveActionPerformed(ActionEvent e) {
-		cardController.changeCardId(Integer.parseInt(idTextField.getText()));
+		cardController.changeCardId(Integer.parseInt(idTextField.getText()), Integer.parseInt(workloadTextField.getText()), descriptionTextPane.getText(), valueComboBox.getSelectedIndex(), getBackgroundColor(), blockerToggleButton.isSelected(), getJRadioButton());
+		setJPanelColor();
 		
 	}
+	private void btnIdDeleteActionPerformed(ActionEvent e) {
+		resetAllValues();
+		setJPanelColor();								//descriptionTextPane.getText()
+		cardController.deleteCardViewValues(Integer.parseInt(idTextField.getText()), Integer.parseInt(workloadTextField.getText()), descriptionTextPane.getText(), valueComboBox.getSelectedIndex(), getBackgroundColor(), blockerToggleButton.isSelected(), getJRadioButton());
+	}
+	
+	public Color getBackgroundColor() {
+		return this.background;
+	}
+	
+	
 	/**
 	 * Methode zum Einfärben des Panels entsprechen mit der passenden Hintergrundfarbe bezüglich der Wertauswahl.
 	 */
@@ -215,6 +242,9 @@ public class CardView extends AbstractView implements View {
 		if(x == 3) {
 			this.background = Color.red;
 		}
+		if(x == 4) {
+			this.background = Color.green;
+		}
 		this.setBackground(background);
 		this.rdbtnCreated.setBackground(background);
 		this.rdbtnStarted.setBackground(background);
@@ -229,208 +259,29 @@ public class CardView extends AbstractView implements View {
 	}
 	
 	/**
-	 * Rückgabe des Id Textfeldes.
-	 * @return
-	 */
-	public String getId(){
-		return this.idTextField.getText();
-	}
-	
-	/**
-	 * Rückgabe des Aufwandes.
-	 * @return
-	 */
-	public String getWorkload() {
-		return this.workloadTextField.getText();
-	}
-	
-	/**
-	 * Rückgabe der Beschreibung.
-	 * @return
-	 */
-	public String getDescription(){
-		return this.descriptionTextPane.getText();
-	}
-	
-	/**
-	 * Rückgabe der Auswahl der Combobox.
-	 */
-	public int getValue(){
-		return this.valueComboBox.getSelectedIndex();	
-	}
-	
-	/**
-	 * Rückgabe ob der Blocker Button selected ist oder nicht.
-	 * @return
-	 */
-	public boolean getBlocker() {
-		return this.blockerToggleButton.isSelected();
-	}
-	
-	/**
 	 * Gibt den jeweiligen aktuellen Bearbeitungszustand zurück.
 	 * @return
 	 */
 	public int getJRadioButton() {
 		if(this.rdbtnCreated.isSelected()){
-			return -1;
-		}
-		else if(this.rdbtnStarted.isSelected()){
 			return 0;
 		}
-		else return 1;	
+		else if(this.rdbtnStarted.isSelected()){
+			return 1;
+		}
+		else return 2;	
 	}
 	
 	/**
-	 * AktionListener für den JRadioSelectedLöschen-Button.
-	 * @param l
+	 * Zurücksetzen aller Attribut-Werte
 	 */
-	public void setBtnJRadioSelectedDelete(ActionListener l) {
-		this.btnJRadioSelectedDelete.addActionListener(l);
-	}
-	
-	/**
-	 * AktionListener für den Wert-Löschen Button. 
-	 * @param l
-	 */
-	public void setBtnValueDelete(ActionListener l) {
-		this.btnValueDelete.addActionListener(l);
-	}
-	
-	/**
-	 * AktionListener für den Wert-Speichern Button.
-	 * @param l
-	 */
-	public void setBtnValueSave(ActionListener l) {
-		this.btnValueSave.addActionListener(l);
-	}
-	
-	/**
-	 * AktionListener für den Id-Löschen Button. 
-	 * @param l
-	 */
-	public void setBtnIdDelete(ActionListener l) {
-		this.btnIdDelete.addActionListener(l);
-	}
-	
-	/**
-	 * AktionListener für den Id-Speichern Button.
-	 * @param l
-	 */
-	public void setBtnIdSave(ActionListener l) {
-		this.btnIdSave.addActionListener(l);
-	}
-	
-	/**
-	 * AktionListener für den Aufwand-Löschen Button. 
-	 * @param l
-	 */
-	public void setBtnWorkloadDelete(ActionListener l) {
-		this.btnWorkloadDelete.addActionListener(l);
-	}
-	
-	/**
-	 * AktionListener für den Aufwand-Speichern Button.
-	 * @param l
-	 */
-	public void setBtnWorkloadSave(ActionListener l) {
-		this.btnWorkloadSave.addActionListener(l);
-	}
-	
-	/**
-	 * AktionListener für den Beschreibung-Löschen Button. 
-	 * @param l
-	 */
-	public void setBtnDescriptionDelete(ActionListener l) {
-		this.btnDescriptionDelete.addActionListener(l);
-	}
-	
-	/**
-	 * AktionListener für den Beschreibung-Speichern Button.
-	 * @param l
-	 */
-	public void setBtnDescriptionSave(ActionListener l) {
-		this.btnDescriptionSave.addActionListener(l);
-	}
-	
-	/**
-	 * AktionListener für den CreatedJRadioButton.
-	 * @param l
-	 */
-	public void setCreatedJRadioButton(ActionListener l) {
-		this.rdbtnCreated.addActionListener(l);
-	}
-	
-	/**
-	 * AktionListener für den StartedJRadioButton.
-	 * @param l
-	 */
-	public void setStartedJRadioButton(ActionListener l) {
-		this.rdbtnStarted.addActionListener(l);
-	}
-	
-	/**
-	 * AktionListener für den DoneJRadioButton.
-	 * @param l
-	 */
-	public void setDoneJRadioButton(ActionListener l) {
-		this.rdbtnDone.addActionListener(l);
-	}
-	
-	/**
-	 *AktionListener für den BlockerToggleButton. 
-	 */
-	public void setBlockerToggleButton(ActionListener l) {
-		this.blockerToggleButton.addActionListener(l);
-	}
-	
-	/**
-	 * AktionListener für die WertComboBox.
-	 */
-	public void setWertComboBox(ActionListener l) {
-		this.valueComboBox.addActionListener(l);
-	}
-	
-	/**
-	 * Zurücksetzen des Id-TextFeldes (-> Id-Löschen Button).
-	 */
-	public void resetId() {
-		this.idTextField.setText("");
-	}
-	
-	/**
-	 * Zurücksetzen des Aufwand-TextFeldes (-> Aufwand-Löschen Button).
-	 */
-	public void resetWorkload() {
-		this.workloadTextField.setText("");
-	}
-	
-	/**
-	 * Zurücksetzen des Beschreibung-TextPanes (-> Beschreibung-Löschen Button).
-	 */
-	public void resetDescription() {
-		this.descriptionTextPane.setText("");
-	}
-	
-	/**
-	 * Zurücksetzen der WertComboBox auf den Ursprungswert.
-	 */
-	public void resetValue() {
+	public void resetAllValues() {
+		this.idTextField.setText("00");
+		this.workloadTextField.setText("00");
+		this.descriptionTextPane.setText(" ");
 		this.valueComboBox.setSelectedIndex(0);
-	}
-	
-	/**
-	 * Zurücksetzen des BlockerToggleButton in den Ursprungszustand (->false).
-	 */
-	public void resetBlocker() {
 		this.blockerToggleButton.setSelected(false);
-	}
-	
-	/**
-	 * Zurücksetzen auf den Ursprungszustand (-> keiner ist selected)
-	 */
-	public void resetJRadioButton() {
-		this.rdbtnCreated.setSelected(false);
+		this.rdbtnCreated.setSelected(true);
 		this.rdbtnStarted.setSelected(false);
 		this.rdbtnDone.setSelected(false);
 	}
