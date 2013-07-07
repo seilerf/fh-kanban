@@ -97,7 +97,9 @@ public class BoardView extends JPanel implements View{
 			int row = 4;
 			for (Iterator<Card> iCard = cardList.iterator(); iCard.hasNext();){
 				Card card = iCard.next();
-				add(new CardViewBoard(card), CC.xy(column, row));
+				CardViewBoard cardView = new CardViewBoard(card);
+				cardView.setBackgroundColor(card.getBackGround());
+				add(cardView, CC.xy(column, row));
 				row+=2;
 			}
 		}
