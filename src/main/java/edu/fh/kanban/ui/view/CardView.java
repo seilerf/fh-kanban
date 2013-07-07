@@ -11,6 +11,8 @@ import javax.swing.JLabel;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
+import edu.fh.kanban.ui.controller.CardController;
+
 import java.awt.Font;
 
 import javax.swing.JTextField;
@@ -35,6 +37,7 @@ import java.awt.SystemColor;
 import java.beans.PropertyChangeEvent;
 
 public class CardView extends AbstractView implements View {
+	private CardController cardController;
 	private JTextField idTextField;
 	private JTextField workloadTextField;
 	private JToggleButton blockerToggleButton;
@@ -59,7 +62,9 @@ public class CardView extends AbstractView implements View {
 	/**
 	 * Create the panel.
 	 */
-	public CardView() {
+	public CardView(CardController cardController) {
+		this.cardController = new CardController();
+		
 		setBackground(SystemColor.menu);
 		setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Karte", TitledBorder.CENTER, TitledBorder.TOP, null, null));
 		FormLayout formLayout = new FormLayout(new ColumnSpec[] {
@@ -108,16 +113,9 @@ public class CardView extends AbstractView implements View {
 		add(this.btnIdSave, "6, 2");
 		
 		btnIdSave.addActionListener(new ActionListener(){
-			/* Hier wird die Methode "actionPerformed"
-			 * des neuen ActionListeneres vom SaveIDButton überschrieben.
-			 * Sie löst aus, dass bei einem Klick auf den Button 
-			 * der Controller der Karte aufgerufen wird.
-			 * Dieser 
-			 */
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
-				
+				btnIdSaveActionPerformed(e);				
 			}
 			
 		});
@@ -195,6 +193,10 @@ public class CardView extends AbstractView implements View {
 		this.btnJRadioSelectedDelete = new JButton("Löschen");
 		add(this.btnJRadioSelectedDelete, "4, 16");
 
+	}
+	private void btnIdSaveActionPerformed(ActionEvent e) {
+		cardController.changeCardId(Integer.parseInt(idTextField.getText()));
+		
 	}
 	/**
 	 * Methode zum Einfärben des Panels entsprechen mit der passenden Hintergrundfarbe bezüglich der Wertauswahl.
@@ -432,6 +434,10 @@ public class CardView extends AbstractView implements View {
 		this.rdbtnStarted.setSelected(false);
 		this.rdbtnDone.setSelected(false);
 	}
+	
+	/**
+	 * 
+	 */
 	@Override
 	public void modelPropertyChange(PropertyChangeEvent event) {
 		// TODO Auto-generated method stub

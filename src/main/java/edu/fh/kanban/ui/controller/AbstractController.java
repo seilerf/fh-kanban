@@ -15,9 +15,9 @@ public abstract class AbstractController implements PropertyChangeListener {
 
 	
 	//Eine Arrayliste die sich die Views merken kann (bzw. die Referenzen)
-	protected ArrayList<AbstractView> views;
+	protected ArrayList <AbstractView>views;
 	//Eine Arrayliste die sich die Modelle merken kann (bzw. die Referenzen)
-    protected ArrayList<AbstractModel> models;
+    protected ArrayList <AbstractModel>models;
 
     public AbstractController() {
         views = new ArrayList<AbstractView>();
@@ -65,8 +65,10 @@ public abstract class AbstractController implements PropertyChangeListener {
      *  Modell gestartet
      */
     protected void setModelProperty(String propertyName, Object newValue) {
+    	System.out.println("neuer Wert:" + newValue);
     	//Durchlaufe alle Modelle
         for (AbstractModel model: models) {
+        	System.out.println("Duchlaufe Modelle");
             try {
             	//Speichere Referenz auf Setter
             	//aus model, ermittle Klasse, rufe getMethod (Methodenerstellung)
@@ -76,10 +78,11 @@ public abstract class AbstractController implements PropertyChangeListener {
             	Method method = model.getClass().getMethod("set"+propertyName, new Class[] {
             			newValue.getClass()
                    });
+            	System.out.println(method.getName());
                 method.invoke(model, newValue);
 
             } catch (Exception ex) {
-                //  Handle exception.
+            	 System.err.println(ex.getMessage());
             }
         }
     }

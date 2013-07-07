@@ -16,7 +16,7 @@ public class CardController extends AbstractController {
 	private Card card;
 	private CardView cardView;
 	
-	public static final String CARDID_PROPERTY   = "CardId";
+	public static final String CARDID_PROPERTY   = "Id";
 
 	
 	/**

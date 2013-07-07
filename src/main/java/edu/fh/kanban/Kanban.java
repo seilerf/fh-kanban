@@ -1,6 +1,7 @@
 package edu.fh.kanban;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.util.logging.Logger;
 
 import javax.swing.JFrame;
@@ -11,6 +12,8 @@ import javax.swing.UIManager;
 
 import edu.fh.kanban.dao.DataManager;
 import edu.fh.kanban.domain.Board;
+import edu.fh.kanban.domain.Card;
+import edu.fh.kanban.ui.controller.CardController;
 import edu.fh.kanban.ui.view.BacklogView;
 import edu.fh.kanban.ui.view.BoardView;
 import edu.fh.kanban.ui.view.CardView;
@@ -42,14 +45,23 @@ public class Kanban {
 		
 		dm.readXML(null);
 		//Views erstellen
+
+		Card emptycard = new Card(0, 0, 0, null, false, 0, null, null);
+		CardController cardcontroller = new CardController();
+		CardView cardView = new CardView(cardcontroller);
+		cardcontroller.addModel(emptycard);
+		cardcontroller.addView(cardView);
+		
+		
+		
 		View boardView = new BoardView(dm);
 		View backlogView = new BacklogView();
-		CardView cview = new CardView();
+		
 		PreferencesView pv = new PreferencesView();
 		
 		
 		JFrame frame2 = new JFrame();
-		frame2.add(cview);
+		frame2.add(cardView);
 		frame2.setSize(800,400);
 		frame2.setVisible(true);
 		

@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.util.Calendar;
 import java.util.Date;
 
+import edu.fh.kanban.ui.controller.CardController;
+
 public class Card extends AbstractModel{
 	
 	private int id;
@@ -105,8 +107,11 @@ public class Card extends AbstractModel{
 	}
 	//Setter ID
 	public void setId(int id) {
-		
+		int oldId = this.id;
 		this.id = id;
+		firePropertyChange(CardController.CARDID_PROPERTY,oldId,id);
+		System.out.println("Meine neue ID:" + this.getId());
+		
 	}
 	//Getter Workload
 	public int getWorkload() {
