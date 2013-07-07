@@ -66,6 +66,7 @@ public abstract class AbstractController implements PropertyChangeListener {
      */
     protected void setModelProperty(String propertyName, Object newValue) {
     	System.out.println("neuer Wert:" + newValue);
+    	
     	//Durchlaufe alle Modelle
         for (AbstractModel model: models) {
         	System.out.println("Duchlaufe Modelle");
@@ -75,14 +76,17 @@ public abstract class AbstractController implements PropertyChangeListener {
             	//set+propertyName+Rückgabetyp von newValue
             	//(Der Rückgabetyp wird der neue Rückgabewert des erstellten
             	// Setters)
+            	System.out.println("Suche...");
             	Method method = model.getClass().getMethod("set"+propertyName, new Class[] {
             			newValue.getClass()
                    });
-            	System.out.println(method.getName());
+            	System.out.println("Gefunden.");
                 method.invoke(model, newValue);
+                System.out.println("gestartet");
 
             } catch (Exception ex) {
             	 System.err.println(ex.getMessage());
+            	 System.out.println("Konnte nicht gefunden werden!");
             }
         }
     }

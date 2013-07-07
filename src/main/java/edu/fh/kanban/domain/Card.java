@@ -106,6 +106,14 @@ public class Card extends AbstractModel{
 		return id;
 	}
 	//Setter ID
+	public void setId(Integer id) {
+		int oldId = this.id;
+		this.id = id;
+		firePropertyChange(CardController.CARDID_PROPERTY,oldId,id);
+		System.out.println("Meine neue ID:" + this.getId());
+		
+	}
+	//Setter ID
 	public void setId(int id) {
 		int oldId = this.id;
 		this.id = id;

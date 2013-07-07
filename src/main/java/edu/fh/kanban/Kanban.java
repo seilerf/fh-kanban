@@ -48,8 +48,9 @@ public class Kanban {
 
 		Card emptycard = new Card(0, 0, 0, null, false, 0, null, null);
 		CardController cardcontroller = new CardController();
-		CardView cardView = new CardView(cardcontroller);
 		cardcontroller.addModel(emptycard);
+		CardView cardView = new CardView(cardcontroller);
+		
 		cardcontroller.addView(cardView);
 		
 		

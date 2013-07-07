@@ -63,7 +63,7 @@ public class CardView extends AbstractView implements View {
 	 * Create the panel.
 	 */
 	public CardView(CardController cardController) {
-		this.cardController = new CardController();
+		this.cardController = cardController;
 		
 		setBackground(SystemColor.menu);
 		setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Karte", TitledBorder.CENTER, TitledBorder.TOP, null, null));
