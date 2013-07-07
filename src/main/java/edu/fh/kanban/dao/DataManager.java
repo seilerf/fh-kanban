@@ -89,6 +89,9 @@ public class DataManager {
         	
         	this.columnList.add(new Column(name, limit, cards));
         }
+        
+        // Spalten an das Board übergeben
+        board.setColumnList(columnList);
 	}
 	
 	//Methode, um Karten, die einer Spalte angehören, in eine Datenstruktur zu schreiben 
