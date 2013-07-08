@@ -13,6 +13,7 @@ import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 import edu.fh.kanban.ui.controller.CardController;
 
+import java.awt.Component;
 import java.awt.Font;
 
 import javax.swing.JTextField;
@@ -29,6 +30,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
@@ -46,18 +48,12 @@ public class CardView extends AbstractView implements View {
 	private JRadioButton rdbtnDone;
 	private Color background;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
-	private JButton btnIdDelete;
-	private JButton btnIdSave;
+	private JButton btnResetAll;
+	private JButton btnSaveAll;
 	private JComboBox valueComboBox;
-	private JButton btnWorkloadSave;
-	private JButton btnWorkloadDelete;
 	private JTextPane descriptionTextPane;
-	private JButton btnDescriptionSave;
-	private JButton btnDescriptionDelete;
-	private JButton btnValueSave;
-	private JButton btnValueDelete;
 	private JLabel blockerLabel;
-	private JButton btnJRadioSelectedDelete;
+	private JLabel lblStatus;
 	
 	/**
 	 * Create the panel.
@@ -73,13 +69,13 @@ public class CardView extends AbstractView implements View {
 				FormFactory.RELATED_GAP_COLSPEC,
 				ColumnSpec.decode("max(50dlu;default):grow"),
 				FormFactory.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("max(40dlu;default)"),
+				ColumnSpec.decode("max(50dlu;default)"),
 				FormFactory.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("max(30dlu;default):grow"),
-				ColumnSpec.decode("max(4dlu;default)"),
 				ColumnSpec.decode("max(50dlu;default):grow"),
+				ColumnSpec.decode("max(4dlu;default)"),
+				ColumnSpec.decode("max(45dlu;default):grow"),
 				FormFactory.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("max(40dlu;default)"),},
+				ColumnSpec.decode("max(1dlu;default)"),},
 			new RowSpec[] {
 				FormFactory.RELATED_GAP_ROWSPEC,
 				RowSpec.decode("max(15dlu;default)"),
@@ -108,115 +104,108 @@ public class CardView extends AbstractView implements View {
 		this.idTextField = new JTextField();
 		add(this.idTextField, "4, 2, fill, fill");
 		this.idTextField.setColumns(1);
-		
-		this.btnIdSave = new JButton("Speichern");
-		add(this.btnIdSave, "6, 2");
-		
-		this.btnIdDelete = new JButton("Löschen");
-		add(this.btnIdDelete, "6, 4");
+		JLabel aufwandLabel = DefaultComponentFactory.getInstance().createLabel("Aufwand:");
+		aufwandLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		add(aufwandLabel, "6, 2, right, default");
 		
 		this.workloadTextField = new JTextField();
-		add(this.workloadTextField, "10, 2, fill, fill");
+		add(this.workloadTextField, "8, 2, fill, fill");
 		this.workloadTextField.setColumns(10);
 		
-		this.descriptionTextPane = new JTextPane();
-		add(this.descriptionTextPane, "8, 12, 3, 5, fill, fill");
+		JLabel wertLabel = DefaultComponentFactory.getInstance().createLabel("Wert:");
+		wertLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		add(wertLabel, "2, 4, right, default");
 		
 		this.valueComboBox = new JComboBox();
 		this.valueComboBox.setToolTipText("1: Blau = Intangible\r\n2: Orange = Standard\r\n3: Rot = Expedite\r\n4: Grün = Fixed date\r\n");
 		this.valueComboBox.setModel(new DefaultComboBoxModel(new String[] {"Wähle aus", "1: Blau", "2: Orange", "3: Rot", "4: Grün"}));
-		add(this.valueComboBox, "4, 6, fill, default");
+		add(this.valueComboBox, "4, 4, fill, default");
+		
+		this.blockerLabel = DefaultComponentFactory.getInstance().createLabel("Blocker:");
+		this.blockerLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		add(this.blockerLabel, "6, 4, right, top");
 		
 		this.blockerToggleButton = new JToggleButton("Blocker");
 		this.blockerToggleButton.setForeground(Color.RED);
 		this.blockerToggleButton.setBackground(Color.BLACK);
 		this.blockerToggleButton.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		add(this.blockerToggleButton, "10, 8, 2, 2, fill, fill");
+		add(this.blockerToggleButton, "8, 4, 1, 3, fill, fill");
 		
-		this.background = Color.LIGHT_GRAY;
-		
-		this.btnIdSave.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				btnIdSaveActionPerformed(e);				
-			}
-		});
-		this.btnIdDelete.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				btnIdDeleteActionPerformed(e);
-			}
-		});
-		
-		JLabel aufwandLabel = DefaultComponentFactory.getInstance().createLabel("Aufwand:");
-		aufwandLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		add(aufwandLabel, "8, 2, right, default");
-		
-		
-		
-		this.btnWorkloadSave = new JButton("Speichern");
-		add(this.btnWorkloadSave, "12, 2");
-		
-		
-		
-		this.btnWorkloadDelete = new JButton("Löschen");
-		add(this.btnWorkloadDelete, "12, 4");
-		
-		JLabel wertLabel = DefaultComponentFactory.getInstance().createLabel("Wert:");
-		wertLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		add(wertLabel, "2, 6, right, default");
-		
-		
-		
-		this.btnValueSave = new JButton("Speichern");
-		add(this.btnValueSave, "6, 6");
-		
-		this.btnValueDelete = new JButton("Löschen");
-		add(this.btnValueDelete, "6, 8, default, top");
-		
-		
-		
-		this.blockerLabel = DefaultComponentFactory.getInstance().createLabel("Blocker:");
-		this.blockerLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		add(this.blockerLabel, "8, 8, right, top");
+		lblStatus = DefaultComponentFactory.getInstance().createLabel("Status:");
+		lblStatus.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		add(lblStatus, "2, 6");
 		
 		this.rdbtnCreated = new JRadioButton("Created");
 		this.buttonGroup.add(rdbtnCreated);
 		this.rdbtnCreated.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		add(this.rdbtnCreated, "4, 10, left, fill");
+		add(this.rdbtnCreated, "4, 6, left, bottom");
 		
 		this.rdbtnStarted = new JRadioButton("Started");
 		this.buttonGroup.add(rdbtnStarted);
 		this.rdbtnStarted.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		add(this.rdbtnStarted, "4, 12, left, fill");
+		add(this.rdbtnStarted, "4, 8, left, fill");
+		
+		this.rdbtnDone = new JRadioButton("Done");
+		rdbtnDone.setBackground(Color.LIGHT_GRAY);
+		this.buttonGroup.add(rdbtnDone);
+		this.rdbtnDone.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		add(this.rdbtnDone, "4, 10, left, fill");
 		
 		JLabel beschreibungLabel = DefaultComponentFactory.getInstance().createLabel("Beschreibung:");
 		beschreibungLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		add(beschreibungLabel, "6, 12, right, top");
+		add(beschreibungLabel, "6, 8, right, top");
 		
-		this.btnDescriptionSave = new JButton("Speichern");
-		add(this.btnDescriptionSave, "12, 12, default, bottom");
+		this.descriptionTextPane = new JTextPane();
+		add(this.descriptionTextPane, "8, 8, 3, 3, fill, fill");
 		
-		this.rdbtnDone = new JRadioButton("Done");
-		this.buttonGroup.add(rdbtnDone);
-		this.rdbtnDone.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		add(this.rdbtnDone, "4, 14, left, fill");
+		this.background = Color.LIGHT_GRAY;
+		this.rdbtnCreated.setBackground(Color.LIGHT_GRAY);
+		this.rdbtnStarted.setBackground(Color.LIGHT_GRAY);
+		this.rdbtnDone.setBackground(Color.LIGHT_GRAY);
 		
+		this.btnSaveAll = new JButton("Speichern");
+		add(this.btnSaveAll, "6, 12, fill, fill");
 		
+		this.btnSaveAll.addActionListener(new ActionListener()  {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					btnSaveAllActionPerformed(e);
+				} catch (NumberFormatException ex) { 
+					Component parent = getJPanel();
+					JOptionPane.showMessageDialog(parent,"Keine Nullwerte/ Ungütlige Werte(ID/Workload/Description)!","ERROR!" , JOptionPane.ERROR_MESSAGE);
+					btnDeleteAllActionPerformed(e);
+				// cardViewException
+				} catch (cardViewException ex) {
+					
+				}				
+			}
+		});
 		
-		this.btnDescriptionDelete = new JButton("Löschen");
-		add(this.btnDescriptionDelete, "12, 14");
+		this.btnResetAll = new JButton("Löschen");
+		add(this.btnResetAll, "8, 12, fill, fill");
+		this.btnResetAll.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnDeleteAllActionPerformed(e);
+			}
+		});
 		
-		this.btnJRadioSelectedDelete = new JButton("Löschen");
-		add(this.btnJRadioSelectedDelete, "4, 16");
 
 	}
-	private void btnIdSaveActionPerformed(ActionEvent e) {
-		cardController.changeCardId(Integer.parseInt(idTextField.getText()), Integer.parseInt(workloadTextField.getText()), descriptionTextPane.getText(), valueComboBox.getSelectedIndex(), getBackgroundColor(), blockerToggleButton.isSelected(), getJRadioButton());
-		setJPanelColor();
+	private void btnSaveAllActionPerformed(ActionEvent e) throws cardViewException {
+		//idTextField.getText().isEmpty()==true || workloadTextField.getText().isEmpty()==true || //
+		if( valueComboBox.getSelectedIndex() == -1 || valueComboBox.getSelectedIndex() == 0  || getJRadioButton() == -1 || descriptionTextPane.getText().isEmpty()==true){
+			throw new cardViewException();
 		
+		}
+		else {
+			cardController.changeCardViewValues(Integer.parseInt(idTextField.getText()), Integer.parseInt(workloadTextField.getText()), descriptionTextPane.getText(), valueComboBox.getSelectedIndex(), getBackgroundColor(), blockerToggleButton.isSelected(), getJRadioButton());
+			setJPanelColor();
+		 }	
 	}
-	private void btnIdDeleteActionPerformed(ActionEvent e) {
+	
+	private void btnDeleteAllActionPerformed(ActionEvent e) {
 		resetAllValues();
-		setJPanelColor();								//descriptionTextPane.getText()
+		setJPanelColor();						
 		cardController.deleteCardViewValues(Integer.parseInt(idTextField.getText()), Integer.parseInt(workloadTextField.getText()), descriptionTextPane.getText(), valueComboBox.getSelectedIndex(), getBackgroundColor(), blockerToggleButton.isSelected(), getJRadioButton());
 	}
 	
@@ -224,7 +213,21 @@ public class CardView extends AbstractView implements View {
 		return this.background;
 	}
 	
+	class cardViewException extends Exception {
+		cardViewException() {
+			super();
+			Component parent = getJPanel();
+			JOptionPane.showMessageDialog(parent,"Fehlerhafte Eingabe(JRadio/ Value/ Description)!","ERROR!" , JOptionPane.ERROR_MESSAGE);
+			resetAllValues();
+			setJPanelColor();
+			cardController.deleteCardViewValues(Integer.parseInt(idTextField.getText()), Integer.parseInt(workloadTextField.getText()), descriptionTextPane.getText(), valueComboBox.getSelectedIndex(), getBackgroundColor(), blockerToggleButton.isSelected(), getJRadioButton());
+
+		}
+	}
 	
+	public Component getJPanel() {
+		return this;
+	}
 	/**
 	 * Methode zum Einfärben des Panels entsprechen mit der passenden Hintergrundfarbe bezüglich der Wertauswahl.
 	 */
@@ -269,7 +272,10 @@ public class CardView extends AbstractView implements View {
 		else if(this.rdbtnStarted.isSelected()){
 			return 1;
 		}
-		else return 2;	
+		else if(this.rdbtnDone.isSelected()) {
+			return 2;	
+		}
+		return -1;
 	}
 	
 	/**
@@ -281,7 +287,7 @@ public class CardView extends AbstractView implements View {
 		this.descriptionTextPane.setText(" ");
 		this.valueComboBox.setSelectedIndex(0);
 		this.blockerToggleButton.setSelected(false);
-		this.rdbtnCreated.setSelected(true);
+		this.rdbtnCreated.setSelected(false);
 		this.rdbtnStarted.setSelected(false);
 		this.rdbtnDone.setSelected(false);
 	}

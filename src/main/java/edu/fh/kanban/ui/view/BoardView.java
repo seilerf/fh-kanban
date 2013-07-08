@@ -26,18 +26,19 @@ import com.jgoodies.forms.layout.FormLayout;
 import edu.fh.kanban.dao.DataManager;
 import edu.fh.kanban.domain.Card;
 import edu.fh.kanban.domain.Column;
+import edu.fh.kanban.ui.controller.CardController;
 
 
 public class BoardView extends JPanel implements View{
 	
-	
-	private final String columnWidth = "160dlu";
-	private final String rowHeight = "130dlu";
+	private CardController cardController;
+	private final String columnWidth = "250dlu";//160
+	private final String rowHeight = "135dlu";//130
 	private final String padding = "4dlu";
 		
 	//Constructor
-	public BoardView(DataManager dm){
-		
+	public BoardView(DataManager dm, CardController cardController){
+		this.cardController = cardController;
 		//Aufbau des Boards mit der Anzahl Spalten, die für die Darstellung notwendig sind;
 		this.setLayout(new FormLayout(this.getColSpec(dm.getColumns().size()), getRowSpec(8)));
 		
@@ -85,8 +86,8 @@ public class BoardView extends JPanel implements View{
 			for (int i = 0; i < rows; i++)
 				rowSpec = rowSpec + rowSpec;
 			
-			String columns = "4dlu ,13dlu, ";
-			rowSpec = "4dlu, 13dlu, " + rowSpec;
+			String columns = "4dlu ,15dlu, ";
+			rowSpec = "4dlu, 15dlu, " + rowSpec;
 			return rowSpec;
 	}
 	
@@ -97,8 +98,8 @@ public class BoardView extends JPanel implements View{
 			int row = 4;
 			for (Iterator<Card> iCard = cardList.iterator(); iCard.hasNext();){
 				Card card = iCard.next();
-				CardViewBoard cardView = new CardViewBoard(card);
-				cardView.setBackgroundColor(card.getBackGround());
+				CardView cardView = new CardView(cardController);
+				cardView.setBackground(card.getBackGround());
 				add(cardView, CC.xy(column, row));
 				row+=2;
 			}

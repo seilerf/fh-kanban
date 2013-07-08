@@ -9,11 +9,8 @@ import java.util.concurrent.Callable;
 
 import edu.fh.kanban.domain.Card;
 import edu.fh.kanban.ui.view.CardView;
-/**
- *  Der CardController ke
- * 
- *
- */
+
+
 public class CardController extends AbstractController {
 	
 	
@@ -25,7 +22,7 @@ public class CardController extends AbstractController {
 	public static final String BLOCKER_PROPERTY = "Blocker";
 	public static final String JRADIOBUTTON_PROPERTY = "Date";
 
-	public void changeCardId(int newCardId, int newWorkload, String newDescription, int newValue, Color backColor, boolean newBlocker, int newJRadio){
+	public void changeCardViewValues(int newCardId, int newWorkload, String newDescription, int newValue, Color backColor, boolean newBlocker, int newJRadio){
 		setModelProperty(CARDID_PROPERTY,newCardId);
 		setModelProperty(WORKLOAD_PROPERTY, newWorkload);
 		setModelProperty(DESCRIPTION_PROPERTY, newDescription);

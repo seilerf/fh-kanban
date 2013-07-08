@@ -55,7 +55,7 @@ public class Kanban {
 		
 		
 		
-		View boardView = new BoardView(dm);
+		View boardView = new BoardView(dm,cardcontroller);
 		View backlogView = new BacklogView();
 		
 		PreferencesView pv = new PreferencesView();
