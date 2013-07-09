@@ -11,12 +11,14 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 
+
 import com.itextpdf.text.Font;
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
 import edu.fh.kanban.dao.DataManager;
+import edu.fh.kanban.domain.Board;
 import edu.fh.kanban.domain.Card;
 import edu.fh.kanban.domain.Column;
 import edu.fh.kanban.ui.controller.CardController;
@@ -31,12 +33,12 @@ public class BoardView extends JPanel implements View{
 	private LinkedList<CardView> cardViewList = new LinkedList<CardView>(); 
 		
 	//Constructor
-	public BoardView(DataManager dm, CardController cardController){
+	public BoardView(Board board, CardController cardController){
 		this.cardController = cardController;
 		//Aufbau des Boards mit der Anzahl Spalten, die für die Darstellung notwendig sind;
-		this.setLayout(new FormLayout(this.getColSpec(dm.getColumns().size()), getRowSpec(8)));
+		this.setLayout(new FormLayout(this.getColSpec(board.getColumnList().size()), getRowSpec(8)));
 		
-		this.writeColumns(dm.getColumns());
+		this.writeColumns(board.getColumnList());
 	}
 	
 	//Methode, die die Spalten in das GUI überträgt

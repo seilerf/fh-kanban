@@ -1,10 +1,7 @@
 package edu.fh.kanban;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Frame;
-import java.awt.LayoutManager;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.logging.Logger;
@@ -49,7 +46,9 @@ public class Kanban {
 		
 		DataManager dm = new DataManager();
 		
-		dm.readXML(null);
+		dm.importFromXML();
+		
+		Board board = dm.getBoard();
 		//Views erstellen
 		
 
@@ -60,7 +59,7 @@ public class Kanban {
 		cardcontroller.addView(cardView);
 		
 		
-		 final BoardView boardView = new BoardView(dm,cardcontroller); //view boardView
+		 final BoardView boardView = new BoardView(board,cardcontroller); //view boardView
 		View backlogView = new BacklogView();
 		
 		
@@ -112,9 +111,7 @@ public class Kanban {
 	
 		
 		PreferencesView pv = new PreferencesView();
-		Board board = new Board();
-		
-		
+
 		//Controller erstellen
 		
 		
