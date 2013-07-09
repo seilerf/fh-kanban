@@ -2,20 +2,13 @@ package edu.fh.kanban.ui.view;
 
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.ListIterator;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
-
-
-
-
-
-
-
 
 
 import com.itextpdf.text.Font;
@@ -35,6 +28,7 @@ public class BoardView extends JPanel implements View{
 	private final String columnWidth = "250dlu";//160
 	private final String rowHeight = "135dlu";//130
 	private final String padding = "4dlu";
+	private LinkedList<CardView> cardViewList = new LinkedList<CardView>(); 
 		
 	//Constructor
 	public BoardView(DataManager dm, CardController cardController){
@@ -86,14 +80,14 @@ public class BoardView extends JPanel implements View{
 			for (int i = 0; i < rows; i++)
 				rowSpec = rowSpec + rowSpec;
 			
-			String columns = "4dlu ,15dlu, ";
+			//String columns = "4dlu ,15dlu, ";
 			rowSpec = "4dlu, 15dlu, " + rowSpec;
 			return rowSpec;
 	}
 	
 	// Methode, die die Karten in das Board-GUI schreibt
 	private void createCards(int column, LinkedList<Card> cardList){
-		
+		int i=0;
 		if (cardList != null) {
 			int row = 4;
 			for (Iterator<Card> iCard = cardList.iterator(); iCard.hasNext();){
@@ -105,11 +99,51 @@ public class BoardView extends JPanel implements View{
 				cardView.setWorkloadTextField(String.valueOf(card.getWorkload()));
 				cardView.setBlockerToggleButton(card.getBlocker());
 				cardView.setBackground(card.getBackGround());
+				cardView.setAllDisabledForBoard();
+				cardViewList.add((i), cardView);
 				add(cardView, CC.xy(column, row));
-				row+=2;
+				row+=2;i+=1;
 			}
 		}
 	}
+	
+	public LinkedList<CardView> getCardViews() {
+		return cardViewList;
+	}
+	/**
+	 * Alle auf dem Board dargestellten Karten werden auf Disabled gesetzt.
+	 */
+	public void setAllCardViewsDisabled() {
+		try {
+			int i=0;
+			Iterator<CardView> iCardView = cardViewList.iterator(); 
+			if(cardViewList != null) {
+				while(iCardView.hasNext() == true) {
+					cardViewList.get(i).setAllDisabledForBoard();i+=1;
+			}
+		}
+	  } catch(IndexOutOfBoundsException e) {
+		  
+	  }
+	}
+	
+	/**
+	 * Alle auf dme Board dargestellten Karten werden auf Enable
+	 */
+	public void setAllCardViewsEnabled() {
+		try {
+			int i=0;
+			Iterator<CardView> iCardView = cardViewList.iterator(); 
+			if(cardViewList != null) {
+			while(iCardView.hasNext() == true) {
+				cardViewList.get(i).setAllEnabledForBoard();i+=1;
+			}
+		}
+	  } catch(IndexOutOfBoundsException e) {
+		  
+	  }
+	}
+
 	
 	// Methode, die alle GUI-Elemente für das Board-GUI erzeugt
 	public void buildBoard() {

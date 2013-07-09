@@ -30,6 +30,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
 import javax.swing.JRadioButton;
@@ -38,6 +39,8 @@ import javax.swing.ButtonGroup;
 import java.awt.SystemColor;
 import java.beans.PropertyChangeEvent;
 import java.util.Calendar;
+import java.util.Iterator;
+import java.util.LinkedList;
 
 public class CardView extends AbstractView implements View {
 	private CardController cardController;
@@ -91,11 +94,7 @@ public class CardView extends AbstractView implements View {
 				FormFactory.RELATED_GAP_ROWSPEC,
 				RowSpec.decode("max(14dlu;default)"),
 				FormFactory.RELATED_GAP_ROWSPEC,
-				FormFactory.DEFAULT_ROWSPEC,
-				FormFactory.RELATED_GAP_ROWSPEC,
-				FormFactory.DEFAULT_ROWSPEC,
-				FormFactory.RELATED_GAP_ROWSPEC,
-				FormFactory.DEFAULT_ROWSPEC,});
+				RowSpec.decode("max(2dlu;default)"),});
 		setLayout(formLayout);
 		
 		JLabel idLabel = DefaultComponentFactory.getInstance().createLabel("ID:");
@@ -139,7 +138,7 @@ public class CardView extends AbstractView implements View {
 		this.rdbtnCreated = new JRadioButton("Created");
 		this.buttonGroup.add(rdbtnCreated);
 		this.rdbtnCreated.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		add(this.rdbtnCreated, "4, 6, left, bottom");
+		add(this.rdbtnCreated, "4, 6, left, fill");
 		
 		this.rdbtnStarted = new JRadioButton("Started");
 		this.buttonGroup.add(rdbtnStarted);
@@ -192,8 +191,12 @@ public class CardView extends AbstractView implements View {
 		
 
 	}
+	/**
+	 * Fängt Fehler bei falscher/fehlender Eingabe des Wertes, des Zeitpunkts(JRadioButtons) oder der Beschreibung ab.
+	 * @param e
+	 * @throws cardViewException
+	 */
 	private void btnSaveAllActionPerformed(ActionEvent e) throws cardViewException {
-		//idTextField.getText().isEmpty()==true || workloadTextField.getText().isEmpty()==true || //
 		if( valueComboBox.getSelectedIndex() == -1 || valueComboBox.getSelectedIndex() == 0  || getJRadioButton() == -1 || descriptionTextPane.getText().isEmpty()==true){
 			throw new cardViewException();
 		
@@ -204,16 +207,67 @@ public class CardView extends AbstractView implements View {
 		 }	
 	}
 	
+	/**
+	 * Setzt alle Werte in der View und im Modell auf den Grundzustand.
+	 * @param e
+	 */
 	private void btnDeleteAllActionPerformed(ActionEvent e) {
 		resetAllValues();
 		setJPanelColor();						
 		cardController.deleteCardViewValues(Integer.parseInt(idTextField.getText()), Integer.parseInt(workloadTextField.getText()), descriptionTextPane.getText(), valueComboBox.getSelectedIndex(), getBackgroundColor(), blockerToggleButton.isSelected(), getJRadioButton());
 	}
 	
+	/**
+	 * Um alle Felder und Buttons für die Standard-View im Board zu sperren.
+	 */
+	public void setAllDisabledForBoard() {
+		this.idTextField.setEnabled(false);
+		this.workloadTextField.setEnabled(false);
+		this.descriptionTextPane.setEnabled(false);
+		this.rdbtnCreated.setEnabled(false);
+		this.rdbtnDone.setEnabled(false);
+		this.rdbtnStarted.setEnabled(false);
+		this.valueComboBox.setEnabled(false);
+		this.blockerToggleButton.setEnabled(false);
+		this.btnSaveAll.setEnabled(false);
+		this.btnResetAll.setEnabled(false);
+		this.btnResetAll.setVisible(false);
+		this.btnSaveAll.setVisible(false);
+		
+	}
+	
+	/**
+	 * Um alle Felder und Bottons für die Bearbeitung auf dem Board freizugeben.
+	 */
+	public void setAllEnabledForBoard() {
+		this.idTextField.setEnabled(true);
+		this.workloadTextField.setEnabled(true);
+		this.descriptionTextPane.setEnabled(true);
+		this.rdbtnCreated.setEnabled(true);
+		this.rdbtnDone.setEnabled(true);
+		this.rdbtnStarted.setEnabled(true);
+		this.valueComboBox.setEnabled(true);
+		this.blockerToggleButton.setEnabled(true);
+		this.btnSaveAll.setEnabled(true);
+		this.btnResetAll.setEnabled(true);
+		this.btnResetAll.setVisible(true);
+		this.btnSaveAll.setVisible(true);
+	}
+	
+	/**
+	 * Rückgabe des Hintergrundfarbe.
+	 * @return
+	 */
 	public Color getBackgroundColor() {
 		return this.background;
 	}
 	
+	/**
+	 * Eigene Exceptionklasse zur Fehlerbehandlung der JRadios/ der ComboBox/ des TextPanes.
+	 * Bei Fehler wird ein JOptionPane gezeigt der auf die fehlerhafte Eingabe hinweist.
+	 * @author AdminMax
+	 *
+	 */
 	class cardViewException extends Exception {
 		cardViewException() {
 			super();
@@ -370,5 +424,4 @@ public class CardView extends AbstractView implements View {
 			this.rdbtnDone.isSelected();
 		}
 	}
-	
 }
