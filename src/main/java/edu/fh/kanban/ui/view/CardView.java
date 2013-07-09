@@ -37,6 +37,7 @@ import javax.swing.ButtonGroup;
 
 import java.awt.SystemColor;
 import java.beans.PropertyChangeEvent;
+import java.util.Calendar;
 
 public class CardView extends AbstractView implements View {
 	private CardController cardController;
@@ -301,5 +302,73 @@ public class CardView extends AbstractView implements View {
 		
 	}
 	
+	
+	/**
+	 * Setzt das IdTextFeld auf einen bestimmten Wert.
+	 * @param n
+	 */
+	public void setIdTextField(String n) {
+		this.idTextField.setText(n);	
+	}
+	
+	/**
+	 * Setzt das WorkloadTextFeld auf einen bestimmten Wert mit Hilfe des übergebenen Strings.
+	 * @param n
+	 */
+	public void setWorkloadTextField(String n) {
+		this.workloadTextField.setText(n);
+	}
+	
+	/**
+	 * Setzt die ComboBox auf den übergebenen Wert. Und passt die Hintergrundfarbe entsprechend der Auswahl ein
+	 * @param i
+	 */
+	public void setValueComboBox(int i) {
+		this.valueComboBox.setSelectedIndex(i);
+		this.setJPanelColor();
+	}
+	
+	/**
+	 * Füllt die Beschreibung mit dem übergebenen String.
+	 * @param n
+	 */
+	public void setDescriptionTextPane(String n) {
+		this.descriptionTextPane.setText(n);
+	}
+	
+	/**
+	 * Setzt den BlockerButton auf den entsprechenden Zustand.
+	 * @param b
+	 */
+	public void setBlockerToggleButton(boolean b) {
+		this.blockerToggleButton.setSelected(b);
+	}
+	
+	/**
+	 * Setzt die Hintergrundfarbe auf die übergebene Farbe.
+	 * @param b
+	 */
+	public void setBackgroundColor(Color b) {
+		this.background = b;
+	}
+	
+	/**
+	 * Setzt mit Hilfe der übergebenen Calender Daten die Auswahl auf den passenden JRadioButton.
+	 * @param c
+	 * @param s
+	 * @param d
+	 */
+	public void setJRadioButton(Color b, Calendar c, Calendar s, Calendar d) {
+		if(c != null && s == null && d == null) {
+			this.rdbtnCreated.isSelected();
+		}
+		if(c != null && s != null && d == null) {
+			this.rdbtnStarted.isSelected();
+			
+		}
+		if(c != null && s != null && d != null) {
+			this.rdbtnDone.isSelected();
+		}
+	}
 	
 }

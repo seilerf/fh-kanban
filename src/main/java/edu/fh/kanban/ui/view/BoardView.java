@@ -99,6 +99,11 @@ public class BoardView extends JPanel implements View{
 			for (Iterator<Card> iCard = cardList.iterator(); iCard.hasNext();){
 				Card card = iCard.next();
 				CardView cardView = new CardView(cardController);
+				cardView.setIdTextField(String.valueOf(card.getId()));
+				//cardView.setValueComboBox(card.getValue());
+				//cardView.setJRadioButton(null, null, null, null);
+				cardView.setWorkloadTextField(String.valueOf(card.getWorkload()));
+				cardView.setBlockerToggleButton(card.getBlocker());
 				cardView.setBackground(card.getBackGround());
 				add(cardView, CC.xy(column, row));
 				row+=2;
