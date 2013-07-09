@@ -11,6 +11,6 @@
 		<Card id="4" workload="5" value="17" headline="Karte 4" description="Kartenbeschreibung"  blocker="false"  backGround ="" created="" started="" done="" size="1"/>
 		<Card id="5" workload="5" value="17" headline="Karte 5" description="Kartenbeschreibung"  blocker="false"  backGround ="" created="" started="" done="" size="3"/>
 	</Column>
-	<Column name ="Done" maxCol="1">
+	<Column name ="Done" limit="2" maxCol="1">
 	</Column>
 </Board>

@@ -7,6 +7,15 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
@@ -49,12 +58,8 @@ public class DataManager {
             // Das Dokument im Speicher erstellen
             xmlDoc = builder.build(xmlFile);
 
-            // komplettes Dokument ausgeben
-            XMLOutputter outStream = new XMLOutputter();
-            outStream.output(xmlDoc, System.out);
-
-            // Wurzelelement ausgeben
             Element rootElement = xmlDoc.getRootElement();
+            this.board.setName(rootElement.getAttributeValue("name"));
             
             this.readColumnsFromXML(rootElement);            
 
@@ -81,8 +86,7 @@ public class DataManager {
         	//System.out.println("\n" + (i+1) + ". Spalte: " + columns.get(i).getAttributeValue("name"));
         	
         	name = columns.get(i).getAttributeValue("name");
-        	limit = 8;
-        	//limit = Integer.valueOf(columns.get(i).getAttributeValue("limit"));
+        	limit = Integer.valueOf((columns.get(i).getAttributeValue("limit")));
         	
         	// Liste der Karten, die zu dieser Spalte gehören, erstellen
         	cards = this.readCardsFromXML(columns.get(i));
@@ -122,8 +126,67 @@ public class DataManager {
 	
 	
 	public void writeXML(){
-		
-	}
+		 
+		  try {
+	 
+			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+	 
+			// root element = Board
+			org.w3c.dom.Document xmlDoc = docBuilder.newDocument();
+			org.w3c.dom.Element rootElement = xmlDoc.createElement("Board");
+			rootElement.setAttribute("name", this.board.getName());
+			xmlDoc.appendChild(rootElement);
+	 
+			// Spaltenelemente
+			for (Iterator<Column> iColumn = columnList.iterator(); iColumn.hasNext();) {
+				Column column = iColumn.next();
+				org.w3c.dom.Element columnElement = xmlDoc.createElement("Column");
+				rootElement.appendChild(columnElement);
+		 
+				// Attribute der Spalten ändern
+				columnElement.setAttribute("name", column.getName());
+				columnElement.setAttribute("limit", String.valueOf(column.getLimit()));
+				columnElement.setAttribute("maxCol", "2");
+				
+				LinkedList<Card> cardList = column.getCards();
+				if (cardList != null) {
+					for (Iterator<Card> iCard = cardList.iterator(); iCard.hasNext();) {
+						Card card = iCard.next();
+						// Kartenelemente
+						org.w3c.dom.Element xmlCard = xmlDoc.createElement("Card");
+						xmlCard.setAttribute("id", String.valueOf(card.getId()));
+						xmlCard.setAttribute("workload", String.valueOf(card.getWorkload()));
+						xmlCard.setAttribute("value", String.valueOf(card.getValue()));
+						xmlCard.setAttribute("headline", card.getHeadline());
+						xmlCard.setAttribute("description", card.getDescription());
+						xmlCard.setAttribute("blocker", String.valueOf(card.getBlocker()));
+						xmlCard.setAttribute("backGround", "1");
+						xmlCard.setAttribute("created", "1");
+						xmlCard.setAttribute("started", "1");
+						xmlCard.setAttribute("done", "1");
+						xmlCard.setAttribute("size", String.valueOf(card.getSize()));	
+						columnElement.appendChild(xmlCard);
+					}
+				}
+			}
+
+			// Inhalt in eine XML-Datei schreiben
+			TransformerFactory transformerFactory = TransformerFactory.newInstance();
+			Transformer transformer = transformerFactory.newTransformer();
+			DOMSource source = new DOMSource(xmlDoc);
+			StreamResult outstream = new StreamResult(new File("boardOutput.xml"));
+	 
+			transformer.transform(source, outstream);
+			
+			System.out.println("File saved!");
+	 
+		  } catch (ParserConfigurationException pce) {
+			pce.printStackTrace();
+		  } catch (TransformerException tfe) {
+			tfe.printStackTrace();
+		  }
+		}
 	
 	public void writePDF(){
 		

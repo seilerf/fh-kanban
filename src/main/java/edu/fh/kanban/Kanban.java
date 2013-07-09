@@ -98,6 +98,9 @@ public class Kanban {
 		frame.setLocationByPlatform(true);
 		frame.add(pane);
 		frame.setVisible(true);
+		
+		// XML-Ausgabe
+		dm.writeXML();
 	}
 
 }
