@@ -17,6 +17,8 @@ import edu.fh.kanban.dao.DataManager;
 import edu.fh.kanban.domain.Board;
 import edu.fh.kanban.domain.Card;
 import edu.fh.kanban.ui.controller.CardController;
+import edu.fh.kanban.ui.dialog.OpenFileDialog;
+import edu.fh.kanban.ui.dialog.SaveFileDialog;
 import edu.fh.kanban.ui.view.BacklogView;
 import edu.fh.kanban.ui.view.BoardView;
 import edu.fh.kanban.ui.view.CardView;
@@ -72,6 +74,23 @@ public class Kanban {
 		 * Zu der Menüoption -> File wurde eine Menü-Optionen hinzugefügt:
 		 * 1: Karte erstellen (==> ermöglicht das Anlegen einer neuen Karte)
 		 */
+		
+		JMenuItem openMenu = new JMenuItem("Board öffnen...");
+		filemenu.add(openMenu);
+		openMenu.addActionListener(new ActionListener () {
+			public void actionPerformed(ActionEvent e) {
+				new OpenFileDialog().openFile();
+			}
+		});
+		
+		JMenuItem saveMenu = new JMenuItem("Board speichern...");
+		filemenu.add(saveMenu);
+		saveMenu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new SaveFileDialog();
+			}
+		});
+		
 		JMenuItem cardMenu = new JMenuItem("Karte erstellen");
 		filemenu.add(cardMenu);
 		cardMenu.addActionListener(new ActionListener () {
@@ -82,14 +101,6 @@ public class Kanban {
 				frame2.setVisible(true);
 			}
 		}); 
-		
-		JMenuItem saveMenu = new JMenuItem("Speichern als XML");
-		filemenu.add(saveMenu);
-		saveMenu.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//dm.exportToXML(board);
-			}
-		});
 		
 		
 		JMenu prefmenu= new JMenu("Einstellungen");
