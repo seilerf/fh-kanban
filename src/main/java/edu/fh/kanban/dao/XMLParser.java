@@ -114,7 +114,7 @@ public class XMLParser{
     		return cardList;
 	}
 	
-	public void writeXML(Board board){
+	public void writeXML(Board board, File file){
 		 
 		try {
 	 
@@ -165,7 +165,7 @@ public class XMLParser{
 		TransformerFactory transformerFactory = TransformerFactory.newInstance();
 		Transformer transformer = transformerFactory.newTransformer();
 		DOMSource source = new DOMSource(xmlDoc);
-		StreamResult outstream = new StreamResult(new File("boardOutput.xml"));
+		StreamResult outstream = new StreamResult(file);
 	 
 		transformer.transform(source, outstream);
 		

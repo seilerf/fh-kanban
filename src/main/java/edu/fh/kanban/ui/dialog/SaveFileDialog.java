@@ -32,10 +32,10 @@ public class SaveFileDialog extends JFrame {
         if (result == JFileChooser.APPROVE_OPTION) {
 
             path = chooser.getSelectedFile().toString();
-            this.file = new File(path);
 
             chooser.setVisible(false);
         }
+        this.file = new File(path);
         chooser.setVisible(false);
     }
 

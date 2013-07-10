@@ -24,7 +24,7 @@ public class DataManager {
 	
 	public void saveFile(File file) {
 		if (file.getPath().endsWith(".xml")) {
-			this.exportToXML(this.getBoard());
+			this.exportToXML(this.getBoard(), file);
 			
 		}
 	}
@@ -37,9 +37,9 @@ public class DataManager {
 	}
 	
 	// Methode, die den Export des Boards in eine XML-Datei startet
-		public void exportToXML(Board board) {
+		public void exportToXML(Board board, File file) {
 			XMLParser xmlParser = new XMLParser();
-			xmlParser.writeXML(board);
+			xmlParser.writeXML(board, file);
 		}
 
 	/**
