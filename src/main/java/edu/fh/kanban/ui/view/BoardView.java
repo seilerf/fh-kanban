@@ -31,6 +31,7 @@ public class BoardView extends JPanel implements View{
 	private final String rowHeight = "135dlu";//130
 	private final String padding = "4dlu";
 	private LinkedList<CardView> cardViewList = new LinkedList<CardView>(); 
+	private boolean changed;
 		
 	//Constructor
 	public BoardView(Board board, CardController cardController){
