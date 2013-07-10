@@ -65,7 +65,7 @@ public class Kanban {
 		
 		
 		JMenuBar menubar = new JMenuBar();
-		JMenu filemenu = new JMenu("File");
+		JMenu filemenu = new JMenu("Datei");
 		menubar.add(filemenu);
 		
 		/**
@@ -82,6 +82,14 @@ public class Kanban {
 				frame2.setVisible(true);
 			}
 		}); 
+		
+		JMenuItem saveMenu = new JMenuItem("Speichern als XML");
+		filemenu.add(saveMenu);
+		saveMenu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//dm.exportToXML(board);
+			}
+		});
 		
 		
 		JMenu prefmenu= new JMenu("Einstellungen");
