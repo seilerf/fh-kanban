@@ -39,5 +39,14 @@ somit schnellere Durchlaufzeiten zu erreichen. Dadurch sollen Probleme schnell s
 ## 7.8. Logging, Protokollierung
 ## 7.9. Management und Administrierbarkeit
 ## 7.10. Persistenz
+Ein Kanban-Brett kann mit diesem Programm persistent gespeichert werden. Dazu öffnet man in der Menüleisete das Feld "Datei" und wählt 
+dann "Board speichern...". Es öffnet sich ein Dialog, in dem man den Speicherort angeben kann. 
+
+Die Speicherung kann in Form einer XML-Datei erfolgen. Ein DataManager erkennt, in welchem Format die Datei gespeichert werden soll und 
+ruft den dazu notwendigen Parser auf. Bei der Speicherung im XML-Format wird dann ein XMLParser aufgerufen, der als Parameter das gesamte 
+Board übergeben bekommt und dann alle Spalten und deren Karten durchläuft und in XML-Schreibweise parst. Als Zieldatei kann eine beliebige Datei 
+angegeben oder auch neu erstellt werden, sofern der User die Berechtigung hat, auf das Verzeichnis, in dem gespeichert werden soll, zuzugreifen. 
+
+Außerdem kann die Speicherung im CSV-Format und im HTML-Format erfolgen. 
 ## 7.11. Plausibilisierung und Validierung
 ## 7.12. Transaktionsbehandlung
