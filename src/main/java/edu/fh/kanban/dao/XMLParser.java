@@ -96,7 +96,14 @@ public class XMLParser{
     		boolean blocker = Boolean.valueOf(column.getChildren().get(i).getAttributeValue("blocker"));
     		int size = Integer.valueOf(column.getChildren().get(i).getAttributeValue("size"));
     		String headline = column.getChildren().get(i).getAttributeValue("headline");
-    		Color backGround = Color.BLUE;
+    		int rgb = 0;
+    		Color backGround;
+    		if (column.getChildren().get(i).getAttributeValue("backGround") != ""){
+    			rgb = Integer.valueOf(column.getChildren().get(i).getAttributeValue("backGround"));
+    			backGround = new Color(rgb);
+    		} else
+    			// Wenn keine Farbe in der XML-Datei hinterlegt ist, wird die Karte mit einem leicht grauen Hintergrund versehen
+    			backGround = Color.LIGHT_GRAY;
     		
     		cardList.add(new Card(id, workload, value, description, blocker, size, headline, backGround));
     	}
@@ -144,7 +151,7 @@ public class XMLParser{
 						xmlCard.setAttribute("headline", card.getHeadline());
 						xmlCard.setAttribute("description", card.getDescription());
 						xmlCard.setAttribute("blocker", String.valueOf(card.getBlocker()));
-						xmlCard.setAttribute("backGround", "1");
+						xmlCard.setAttribute("backGround", String.valueOf(card.getBackGround().getRGB()));
 						xmlCard.setAttribute("created", "1");
 						xmlCard.setAttribute("started", "1");
 						xmlCard.setAttribute("done", "1");
