@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.logging.Logger;
 
 import javax.swing.JFrame;
@@ -46,9 +47,9 @@ public class Kanban {
 		
 		
 		
-		DataManager dm = new DataManager();
+		final DataManager dm = new DataManager();
 		
-		dm.importFromXML();
+		dm.openFile(new File("board.xml"));
 		
 		Board board = dm.getBoard();
 		//Views erstellen
@@ -79,7 +80,8 @@ public class Kanban {
 		filemenu.add(openMenu);
 		openMenu.addActionListener(new ActionListener () {
 			public void actionPerformed(ActionEvent e) {
-				new OpenFileDialog().openFile();
+				dm.openFile(new OpenFileDialog().openFile());
+				//Update BoardView
 			}
 		});
 		
@@ -87,7 +89,7 @@ public class Kanban {
 		filemenu.add(saveMenu);
 		saveMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new SaveFileDialog();
+				dm.saveFile(new SaveFileDialog().getFile());
 			}
 		});
 		

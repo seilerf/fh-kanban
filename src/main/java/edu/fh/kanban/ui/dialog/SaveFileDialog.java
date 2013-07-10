@@ -7,11 +7,13 @@ import javax.swing.JFrame;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class SaveFileDialog extends JFrame {
+	
+	private File file;
 
     public SaveFileDialog() {
     	JFileChooser chooser;
     	String path = System.getProperty("user.home");
-        File file = new File(path.trim());
+        this.file = new File(path.trim());
 
         chooser = new JFileChooser(path);
         chooser.setDialogType(JFileChooser.SAVE_DIALOG);
@@ -30,14 +32,14 @@ public class SaveFileDialog extends JFrame {
         if (result == JFileChooser.APPROVE_OPTION) {
 
             path = chooser.getSelectedFile().toString();
-            file = new File(path);
+            this.file = new File(path);
 
             chooser.setVisible(false);
         }
         chooser.setVisible(false);
     }
 
-    public static void main(String[] args) {
-        new SaveFileDialog();
+    public File getFile() {
+    	return this.file;
     }
 }

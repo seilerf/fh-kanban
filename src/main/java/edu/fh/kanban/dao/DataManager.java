@@ -16,8 +16,21 @@ public class DataManager {
 				
 	}
 	
-	public void importFromXML() {
-		File xmlFile = new File("board.xml");
+	public void openFile(File file) {
+		if (file.getPath().endsWith(".xml")) {
+			this.importFromXML(file);
+		}
+	}
+	
+	public void saveFile(File file) {
+		if (file.getPath().endsWith(".xml")) {
+			this.exportToXML(this.getBoard());
+			
+		}
+	}
+	
+	public void importFromXML(File xmlFile) {
+		//xmlFile = new File("board.xml");
 		
 		XMLParser xmlParser = new XMLParser();
 		this.board =  xmlParser.readBoardFromXML(xmlFile);

@@ -8,7 +8,7 @@ import javax.swing.JFileChooser;
 
 public class OpenFileDialog {
 
-    public void openFile() {
+    public File openFile() {
         final JFileChooser chooser = new JFileChooser("Verzeichnis wählen");
         chooser.setDialogType(JFileChooser.OPEN_DIALOG);
         chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
@@ -34,5 +34,6 @@ public class OpenFileDialog {
         }
         System.out.println("Abbruch");
         chooser.setVisible(false);
+        return file;
     }
 }
