@@ -3,7 +3,7 @@
 # 1. Einführung und Ziele
 
 ## 1.1. Aufgabenstellung
-### Im Rahmen der Veranstaltung "Entwicklung eines Informationssystems im Team" soll ein Kanban-Brett erstellt werden, das ein 
+ Im Rahmen der Veranstaltung "Entwicklung eines Informationssystems im Team" soll ein Kanban-Brett erstellt werden, das ein 
 Vorgehensmodell in der Softwareentwicklung darstellt. Ziel eines solchen Modells ist es, die Anzahl paralleler Arbeiten zu reduzieren und 
 somit schnellere Durchlaufzeiten zu erreichen. Dadurch sollen Probleme schnell scihtbar gemacht werden.  
 ## 1.2. Qualitätsziele
