@@ -37,5 +37,9 @@ public class Column {
 		return limit;
 	}
 
+	public void setLimit(int limit) {
+			
+		this.limit= limit;		
+	}
 	
 }

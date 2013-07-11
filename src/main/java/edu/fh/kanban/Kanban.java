@@ -131,7 +131,15 @@ public class Kanban {
 		});
 	
 		
-		PreferencesView pv = new PreferencesView();
+		JMenuItem item = new JMenuItem("Einstellungen des Boards");
+        prefmenu.add(item);		
+        item.addActionListener(new ActionListener() {        	 
+            public void actionPerformed(ActionEvent e)
+            {
+                //Execute when button is pressed
+                PreferencesView pv= new PreferencesView();
+            }
+        });
 
 		//Controller erstellen
 		
