@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Board name="TestBoard">
     <Column name="Next" limit="3" maxCol="1">
-		<Card id="1" workload="5" value="17" headline="Karte 1" description="Kartenbeschreibung"  blocker="false"  backGround ="-16776961" created="" started="" done="" size="3"/>
+		<Card id="1" workload="5" value="17" headline="Karte 1" description="Kartenbechreibung"  blocker="false"  backGround ="-16776961" created="" started="" done="" size="3"/>
 		<Card id="2" workload="5" value="17" headline="Karte 2" description="Kartenbeschreibung"  blocker="true"  backGround ="" created="" started="" done="" size="4"/>
 		<Card id="3" workload="5" value="17" headline="Karte 3" description="Kartenbeschreibung"  blocker="true"  backGround ="-16711681" created="" started="" done="" size="7"/>
 	</Column>

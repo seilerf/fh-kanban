@@ -27,6 +27,10 @@ public class DataManager {
 			this.exportToXML(this.getBoard(), file);
 			
 		}
+		
+		else if(file.getPath().endsWith(".html")){
+			this.exportToHTML(this.getBoard(), file);
+		}
 	}
 	
 	public void importFromXML(File xmlFile) {
@@ -40,6 +44,11 @@ public class DataManager {
 		public void exportToXML(Board board, File file) {
 			XMLParser xmlParser = new XMLParser();
 			xmlParser.writeXML(board, file);
+		}
+		
+		public void exportToHTML(Board board, File file){
+			HTMLExport htmlExporter = new HTMLExport();
+			htmlExporter.htmlOutput(board, file);
 		}
 
 	/**
