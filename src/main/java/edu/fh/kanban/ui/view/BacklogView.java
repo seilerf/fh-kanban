@@ -1,6 +1,7 @@
 package edu.fh.kanban.ui.view;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -24,6 +25,8 @@ import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
+import edu.fh.kanban.dao.DataManager;
+import edu.fh.kanban.domain.Board;
 import edu.fh.kanban.domain.Card;
 import edu.fh.kanban.domain.CardNameComparator;
 import edu.fh.kanban.domain.CardValueComparator;
@@ -39,25 +42,40 @@ public class BacklogView extends JPanel implements View{
 	private JButton searchButton;
 	private JTextField search;
 	private DefaultFormBuilder cardbuilder;
+	private JScrollPane scrollpane;
+	private JPanel cardpanel;
+	
+	private DataManager dm;
+	private LinkedList<Card> cardList;
 	
 	@Override
 	public JComponent getComponent() {
 		return this;
 	}
 	
-	public BacklogView(){
+	public BacklogView(DataManager dm, Board board){
 		
+		
+		
+		this.dm = dm;
+		board=dm.getBoard();
+		cardList= dm.getAllCards(board.getColumnList());
 		showBacklog();	
-		//showCardsSortedByCreationTime();
+		//showCardsSortedByCreationTime(dm.getCards());
 		this.setVisible(true);
 	}
 	
 	public void showBacklog(){
 		
-		JScrollPane scrollpane = new JScrollPane();
+		cardpanel = new JPanel();
+		JPanel buttonpanel = new JPanel();
 		
-		FormLayout cardLayout = new FormLayout("p,10dlu,p,10dlu,p");
-		FormLayout searchLayout = new FormLayout("p:grow,10dlu,p");
+		scrollpane = new JScrollPane(cardpanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		
+		
+		
+		FormLayout cardLayout = new FormLayout("160dlu,10dlu,160dlu,10dlu,160dlu", "130dlu,130dlu,130dlu");
+		FormLayout searchLayout = new FormLayout("200dlu,10dlu,p");
         
 		cardbuilder = new DefaultFormBuilder(cardLayout);
         DefaultFormBuilder searchbuilder = new DefaultFormBuilder(searchLayout); 
@@ -73,15 +91,7 @@ public class BacklogView extends JPanel implements View{
 		createButton = new JButton("Erstellung");
 		searchButton = new JButton("suche");
 		
-		headlineButton.addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent event) {
-            	showCardsSortedByHeadline(null);
-            }
-        });
-        
-        
-       
+		
 		buttons.addButton(createButton);
 	    buttons.addButton(headlineButton);
 	    buttons.addButton(valueButton);
@@ -93,64 +103,114 @@ public class BacklogView extends JPanel implements View{
 	    searchbuilder.append(search);
 	    searchbuilder.add(searchButton);
 	    
-	    //Test
-	    /*cardbuilder.append("Karte1");
-	    cardbuilder.append("Karte2");
-	    cardbuilder.append("Karte3");
-	    cardbuilder.append("Karte4");
-	    cardbuilder.append("Karte5");
-	    cardbuilder.append("Karte6");
-	    cardbuilder.append("Karte7");
-	    cardbuilder.append("Karte8");
-	    cardbuilder.append("Karte9");
-	    cardbuilder.append("Karte10");
-	    cardbuilder.append("Karte11");
-	    cardbuilder.append("Karte12");
-	    cardbuilder.append("Karte13");
-	    cardbuilder.append("Karte14");
-	    cardbuilder.append("Karte15");
-	    cardbuilder.append("Karte16");
-	    cardbuilder.append("Karte17");*/
-
 	    
 	   
 	    this.setLayout(new BorderLayout());
 	    this.add(scrollpane);
-	    this.add(cardbuilder.getPanel(), BorderLayout.CENTER);
-	    this.add(searchbuilder.getPanel(), BorderLayout.AFTER_LAST_LINE);
-	    this.add(buttons.getPanel(), BorderLayout.NORTH);
+	    scrollpane.setViewportView(cardpanel);
 	    
+	    buttonpanel.add(buttons.getPanel());
+	    buttonpanel.add(searchbuilder.getPanel());
+	    this.add(buttonpanel, BorderLayout.NORTH);
 	    
+	    cardpanel.add(cardbuilder.getPanel());
+	    this.add(cardpanel, BorderLayout.CENTER);
+		
+		/* ******************************************************************************** */
+		//ActionListener
+		headlineButton.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent event) {
+            	removeAll();
+            	showBacklog();
+            	showCardsSortedByHeadline(cardList);
+            	System.out.println("HeadlineButton gedrückt");
+            	updateUI();
+            }
+        });
+		valueButton.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent event) {
+            	removeAll();
+            	showBacklog();
+            	showCardsSortedByValue(cardList);
+            	System.out.println("ValueButton gedrückt");
+            	updateUI();
+            }
+        });
+		sizeButton.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent event) {
+            	removeAll();
+            	showBacklog();
+            	showCardsSortedbySize(cardList);
+            	System.out.println("SizeButton gedrückt");
+            	updateUI();
+            }
+        });
+		createButton.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent event) {
+            	removeAll();
+            	showBacklog();
+            	showCardsSortedByCreationTime(cardList);
+            	System.out.println("CreateButton gedrückt");
+            	updateUI();
+            }
+        });
+		searchButton.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent event) {
+            	//removeAll();
+            	//showBacklog();
+            	
+            	//updateUI();
+            }
+        });
 	}
 	
-	private void headlineSortActionPerformed(ActionEvent event) {
-        
-    };
 	
-	public void showCardsSortedByCreationTime(){
+	
+	public void showCardsSortedByCreationTime(LinkedList<Card> list){
+		String s = "130dlu";
+		int anzahl=list.size();
+		//System.out.println("Elemente "+ anzahl);
+		if(anzahl%3==0){
+			anzahl=anzahl/3;
+		}else{
+			anzahl=anzahl/3+1;
+			//System.out.println("Anzahl reihen: "+anzahl);
+		}
+		if(anzahl>1){
+			for(int i=2; i<=anzahl; i++){
+				s= s.concat(",130dlu");
+			}
+		}
+		//System.out.println(s);
 		
-		//Test
-		/*LinkedList<Card> list = new LinkedList<Card>();
-	    list.add(new Card(1, "ich", 2, 10));
-	    list.add(new Card(1, "du", 1, 6));
-	    list.add(new Card(1, "er", 5, 9));
-	    list.add(new Card(1, "er", 1, 3));
-	    list.add(new Card(1, "ich", 2, 1));
-	    list.add(new Card(1, "sie", 4, 10));
-	    
-	    Iterator<Card> cit = list.iterator();
-	    while(cit.hasNext()){
-	    	Card c = cit.next();
-	    	cardbuilder.append(c.getHeadline());
-	    }*/
+		
+		
+		
+		Iterator<Card> test = list.iterator();
+  		while(test.hasNext()){
+  			Card c = test.next();
+  			//System.out.println("ID: "+c.getId());
+  			CardViewBoard cardView = new CardViewBoard(c);
+  			cardView.setBackground(c.getBackGround());
+  			cardbuilder.append(cardView);
+  		}
+		
 	}
 	public void showCardsSortedByHeadline(LinkedList<Card> list){
 		List cards = SortClass.sortByHeadline(list);
 		
+		
 		Iterator<Card> test3 = cards.iterator();
   		while(test3.hasNext()){
   			Card c = test3.next();
-  			//fehlender Code für die Darstellung der Karte
+  			CardViewBoard cardView = new CardViewBoard(c);
+  			cardView.setBackground(c.getBackGround());
+  			cardbuilder.append(cardView);
   		}
 	}
 	public void showCardsSortedByValue(LinkedList<Card>list){
@@ -159,7 +219,9 @@ public class BacklogView extends JPanel implements View{
 		Iterator<Card> test = cards.iterator();
   		while(test.hasNext()){
   			Card c = test.next();
-  			//fehlender Code für die Darstellung der Karte
+  			CardViewBoard cardView = new CardViewBoard(c);
+  			cardView.setBackground(c.getBackGround());
+  			cardbuilder.append(cardView);
   		}
 	}
 	public void showCardsSortedbySize(LinkedList<Card> list){
@@ -168,7 +230,9 @@ public class BacklogView extends JPanel implements View{
 		Iterator<Card> test2 = cards.iterator();
   		while(test2.hasNext()){
   			Card c = test2.next();
-  			//fehlender Code für die Darstellung der Karte
+  			CardViewBoard cardView = new CardViewBoard(c);
+  			cardView.setBackground(c.getBackGround());
+  			cardbuilder.append(cardView);
   		}
 	}
 

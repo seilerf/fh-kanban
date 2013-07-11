@@ -63,7 +63,7 @@ public class Kanban {
 		
 		
 		 final BoardView boardView = new BoardView(board,cardcontroller); //view boardView
-		View backlogView = new BacklogView();
+		View backlogView = new BacklogView(dm,board);
 		
 		
 		

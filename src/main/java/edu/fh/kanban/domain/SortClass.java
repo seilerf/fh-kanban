@@ -15,15 +15,20 @@ import edu.fh.kanban.ui.controller.BacklogController;
 public class SortClass extends AbstractModel{
 	
 	public static List addIntoList(LinkedList<Card>list){
-		//Zum Testen: (kann später entfernt werden)
-		System.out.println("Ich wurde aufgerufen!");
 		
 		List cards = new ArrayList();
-		Iterator<Card> lit = list.iterator();
-		while(lit.hasNext()){
-			Card c = lit.next();
-			//muss geändert werden
-			//cards.add(new Card(c.getCardid(), c.getHeadline(), c.getSize(), c.getValue()));
+		
+		if(list==null){
+			System.out.println("Cardliste leer!");
+		}else{
+			
+			Iterator<Card> lit = list.iterator();
+			while(lit.hasNext()){
+				Card c = lit.next();
+				
+				cards.add(new Card(c.getId(),c.getWorkload(),c.getValue(),c.getDescription(),
+						c.getBlocker(),c.getSize(),c.getHeadline(),c.getBackGround()));
+			}
 		}
 		return cards;
 	}
