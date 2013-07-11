@@ -36,6 +36,12 @@ somit schnellere Durchlaufzeiten zu erreichen. Dadurch sollen Probleme schnell s
 ## 7.5. Ergonomie
 ## 7.6. Geschäftsregeln
 ## 7.7. Konfiguration
+Das Kanban System bietet eine Möglichkeit verschiedene Sachen auf dem Board zur Laufzeit einszustellen. 
+Hierfür gibt es ein Menüpunkt Einstellungen. Beim öffnen dieses Menüpunktes erscheint ein Fenster, welches diverse Einstellungsmöglichkeiten bietet.
+Es ist möglich den Namen des Boards zu ändern. Durch betätigen des Namen Speicherns Button wird dies wirksam.
+Dazu kann man noch die 4 verschiedenen Zeitbeschränkungs-Farben einstellen. Dies wird ohne Bestätigung sofort umgesetzt. Zusätzlich ist es möglich,
+Das Karten-Limit pro Spalte einzustellen. Das heißt wie viele Karten pro Spalte sich maximal dort befinden dürfen.
+
 ## 7.8. Logging, Protokollierung
 ## 7.9. Management und Administrierbarkeit
 ## 7.10. Persistenz
