@@ -59,7 +59,7 @@ public class PreferencesView extends JMenuItem implements View {
 	LinkedList<Column> columnList;
 	private int limits;
 	private String spalte;
-	Board board;
+	//private Board board;
 	//DataManager dm = new DataManager();
     public PreferencesView() {
     	final JFrame frame = new JFrame();
@@ -124,8 +124,10 @@ public class PreferencesView extends JMenuItem implements View {
                 String farbe = cb1.LABELS[selectedIndex];
                 
                // LinkedList<Card> cardList;
-               board  = DataManager.getBoard();
+               //board  = DataManager.getBoard();
                DataManager dm= new DataManager();
+               Board board  = dm.getBoard();
+              // columnList= board.getColumnList();
                 cardList= dm.getAllCards(board.getColumnList());
                 
               // Iterator<Card> icard = DataManager.getAllCards(board.getColumnList()).iterator();
@@ -367,7 +369,7 @@ public class PreferencesView extends JMenuItem implements View {
         */
        
         String[] lang = {
-  		      "Next", "Developement", "Test", "Done"
+  		      "Next", "Development", "Test", "Done"
   		    };
         
         final JComboBox combo1 = new JComboBox();
@@ -382,7 +384,7 @@ public class PreferencesView extends JMenuItem implements View {
 		          
 		        	
 		        	JComboBox selectedChoice = (JComboBox)e.getSource();
-  		        	Object spalte = selectedChoice.getSelectedItem();
+  		        	String spalte = selectedChoice.getSelectedItem().toString();
   		        	setSelectedColumn(spalte);
 		        
 		          //System.out.println(selectedChoice.getSelectedItem());
@@ -529,10 +531,12 @@ public class PreferencesView extends JMenuItem implements View {
 	
 
 
-    protected void setSelectedColumn(Object spalt) {
+    protected void setSelectedColumn(String spalt) {
 		// TODO Auto-generated method stub
 		
-    	this.spalte= (String) spalt ;
+    	this.spalte= spalt ;
+    	
+    	System.out.println(spalte);
     	
     	
 	}
@@ -557,23 +561,31 @@ public class PreferencesView extends JMenuItem implements View {
     	
     	//DataManager dm = new DataManager();
     	
-       // board=DataManager.getBoard();
-        columnList= board.getColumnList();
+       Board board=DataManager.getBoard();
+       LinkedList<Column> columnList= board.getColumnList();
        // board=dm.getBoard();
-        System.out.println("limit wurde gesetzt11");
-        for (Iterator<Column> i = columnList.iterator(); i.hasNext();)
+        //System.out.println("limit wurde gesetzt11");
+        Iterator<Column> icolumn = columnList.iterator();
+		//icolumn.first;
+      while (icolumn.hasNext())
         {
-        	System.out.println("limit wurde gesetzt21");
-       	 Column column =  i.next();
+        	System.out.println("ist in schleife");
+       	 Column column = (Column) icolumn.next();
 			String name = column.getName();
-			System.out.println("limit wurde gesetzt22");
 			
-			if(name==getselectedColumn());
+			System.out.println(name);
+			System.out.println(getselectedColumn());
+			
+			if(getselectedColumn() == column.getName());
 			{	
 				
-				System.out.println("limit wurde gesetzt33");
+				System.out.println("hat gefunden unter dem namen");
 				int ii = getselectedLimit();
-				changelimit(column,ii);
+				ii+=1;
+				column.setLimit(ii);
+				System.out.println(column.getLimit());
+				System.out.println(name);
+
 				//column.setLimit();
 			}
 			
@@ -593,7 +605,7 @@ public class PreferencesView extends JMenuItem implements View {
 	public void changelimit(Column column, int limit) {
 		
 		column.setLimit(limit);
-		
+		System.out.println("limit wurde gesetzt55");
 		System.out.println("limit wurde gesetzt55");
 		
 		
