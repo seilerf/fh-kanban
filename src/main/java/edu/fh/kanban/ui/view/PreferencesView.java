@@ -336,8 +336,10 @@ public class PreferencesView extends JMenuItem implements View {
                 System.out.println("You saved the Name");
                 //name.getText();
                 String boardname = name.getText();
-                frame.setTitle(name.getText());
-                Board board= new Board();
+               // frame.setTitle(name.getText());
+                DataManager dm= new DataManager();
+                Board board  = dm.getBoard();
+                
                // Board.instanceof();
                 //Kanban.getLOGGER();
                 System.out.println(board.getName());
