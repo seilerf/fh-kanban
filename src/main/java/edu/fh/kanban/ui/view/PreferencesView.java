@@ -51,16 +51,18 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
+ * PreferencesView stellt ein Einstellungsfenster zur Verfügung
+ * Es ist möglich den Namen des Boards zu ändern, die Kartenfarben bei 4 verschiedenen Zeitbeschränkungen
+ * und die Anzahl der Tickets pro Spalte zu limitieren.
+ * @author Anton
  *
- * @author vs
  */
 public class PreferencesView extends JMenuItem implements View {
 	LinkedList<Card> cardList;
 	LinkedList<Column> columnList;
 	private int limits;
 	private String spalte;
-	//private Board board;
-	//DataManager dm = new DataManager();
+	
     public PreferencesView() {
     	final JFrame frame = new JFrame();
         FormLayout formLayout = new FormLayout("p,2dlu,p:grow");
@@ -88,12 +90,10 @@ public class PreferencesView extends JMenuItem implements View {
         
         ButtonBarBuilder2 b = ButtonBarBuilder2.createLeftToRightBuilder();
        
-        
-        
+      
 
         
         JLabel label  = new JLabel ("Einstellungen");
-        //label.setName("Einstellungen");
         label.setForeground( Color.BLUE );
       
         builder.append("Name:");
@@ -113,26 +113,20 @@ public class PreferencesView extends JMenuItem implements View {
             {
             	
             	int selectedIndex = cb1.getSelectedIndex();
-                //Execute when button is pressed
             	 System.out.println(cb1.LABELS[selectedIndex]/*+" "+cb1.COLORS[selectedIndex]*/);
                 System.out.println("cb1 wurde angeklickt");
                 Color cc= cb1.COLORS[selectedIndex];
-                //Color ss = cc;
                 cb1.setBackground(cc);               
                 System.out.println(cb1.LABELS[selectedIndex]+" "+cb1.COLORS[selectedIndex]);
                 
                 String farbe = cb1.LABELS[selectedIndex];
                 
-               // LinkedList<Card> cardList;
-               //board  = DataManager.getBoard();
                DataManager dm= new DataManager();
                Board board  = dm.getBoard();
-              // columnList= board.getColumnList();
                 cardList= dm.getAllCards(board.getColumnList());
                 
-              // Iterator<Card> icard = DataManager.getAllCards(board.getColumnList()).iterator();
 		Iterator<Card> icard = cardList.iterator();
-		//
+		
                 while (icard.hasNext())
                 {
                 	System.out.println("Ist in der while Schleife");
@@ -166,11 +160,9 @@ public class PreferencesView extends JMenuItem implements View {
             {
             	
             	int selectedIndex = cb2.getSelectedIndex();
-                //Execute when button is pressed
             	 System.out.println(cb2.LABELS[selectedIndex]/*+" "+cb2.COLORS[selectedIndex]*/);
                 System.out.println("cb2 wurde angeklickt");
                 Color cc= cb2.COLORS[selectedIndex];
-                //Color ss = cc;
                 cb2.setBackground(cc);               
                 System.out.println(cb2.LABELS[selectedIndex]+" "+cb2.COLORS[selectedIndex]);
                 
@@ -211,11 +203,9 @@ public class PreferencesView extends JMenuItem implements View {
             {
             	
             	int selectedIndex = cb3.getSelectedIndex();
-                //Execute when button is pressed
             	 System.out.println(cb3.LABELS[selectedIndex]/*+" "+cb2.COLORS[selectedIndex]*/);
                 System.out.println("cb3 wurde angeklickt");
                 Color cc= cb3.COLORS[selectedIndex];
-                //Color ss = cc;
                 cb3.setBackground(cc);               
                 System.out.println(cb3.LABELS[selectedIndex]+" "+cb2.COLORS[selectedIndex]);
                 
@@ -258,11 +248,9 @@ public class PreferencesView extends JMenuItem implements View {
             {
             	
             	int selectedIndex = cb4.getSelectedIndex();
-                //Execute when button is pressed
             	 System.out.println(cb4.LABELS[selectedIndex]/*+" "+cb2.COLORS[selectedIndex]*/);
                 System.out.println("cb4 wurde angeklickt");
                 Color cc= cb4.COLORS[selectedIndex];
-                //Color ss = cc;
                 cb4.setBackground(cc);               
                 System.out.println(cb4.LABELS[selectedIndex]+" "+cb2.COLORS[selectedIndex]);
                 
@@ -290,19 +278,14 @@ public class PreferencesView extends JMenuItem implements View {
             }
         }); 
         
+       
         
-        
-        
-        
-        
+       
         
         final JTextField name = new JTextField();
-        
-       // JTextField spaltenzahl= new JTextField();
-      
+              
         
         builder.append(name); 
-      //  builder2.append(spaltenzahl);
         
         /**
          * Schließen Button mit Listener
@@ -313,7 +296,6 @@ public class PreferencesView extends JMenuItem implements View {
         beenden.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e)
         {
-            //Execute when button is pressed
             System.out.println("Einstellungen wird geschlossen");
             frame.setVisible(false);
 
@@ -332,21 +314,16 @@ public class PreferencesView extends JMenuItem implements View {
  
             public void actionPerformed(ActionEvent e)
             {
-                //Execute when button is pressed
                 System.out.println("You saved the Name");
-                //name.getText();
                 String boardname = name.getText();
-               // frame.setTitle(name.getText());
-                DataManager dm= new DataManager();
-                Board board  = dm.getBoard();
+              
+                Board board=DataManager.getBoard();
                 
-               // Board.instanceof();
-                //Kanban.getLOGGER();
+               
                 System.out.println(board.getName());
-                //board.setName(boardname);
                 
                board.setName(boardname);
-
+               System.out.println(board.getName());
             }
         }); 
         
@@ -361,7 +338,6 @@ public class PreferencesView extends JMenuItem implements View {
  
             public void actionPerformed(ActionEvent e)
             {
-                //Execute when button is pressed
             	limitchanger(e);
             }
         }); 
@@ -379,7 +355,6 @@ public class PreferencesView extends JMenuItem implements View {
 		    
 		      combo1.addItem( s );
 		    
-		   // setModel(new DefaultComboBoxModel(lang));
 		   
 		    combo1.addItemListener( new ItemListener() {
 		        public void itemStateChanged( ItemEvent e ) {
@@ -389,17 +364,14 @@ public class PreferencesView extends JMenuItem implements View {
   		        	String spalte = selectedChoice.getSelectedItem().toString();
   		        	setSelectedColumn(spalte);
 		        
-		          //System.out.println(selectedChoice.getSelectedItem());
 		          
 		       
 		        }
 		      } );
                 
 		    ButtonBarBuilder2 b3 = ButtonBarBuilder2.createLeftToRightBuilder();
-	        //b3.addButton(combo1);
 	        
 	       
-	       // b3.addButton(spaltenzahl);
         System.out.println("Adding panel cc");
         
         /**
@@ -415,7 +387,6 @@ public class PreferencesView extends JMenuItem implements View {
   		    
   		      combo2.addItem( s );
   		    
-  		   // setModel(new DefaultComboBoxModel(lang));
   		   
   		    combo2.addItemListener( new ItemListener() {
   		        public void itemStateChanged( ItemEvent e ) {
@@ -423,7 +394,6 @@ public class PreferencesView extends JMenuItem implements View {
   		        	int ii = selectedChoice.getSelectedIndex();
   		        	setselectedLimit(ii);
   		          
-  		         // System.out.println(e.toString());
   		          System.out.println(selectedChoice.getSelectedItem());
   		          
   		       
@@ -445,7 +415,6 @@ public class PreferencesView extends JMenuItem implements View {
         gbc_seperator1.fill = GridBagConstraints.HORIZONTAL;
         gbc_seperator1.gridx = 0;
         gbc_seperator1.gridy = 3;
-        //frame.getContentPane().add(comboBox, gbc_comboBox);
         frame.getContentPane().add(builder.appendSeparator("Ticketfarbe"), gbc_seperator1);
         
         
@@ -456,12 +425,10 @@ public class PreferencesView extends JMenuItem implements View {
         frame.getContentPane().add(builder3.getPanel(),gbc_builder3);
         
         
-        //JComboBox comboBox = new JComboBox();
         GridBagConstraints gbc_comboBox = new GridBagConstraints();
         gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
         gbc_comboBox.gridx = 0;
         gbc_comboBox.gridy = 5;
-        //frame.getContentPane().add(comboBox, gbc_comboBox);
         frame.getContentPane().add(builder4.getPanel(), gbc_comboBox);
         
         
@@ -469,14 +436,12 @@ public class PreferencesView extends JMenuItem implements View {
         gbc_5.fill = GridBagConstraints.HORIZONTAL;
         gbc_5.gridx = 0;
         gbc_5.gridy = 6;
-        //frame.getContentPane().add(comboBox, gbc_comboBox);
         frame.getContentPane().add(builder5.getPanel(), gbc_5);
         
         GridBagConstraints gbc_6 = new GridBagConstraints();
         gbc_6.fill = GridBagConstraints.HORIZONTAL;
         gbc_6.gridx = 0;
         gbc_6.gridy = 7;
-        //frame.getContentPane().add(comboBox, gbc_comboBox);
         frame.getContentPane().add(builder6.getPanel(), gbc_6);
         
         
@@ -492,7 +457,6 @@ public class PreferencesView extends JMenuItem implements View {
         gbc_seperator2.fill = GridBagConstraints.HORIZONTAL;
         gbc_seperator2.gridx = 0;
         gbc_seperator2.gridy = 8;
-        //frame.getContentPane().add(comboBox, gbc_comboBox);
         frame.getContentPane().add(builder.appendSeparator("Anzahl der Tickets pro Spalte"), gbc_seperator2);
         
         
@@ -534,7 +498,6 @@ public class PreferencesView extends JMenuItem implements View {
 
 
     protected void setSelectedColumn(String spalt) {
-		// TODO Auto-generated method stub
 		
     	this.spalte= spalt ;
     	
@@ -566,9 +529,9 @@ public class PreferencesView extends JMenuItem implements View {
        Board board=DataManager.getBoard();
        LinkedList<Column> columnList= board.getColumnList();
        // board=dm.getBoard();
-        //System.out.println("limit wurde gesetzt11");
+       
         Iterator<Column> icolumn = columnList.iterator();
-		//icolumn.first;
+		
       while (icolumn.hasNext())
         {
         	System.out.println("ist in schleife");
@@ -588,7 +551,7 @@ public class PreferencesView extends JMenuItem implements View {
 				System.out.println(column.getLimit());
 				System.out.println(name);
 
-				//column.setLimit();
+				
 			}
 			
         }
@@ -597,31 +560,15 @@ public class PreferencesView extends JMenuItem implements View {
 	}
 
 	
-/**
- * Wird vom limitchanger aufgerufen 
- * @param column
- * @param limit
- */
 
 
-	public void changelimit(Column column, int limit) {
-		
-		column.setLimit(limit);
-		System.out.println("limit wurde gesetzt55");
-		System.out.println("limit wurde gesetzt55");
-		
-		
-	}
 	
 	public void setselectedLimit(int ii)
 	{
 		
 		limits = ii;
 		
-		
-		
-		
-		
+	
 		
 	}
 
@@ -643,7 +590,6 @@ public class PreferencesView extends JMenuItem implements View {
 		return this;
 	}
    
- 
 
 	
 		
