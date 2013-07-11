@@ -1,10 +1,25 @@
-package edu.fh.kanban.ui.view;
+﻿package edu.fh.kanban.ui.view;
 
 import com.jgoodies.forms.builder.ButtonBarBuilder2;
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
+
+
+
+
+
+
+
+
+import edu.fh.kanban.Kanban;
+import edu.fh.kanban.dao.DataManager;
+import edu.fh.kanban.domain.Board;
+import edu.fh.kanban.domain.Card;
+import edu.fh.kanban.domain.ColorBox;
+import edu.fh.kanban.domain.Column;
+import edu.fh.kanban.ui.controller.AbstractController;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -15,27 +30,37 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import org.jdom2.Element;
+
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  *
  * @author vs
  */
-public class PreferencesView extends JMenuItem {
-
-	
-	
+public class PreferencesView extends JMenuItem implements View {
+	LinkedList<Card> cardList;
+	LinkedList<Column> columnList;
+	private int limits;
+	private String spalte;
+	Board board;
+	//DataManager dm = new DataManager();
     public PreferencesView() {
     	final JFrame frame = new JFrame();
         FormLayout formLayout = new FormLayout("p,2dlu,p:grow");
@@ -65,39 +90,14 @@ public class PreferencesView extends JMenuItem {
        
         
         
-        
-        
-        
-     /*   
-      //  b.addButton(new JButton("Hilfe"));
-        
-        ButtonBarBuilder2 b2 = ButtonBarBuilder2.createLeftToRightBuilder();
-        b2.addButton(new ColorBox());
-        b2.addButton(new ColorBox());
-        b2.addButton(new ColorBox());
-        b2.addButton(new ColorBox());
-       // b2.addButton(new ColorCombo());
-       // b2.addButton(new ColorCombo());
-            
-        */
-        
-        
-       
-      
-        
-        
-       // JComboBox comboBox2 = new JComboBox();
-        //b2.addButton( new ColorBox());
 
         
         JLabel label  = new JLabel ("Einstellungen");
         //label.setName("Einstellungen");
         label.setForeground( Color.BLUE );
-       // frame.add(label,BorderLayout.NORTH);
-       // builder.append(label);
+      
         builder.append("Name:");
         
-       // builder2.append("Anzahl der Tickets pro Spalte");
         
         /**
          * Standard farbauswahl mit Listener der dann dem Board die Farbe übergibt
@@ -116,7 +116,35 @@ public class PreferencesView extends JMenuItem {
                 //Execute when button is pressed
             	 System.out.println(cb1.LABELS[selectedIndex]/*+" "+cb1.COLORS[selectedIndex]*/);
                 System.out.println("cb1 wurde angeklickt");
-                frame.setVisible(false);
+                Color cc= cb1.COLORS[selectedIndex];
+                //Color ss = cc;
+                cb1.setBackground(cc);               
+                System.out.println(cb1.LABELS[selectedIndex]+" "+cb1.COLORS[selectedIndex]);
+                
+                String farbe = cb1.LABELS[selectedIndex];
+                
+               // LinkedList<Card> cardList;
+               board  = DataManager.getBoard();
+               DataManager dm= new DataManager();
+                cardList= dm.getAllCards(board.getColumnList());
+                
+              // Iterator<Card> icard = DataManager.getAllCards(board.getColumnList()).iterator();
+		Iterator<Card> icard = cardList.iterator();
+		//
+                while (icard.hasNext())
+                {
+                	System.out.println("Ist in der while Schleife");
+                	Card card = (Card) icard.next();
+                	System.out.println(card.getBackGround());
+                	if(card.getBackGround()==Color.BLUE )
+                	{
+                		System.out.println("Hat wohl was gefunden1");
+                		card.setBackground(cb1.COLORS[selectedIndex]);
+                		
+                		System.out.println("Hat wohl was gefunden2");
+                	}
+                }
+                
 
             }
         }); 
@@ -131,14 +159,41 @@ public class PreferencesView extends JMenuItem {
         final ColorBox cb2= new ColorBox();
         builder4.append(cb2);
         
-        cb2.addItemListener(new ItemListener() {
-            public void itemStateChanged(final ItemEvent e) {
-                //colorBoxItemStateChanged(e);
-                int selectedIndex = cb2.getSelectedIndex();
-                System.out.println(cb2.LABELS[selectedIndex]+" "+cb1.COLORS[selectedIndex]);
+        cb2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e)
+            {
+            	
+            	int selectedIndex = cb2.getSelectedIndex();
+                //Execute when button is pressed
+            	 System.out.println(cb2.LABELS[selectedIndex]/*+" "+cb2.COLORS[selectedIndex]*/);
+                System.out.println("cb2 wurde angeklickt");
+                Color cc= cb2.COLORS[selectedIndex];
+                //Color ss = cc;
+                cb2.setBackground(cc);               
+                System.out.println(cb2.LABELS[selectedIndex]+" "+cb2.COLORS[selectedIndex]);
+                
+                String farbe2 = cb2.LABELS[selectedIndex];
+                
+             
+		Iterator<Card> icard = cardList.iterator();
+		//
+                while (icard.hasNext())
+                {
+                	System.out.println("Ist in der while Schleife");
+                	Card card = (Card) icard.next();
+                	System.out.println(card.getBackGround());
+                	if(card.getBackGround()==Color.orange )
+                	{
+                		System.out.println("Hat wohl was gefunden1");
+                		card.setBackground(cb2.COLORS[selectedIndex]);
+                		
+                		System.out.println("Hat wohl was gefunden2");
+                	}
+                }
+                
+
             }
-       
-        });
+        }); 
         
         
         /**
@@ -149,14 +204,42 @@ public class PreferencesView extends JMenuItem {
         final ColorBox cb3= new ColorBox();
         builder5.append(cb3);
         
-        cb3.addItemListener(new ItemListener() {
-            public void itemStateChanged(final ItemEvent e) {
-                //colorBoxItemStateChanged(e);
-                int selectedIndex = cb3.getSelectedIndex();
-                System.out.println(cb3.LABELS[selectedIndex]/*+" "+cb1.COLORS[selectedIndex]*/);
+        cb3.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e)
+            {
+            	
+            	int selectedIndex = cb3.getSelectedIndex();
+                //Execute when button is pressed
+            	 System.out.println(cb3.LABELS[selectedIndex]/*+" "+cb2.COLORS[selectedIndex]*/);
+                System.out.println("cb3 wurde angeklickt");
+                Color cc= cb3.COLORS[selectedIndex];
+                //Color ss = cc;
+                cb3.setBackground(cc);               
+                System.out.println(cb3.LABELS[selectedIndex]+" "+cb2.COLORS[selectedIndex]);
+                
+                String farbe3 = cb3.LABELS[selectedIndex];
+                
+           
+		Iterator<Card> icard = cardList.iterator();
+		//
+                while (icard.hasNext())
+                {
+                	System.out.println("Ist in der while Schleife");
+                	Card card = (Card) icard.next();
+                	System.out.println(card.getBackGround());
+                	if(card.getBackGround()==Color.red )
+                	{
+                		System.out.println("Hat wohl was gefunden1");
+                		card.setBackground(cb3.COLORS[selectedIndex]);
+                		
+                		System.out.println("Hat wohl was gefunden2");
+                	}
+                }
+                
+
             }
-       
-        });
+        }); 
+        
         
         
         
@@ -168,14 +251,42 @@ public class PreferencesView extends JMenuItem {
         final ColorBox cb4= new ColorBox();
         builder6.append(cb4);
         
-        cb4.addItemListener(new ItemListener() {
-            public void itemStateChanged(final ItemEvent e) {
-                //colorBoxItemStateChanged(e);
-                int selectedIndex = cb4.getSelectedIndex();
-                System.out.println(cb4.LABELS[selectedIndex]/*+" "+cb1.COLORS[selectedIndex]*/);
+        cb4.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e)
+            {
+            	
+            	int selectedIndex = cb4.getSelectedIndex();
+                //Execute when button is pressed
+            	 System.out.println(cb4.LABELS[selectedIndex]/*+" "+cb2.COLORS[selectedIndex]*/);
+                System.out.println("cb4 wurde angeklickt");
+                Color cc= cb4.COLORS[selectedIndex];
+                //Color ss = cc;
+                cb4.setBackground(cc);               
+                System.out.println(cb4.LABELS[selectedIndex]+" "+cb2.COLORS[selectedIndex]);
+                
+                String farbe4 = cb4.LABELS[selectedIndex];
+                
+            
+		Iterator<Card> icard = cardList.iterator();
+		//
+                while (icard.hasNext())
+                {
+                	System.out.println("Ist in der while Schleife");
+                	Card card = (Card) icard.next();
+                	System.out.println(card.getBackGround());
+                	if(card.getBackGround()==Color.green)
+                	{
+                		System.out.println("Hat wohl was gefunden1");
+                		card.setBackground(cb4.COLORS[selectedIndex]);
+                		
+
+                		System.out.println("Hat wohl was gefunden2");
+                	}
+                }
+                
+
             }
-       
-        });
+        }); 
         
         
         
@@ -209,6 +320,8 @@ public class PreferencesView extends JMenuItem {
         
         /**
          * Speichern Button mit Listener und ändert den Titel
+         * aber änderung wird erst beim speichern und neuladen des Boards 
+         * wirksam
          */
         
         JButton speichern= new JButton("Namen Speichern");
@@ -219,18 +332,42 @@ public class PreferencesView extends JMenuItem {
             {
                 //Execute when button is pressed
                 System.out.println("You saved the Name");
-                name.getText();
+                //name.getText();
+                String boardname = name.getText();
                 frame.setTitle(name.getText());
+                Board board= new Board();
+               // Board.instanceof();
+                //Kanban.getLOGGER();
+                System.out.println(board.getName());
+                //board.setName(boardname);
+                
+               board.setName(boardname);
 
             }
         }); 
         
         /**
-         * Schließen Button mit Listener
+         * Durch klicken des Limit Speichern Buttons wird das Limit 
+         * in der jeweiligen Spale eingestellt
          */
         
+        JButton spaltspeichern= new JButton("Limit Speichern");
+        b.addButton(spaltspeichern);
+        spaltspeichern.addActionListener(new ActionListener() {
+ 
+            public void actionPerformed(ActionEvent e)
+            {
+                //Execute when button is pressed
+            	limitchanger(e);
+            }
+        }); 
+        
+       /**
+        * Auswahl der Spalte mit Listener gibt die auswahl an setter Methode weiter 
+        */
+       
         String[] lang = {
-  		      "Next", "Dev", "Test", "Done"
+  		      "Next", "Developement", "Test", "Done"
   		    };
         
         final JComboBox combo1 = new JComboBox();
@@ -242,10 +379,13 @@ public class PreferencesView extends JMenuItem {
 		   
 		    combo1.addItemListener( new ItemListener() {
 		        public void itemStateChanged( ItemEvent e ) {
-		          JComboBox selectedChoice = (JComboBox)e.getSource();
-		         int selectedIndex = combo1.getSelectedIndex();
-		         // System.out.println(e.toString());
-		          System.out.println(selectedChoice.getSelectedItem());
+		          
+		        	
+		        	JComboBox selectedChoice = (JComboBox)e.getSource();
+  		        	Object spalte = selectedChoice.getSelectedItem();
+  		        	setSelectedColumn(spalte);
+		        
+		          //System.out.println(selectedChoice.getSelectedItem());
 		          
 		       
 		        }
@@ -254,7 +394,7 @@ public class PreferencesView extends JMenuItem {
 		    ButtonBarBuilder2 b3 = ButtonBarBuilder2.createLeftToRightBuilder();
 	        //b3.addButton(combo1);
 	        
-	        builder2.append(combo1);
+	       
 	       // b3.addButton(spaltenzahl);
         System.out.println("Adding panel cc");
         
@@ -275,22 +415,20 @@ public class PreferencesView extends JMenuItem {
   		   
   		    combo2.addItemListener( new ItemListener() {
   		        public void itemStateChanged( ItemEvent e ) {
-  		          JComboBox selectedChoice = (JComboBox)e.getSource();
-  		         int selectedIndex = combo2.getSelectedIndex();
+  		        	JComboBox selectedChoice = (JComboBox)e.getSource();
+  		        	int ii = selectedChoice.getSelectedIndex();
+  		        	setselectedLimit(ii);
+  		          
   		         // System.out.println(e.toString());
   		          System.out.println(selectedChoice.getSelectedItem());
   		          
   		       
   		        }
   		      } );
-                 // b3.appendRow("Ticket");
-  		  //b3.addButton(combo2);
+                 
   		builder2.append(combo2);
-        //frame.add(builder.getPanel(),BorderLayout.NORTH);
-      //  frame.getContentPane().add(b2.getPanel(), BorderLayout);
-       // frame.getContentPane().add(builder.getPanel(), BorderLayout.CENTER);
-        //frame.add(b2.getPanel(), BorderLayout.CENTER);
-        //frame.getContentPane().add(b.getPanel(), BorderLayout.SOUTH);
+  		 builder2.append(combo1);
+       
         GridBagLayout gridBagLayout = new GridBagLayout();
         gridBagLayout.columnWidths = new int[]{0, 0};
         gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
@@ -358,9 +496,7 @@ public class PreferencesView extends JMenuItem {
         spalten_ComboBox.fill = GridBagConstraints.HORIZONTAL;
         spalten_ComboBox.gridx = 0;
         spalten_ComboBox.gridy = 10;
-        //frame.getContentPane().add(comboBox, gbc_comboBox);
-        //frame.getContentPane().add(b3.getPanel(), spalten_ComboBox);
-        
+       
         
         GridBagConstraints gbc_b = new GridBagConstraints();
         gbc_b.fill = GridBagConstraints.HORIZONTAL;
@@ -377,7 +513,7 @@ public class PreferencesView extends JMenuItem {
         frame.getContentPane().add(builder2.getPanel(),gbc_d);
         
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(500, 600);
+        frame.setSize(330, 500);
         frame.setLocationByPlatform(true);
         frame.setVisible(true);
         
@@ -393,11 +529,108 @@ public class PreferencesView extends JMenuItem {
 	
 
 
- 
+    protected void setSelectedColumn(Object spalt) {
+		// TODO Auto-generated method stub
+		
+    	this.spalte= (String) spalt ;
+    	
+    	
+	}
+
+
+    public String getselectedColumn()
+	{
+		
+		
+		
+		return spalte;
+		
+		
+	}
+
+    /**
+     * Geht die Spaltenliste durch und sucht die ausgewählte spalte um dann das Limit zu setzen
+     * @param e
+     */
+
+	protected void limitchanger(ActionEvent e) {
+    	
+    	//DataManager dm = new DataManager();
+    	
+       // board=DataManager.getBoard();
+        columnList= board.getColumnList();
+       // board=dm.getBoard();
+        System.out.println("limit wurde gesetzt11");
+        for (Iterator<Column> i = columnList.iterator(); i.hasNext();)
+        {
+        	System.out.println("limit wurde gesetzt21");
+       	 Column column =  i.next();
+			String name = column.getName();
+			System.out.println("limit wurde gesetzt22");
+			
+			if(name==getselectedColumn());
+			{	
+				
+				System.out.println("limit wurde gesetzt33");
+				int ii = getselectedLimit();
+				changelimit(column,ii);
+				//column.setLimit();
+			}
+			
+        }
+        
+		
+	}
+
+	
+/**
+ * Wird vom limitchanger aufgerufen 
+ * @param column
+ * @param limit
+ */
+
+
+	public void changelimit(Column column, int limit) {
+		
+		column.setLimit(limit);
+		
+		System.out.println("limit wurde gesetzt55");
+		
+		
+	}
+	
+	public void setselectedLimit(int ii)
+	{
+		
+		limits = ii;
+		
+		
+		
+		
+		
+		
+	}
+
+
+	public int getselectedLimit()
+	{
+		
+		
+		
+		
+		return limits;
+		
+		
+	}
+	
+	
+
+	public JComponent getComponent() {
+		return this;
+	}
    
  
 
 	
 		
 	}
-

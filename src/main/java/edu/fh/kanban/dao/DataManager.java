@@ -10,7 +10,7 @@ import edu.fh.kanban.domain.Column;
 
 public class DataManager {
 	
-	private Board board;
+	private static Board board;
 
 	public DataManager(){
 				
@@ -45,7 +45,7 @@ public class DataManager {
 	/**
 	 * @return the board
 	 */
-	public Board getBoard() {
+	public static Board getBoard() {
 		return board;
 	}
 	
