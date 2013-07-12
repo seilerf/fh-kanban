@@ -99,7 +99,7 @@ public class BoardView extends JPanel implements View{
 				cardView.setIdTextField(String.valueOf(card.getId()));
 				//cardView.setValueComboBox(card.getValue());
 				//cardView.setJRadioButton(null, null, null, null);
-				cardView.setWorkloadTextField(String.valueOf(card.getWorkload()));
+				cardView.setSizeTextField(String.valueOf(card.getSize()));
 				cardView.setBlockerToggleButton(card.getBlocker());
 				cardView.setBackground(card.getBackGround());
 				cardView.setAllDisabledForBoard();

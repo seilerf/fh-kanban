@@ -11,7 +11,6 @@ import edu.fh.kanban.ui.controller.CardController;
 public class Card extends AbstractModel{
 	
 	private int id;
-	private int workload;
 	private int value;
 	private String description;
 	private boolean blocker;
@@ -23,10 +22,9 @@ public class Card extends AbstractModel{
 	private Color backGround;
 	
 		
-	public Card(int id, int workload, int value, String description,
+	public Card(int id, int value, String description,
 			boolean blocker, int size, String headline, Color backGround) {
 		this.id = id;
-		this.workload = workload;
 		this.value = value;
 		this.description = description;
 		this.blocker = blocker;
@@ -35,14 +33,6 @@ public class Card extends AbstractModel{
 		this.backGround = backGround;
 	}
 
-
-	public int getSize() {
-		return size;
-	}
-
-	public void setSize(int size) {
-		this.size = size;
-	}
 
 	public String getHeadline() {
 		return headline;
@@ -76,7 +66,7 @@ public class Card extends AbstractModel{
 	/**
 	 * Setzt das Wert-Attribut auf Null.
 	 */
-	public void wertReset() {
+	public void valueReset() {
 		this.value = 0;
 	}
 	
@@ -115,25 +105,17 @@ public class Card extends AbstractModel{
 		System.out.println("Meine neue ID:" + this.getId());
 		
 	}
-	/** //Setter ID
-	public void setId(int id) {
-		int oldId = this.id;
-		this.id = id;
-		firePropertyChange(CardController.CARDID_PROPERTY,oldId,id);
-		System.out.println("Meine neue ID:" + this.getId());
-		
-	}	*/
-	
+
 	//Getter Workload
-	public int getWorkload() {
-		return workload;
+	public int getSize() {
+		return size;
 	}
 	//Setter Workload
-	public void setWorkload(Integer workload) {
-		int oldWorkload = this.workload;
-		this.workload = workload;
-		firePropertyChange(CardController.WORKLOAD_PROPERTY,oldWorkload,workload);
-		System.out.println("Mein neuer Workload:" + this.getWorkload());
+	public void setSize(Integer size) {
+		int oldSize = this.size;
+		this.size = size;
+		firePropertyChange(CardController.SIZE_PROPERTY,oldSize,size);
+		System.out.println("Mein neuer Workload:" + this.getSize());
 	}
 	//Getter Wert
 	public int getValue() {
@@ -143,7 +125,7 @@ public class Card extends AbstractModel{
 	public void setValue(Integer value) {
 		int oldValue = this.value;
 		this.value = value;
-		firePropertyChange(CardController.VALUE_PROPERTY,oldValue,description);
+		firePropertyChange(CardController.SIZE_PROPERTY,oldValue,description);
 		System.out.println("Mein neuer Value:" + this.getValue());
 	}
 	//Getter Beschreibung
@@ -235,8 +217,5 @@ public class Card extends AbstractModel{
 		firePropertyChange(CardController.BLOCKER_PROPERTY,oldBlocker,blocker);
 		System.out.println("Mein neuer Blockerzustand:" + this.getBlocker());
 	}
-
-
-	
 
 }

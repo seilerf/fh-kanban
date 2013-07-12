@@ -90,6 +90,46 @@ public abstract class AbstractController implements PropertyChangeListener {
             	 System.out.println("Konnte nicht gefunden werden!");
             }
         }
-    } 
+    }
+    /**
+    protected void resetCardViewProperty(String propertyName1, String propertyName2) {
+    	Method oldValue = null;
+    	Object newValue = null;
+    	
+        for (AbstractModel model: models) {
+        	System.out.println("Duchlaufe Modelle");
+            try {
+            	System.out.println("Suche...");
+            	//Method method = model.getClass().getMethod("get"+propertyName1);
+            	oldValue = model.getClass().getMethod("get"+propertyName1);
+            	System.out.println("Gefunden.");
+                oldValue.invoke(model);
+                System.out.println("gestartet");
+                System.out.println((oldValue.toString()));
+
+            } catch (Exception ex) {
+            	 System.err.println(ex.getMessage());
+            	 System.out.println("Konnte nicht gefunden werden!");
+            }
+           newValue = oldValue;
+        }
+        for(AbstractView view: views) {
+    		System.out.println("Durchlaufe Views");
+    		try {
+    			System.out.println("Suche...");
+    			Method method = view.getClass().getMethod("set"+propertyName2, new Class[] {
+    					newValue.getClass()
+    			});
+    			System.out.println("Gefunden.");
+                method.invoke(view, newValue);
+                System.out.println("gestartet");
+    		}  catch (Exception ex) {
+    			System.err.println(ex.getMessage());
+    			System.out.println("Konnte nicht gefunden werden");
+    			
+    		}
+    	}
+        
+    } */
 
 }

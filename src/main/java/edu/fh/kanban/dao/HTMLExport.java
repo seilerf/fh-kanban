@@ -125,7 +125,7 @@ public class HTMLExport {
  					cardBlocker.setTextContent(" ");
  					Element cardWorkload = doc.createElement("td");
  					cardWorkload.setAttribute("style", "text-align: right; width: " + tdWidth);
- 					cardWorkload.setTextContent("Aufwand: " + String.valueOf(card.getWorkload()));
+ 					cardWorkload.setTextContent("Aufwand: " + String.valueOf(card.getSize()));
  					Element cardValue = doc.createElement("td");
  					cardValue.setTextContent(String.valueOf("Wert: " + card.getValue()));
  					Element cardDescription = doc.createElement("td");

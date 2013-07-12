@@ -105,7 +105,7 @@ public class XMLParser{
     			// Wenn keine Farbe in der XML-Datei hinterlegt ist, wird die Karte mit einem leicht grauen Hintergrund versehen
     			backGround = Color.LIGHT_GRAY;
     		
-    		cardList.add(new Card(id, workload, value, description, blocker, size, headline, backGround));
+    		cardList.add(new Card(id, value, description, blocker, size, headline, backGround));
     	}
     	
     	if (cardList.isEmpty())
@@ -146,7 +146,7 @@ public class XMLParser{
 						// Kartenelemente
 						org.w3c.dom.Element xmlCard = xmlDoc.createElement("Card");
 						xmlCard.setAttribute("id", String.valueOf(card.getId()));
-						xmlCard.setAttribute("workload", String.valueOf(card.getWorkload()));
+						xmlCard.setAttribute("workload", String.valueOf(card.getSize()));
 						xmlCard.setAttribute("value", String.valueOf(card.getValue()));
 						xmlCard.setAttribute("headline", card.getHeadline());
 						xmlCard.setAttribute("description", card.getDescription());

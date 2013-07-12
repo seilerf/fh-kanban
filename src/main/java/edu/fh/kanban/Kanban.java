@@ -55,7 +55,7 @@ public class Kanban {
 		//Views erstellen
 		
 
-		Card emptycard = new Card(0, 0, 0, null, false, 0, null, null);
+		Card emptycard = new Card(0, 0, null, false, 0, null, null);
 		CardController cardcontroller = new CardController();
 		cardcontroller.addModel(emptycard);
 		final CardView cardView = new CardView(cardcontroller);

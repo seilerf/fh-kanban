@@ -26,7 +26,7 @@ public class SortClass extends AbstractModel{
 			while(lit.hasNext()){
 				Card c = lit.next();
 				
-				cards.add(new Card(c.getId(),c.getWorkload(),c.getValue(),c.getDescription(),
+				cards.add(new Card(c.getId(),c.getSize(),c.getDescription(),
 						c.getBlocker(),c.getSize(),c.getHeadline(),c.getBackGround()));
 			}
 		}

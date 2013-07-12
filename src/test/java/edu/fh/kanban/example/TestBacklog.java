@@ -17,12 +17,12 @@ public class TestBacklog {
 		//Test
 	    LinkedList<Card> list = new LinkedList<Card>();
 	    //3. Parameter Value, 6. Parameter Size
-	    list.add(new Card(1, 1, 1, "a", false, 2, "Ich", null));
-	    list.add(new Card(2, 1, 10, "b", false, 5, "du", null));
-	    list.add(new Card(3, 1, 7, "c", false, 3, "er", null));
-	    list.add(new Card(4, 1, 4, "d", false, 8, "sie", null));
-	    list.add(new Card(5, 1, 1, "e", false, 8, "es", null));
-	    list.add(new Card(6, 1, 5, "f", false, 1, "Bla", null));
+	    list.add(new Card(1,  1, "a", false, 2, "Ich", null));
+	    list.add(new Card(2, 10, "b", false, 5, "du", null));
+	    list.add(new Card(3, 7, "c", false, 3, "er", null));
+	    list.add(new Card(4, 4, "d", false, 8, "sie", null));
+	    list.add(new Card(5, 1, "e", false, 8, "es", null));
+	    list.add(new Card(6, 5, "f", false, 1, "Bla", null));
 	    
 	    testSortalgorithmen(list);
 	   

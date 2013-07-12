@@ -101,7 +101,7 @@ public class CardViewBoard extends JPanel implements View {
 		aufwandLabel.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		add(aufwandLabel, "2, 4, right, fill");
 		
-		this.workloadTextField = new JTextField(String.valueOf(card.getWorkload()));
+		this.workloadTextField = new JTextField(String.valueOf(card.getSize()));
 		add(this.workloadTextField, "4, 4, fill, fill");
 		this.workloadTextField.setColumns(1);
 		

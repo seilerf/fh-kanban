@@ -33,7 +33,7 @@ public class XMLParserTest {
 	
 	@Test
 	public void testCardImport() {
-		Card firstCard = new Card(1, 5, 17, "Kartenbeschreibung", false, 3, "Karte 1", new Color(-16776961));
+		Card firstCard = new Card(1, 17, "Kartenbeschreibung", false, 3, "Karte 1", new Color(-16776961));
 		assertEquals("Korrekter Datentyp?", firstCard.getClass(), this.board.getColumnList().getFirst().getCards().getFirst().getClass());
 		assertEquals("Erste Karte \"Karte 1\"", firstCard.getHeadline(), this.board.getColumnList().getFirst().getCards().getFirst().getHeadline());
 	}

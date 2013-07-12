@@ -27,6 +27,8 @@ import java.awt.event.InputMethodListener;
 import javax.swing.JToggleButton;
 import javax.swing.border.TitledBorder;
 import javax.swing.border.LineBorder;
+import javax.swing.plaf.BorderUIResource.TitledBorderUIResource;
+import javax.swing.ButtonModel;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComponent;
@@ -45,19 +47,32 @@ import java.util.LinkedList;
 public class CardView extends AbstractView implements View {
 	private CardController cardController;
 	private JTextField idTextField;
-	private JTextField workloadTextField;
+	private JTextField sizeTextField;
 	private JToggleButton blockerToggleButton;
 	private JRadioButton rdbtnCreated;
 	private JRadioButton rdbtnStarted;
 	private JRadioButton rdbtnDone;
 	private Color background;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
-	private JButton btnResetAll;
+	private JButton btnDeleteAll;
 	private JButton btnSaveAll;
 	private JComboBox valueComboBox;
 	private JTextPane descriptionTextPane;
 	private JLabel blockerLabel;
 	private JLabel lblStatus;
+	private String cardTitel = "";
+	private TitledBorder tb;
+	private JButton btnAddTitel;
+	private JButton btnResetAll;
+	
+	private int oldValue;
+	private boolean oldBlocker;
+	private Color oldBackColor;
+	private String oldDescription;
+	private Integer oldCardId;
+	private Integer oldSize;
+	private int oldJRadio;
+	private int count = 0;
 	
 	/**
 	 * Create the panel.
@@ -65,8 +80,10 @@ public class CardView extends AbstractView implements View {
 	public CardView(CardController cardController) {
 		this.cardController = cardController;
 		
+		
 		setBackground(SystemColor.menu);
-		setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Karte", TitledBorder.CENTER, TitledBorder.TOP, null, null));
+		this.tb = new TitledBorder(new LineBorder(new Color(0, 0, 0)), cardTitel, TitledBorder.CENTER, TitledBorder.TOP, null, null);
+		setBorder(tb);
 		FormLayout formLayout = new FormLayout(new ColumnSpec[] {
 				FormFactory.RELATED_GAP_COLSPEC,
 				ColumnSpec.decode("max(20dlu;default)"),
@@ -108,9 +125,9 @@ public class CardView extends AbstractView implements View {
 		aufwandLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		add(aufwandLabel, "6, 2, right, default");
 		
-		this.workloadTextField = new JTextField();
-		add(this.workloadTextField, "8, 2, fill, fill");
-		this.workloadTextField.setColumns(10);
+		this.sizeTextField = new JTextField();
+		add(this.sizeTextField, "8, 2, fill, fill");
+		this.sizeTextField.setColumns(10);
 		
 		JLabel wertLabel = DefaultComponentFactory.getInstance().createLabel("Wert:");
 		wertLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -163,7 +180,16 @@ public class CardView extends AbstractView implements View {
 		this.rdbtnStarted.setBackground(Color.LIGHT_GRAY);
 		this.rdbtnDone.setBackground(Color.LIGHT_GRAY);
 		
-		this.btnSaveAll = new JButton("Speichern");
+		this.btnAddTitel = new JButton("Titel");
+		add(this.btnAddTitel, "4, 12, fill, fill");
+		
+		this.btnAddTitel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnTitelActionPerformed(e);
+			}
+		});
+		
+		this.btnSaveAll = new JButton("Save");
 		add(this.btnSaveAll, "6, 12, fill, fill");
 		
 		this.btnSaveAll.addActionListener(new ActionListener()  {
@@ -172,37 +198,78 @@ public class CardView extends AbstractView implements View {
 					btnSaveAllActionPerformed(e);
 				} catch (NumberFormatException ex) { 
 					Component parent = getJPanel();
-					JOptionPane.showMessageDialog(parent,"Keine Nullwerte/ Ungütlige Werte(ID/Workload/Description)!","ERROR!" , JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(parent,"Keine Nullwerte/ Ungütlige Werte(ID/Size/Description)!","ERROR!" , JOptionPane.ERROR_MESSAGE);
 					btnDeleteAllActionPerformed(e);
-				// cardViewException
 				} catch (cardViewException ex) {
 					
 				}				
 			}
 		});
 		
-		this.btnResetAll = new JButton("Löschen");
-		add(this.btnResetAll, "8, 12, fill, fill");
-		this.btnResetAll.addActionListener(new ActionListener() {
+		this.btnDeleteAll = new JButton("Delete");
+		add(this.btnDeleteAll, "8, 12, fill, fill");
+		
+		this.btnDeleteAll.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnDeleteAllActionPerformed(e);
 			}
 		});
 		
-
+		this.btnResetAll = new JButton("Reset");
+		add(this.btnResetAll, "10, 12");
+		
+		this.btnResetAll.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnResetAllActionPerformed(e);
+			}
+		});
+		
+	}
+	
+	public void setOldCardId(int i) {
+		this.oldCardId = i;
+	}
+	
+	public int getOldCardId() {
+		return this.oldCardId;
+	}
+	
+	
+	public String getCardTitel() {
+		return this.cardTitel;
+	}
+	
+	public void setCardTitel(String n) {
+		this.tb.setTitle(n);
+		
+	}
+	
+	/**
+	 * 
+	 * @param e
+	 */
+	private void btnTitelActionPerformed(ActionEvent e) {
+		this.cardTitel = JOptionPane.showInputDialog("Eingabe des Titels:",this.cardTitel);
+		setCardTitel(cardTitel);
 	}
 	/**
+	 * Ursprungszustand (beim ersten Anlegen) wird gespeichert um die Möglichkeit zu haben auf diesen Zustand zurücksetzen zu können.
 	 * Fängt Fehler bei falscher/fehlender Eingabe des Wertes, des Zeitpunkts(JRadioButtons) oder der Beschreibung ab.
 	 * @param e
 	 * @throws cardViewException
 	 */
 	private void btnSaveAllActionPerformed(ActionEvent e) throws cardViewException {
+		
+		
 		if( valueComboBox.getSelectedIndex() == -1 || valueComboBox.getSelectedIndex() == 0  || getJRadioButton() == -1 || descriptionTextPane.getText().isEmpty()==true){
 			throw new cardViewException();
 		
 		}
 		else {
-			cardController.changeCardViewValues(Integer.parseInt(idTextField.getText()), Integer.parseInt(workloadTextField.getText()), descriptionTextPane.getText(), valueComboBox.getSelectedIndex(), getBackgroundColor(), blockerToggleButton.isSelected(), getJRadioButton());
+			if(count <= 0) {
+				saveAllOldValues(Integer.parseInt(idTextField.getText()), Integer.parseInt(sizeTextField.getText()), descriptionTextPane.getText(), valueComboBox.getSelectedIndex(), getBackgroundColor(), blockerToggleButton.isSelected(), getJRadioButton());count+=1;
+			}
+			cardController.changeCardViewValues(Integer.parseInt(idTextField.getText()), Integer.parseInt(sizeTextField.getText()), descriptionTextPane.getText(), valueComboBox.getSelectedIndex(), getBackgroundColor(), blockerToggleButton.isSelected(), getJRadioButton());
 			setJPanelColor();
 		 }	
 	}
@@ -213,16 +280,111 @@ public class CardView extends AbstractView implements View {
 	 */
 	private void btnDeleteAllActionPerformed(ActionEvent e) {
 		resetAllValues();
-		setJPanelColor();						
-		cardController.deleteCardViewValues(Integer.parseInt(idTextField.getText()), Integer.parseInt(workloadTextField.getText()), descriptionTextPane.getText(), valueComboBox.getSelectedIndex(), getBackgroundColor(), blockerToggleButton.isSelected(), getJRadioButton());
+		setJPanelColor();
 	}
+	
+	/**
+	 * 
+	 * @param e
+	 */
+	private void btnResetAllActionPerformed(ActionEvent e) {
+		setAllToOldValues();
+	}
+	
+	@Override
+	public void modelPropertyChange(PropertyChangeEvent event) {
+		
+		/**if(event.getPropertyName() == CardController.CARDID_PROPERTY) {
+			setOldCardId(event.getOldValue().toString());
+			System.out.println("HIER\n\n\n"+getOldCardId());
+		}
+		switch (event.getPropertyName()) {
+		case CardController.CARDID_PROPERTY: {
+			String oID = event.getOldValue().toString();
+			setOldCardId(oID);
+			//setOldCardId(event.getOldValue().toString());
+			System.out.println(oID+"<===HIER!! Alte_CardId");
+		}
+		
+		case CardController.SIZE_PROPERTY: {
+			this.oldSize = event.getOldValue().toString();
+			 System.out.println("HIER!!! Alter_Workload ===>"+oldSize);	 
+		}
+		
+		case CardController.VALUE_PROPERTY: {
+			this.oldValue =  (int) event.getOldValue();
+		}
+		
+		case CardController.BLOCKER_PROPERTY: {
+			this.oldBlocker = (boolean) event.getOldValue();	
+		}
+		
+		case CardController.BACKGROUND_PROPERTY: {
+			this.oldBackColor = (Color) event.getOldValue();	
+		}
+		
+		case CardController.DESCRIPTION_PROPERTY: {
+			this.oldDescription = event.getOldValue().toString();
+		}
+		
+		case CardController.JRADIOBUTTON_PROPERTY: {
+			
+		}
+	  }*/
+	}
+	/**
+	 * Speichert die beim Erstellen gespeicherten Werte um einen Reset zu ermöglichen.
+	 * @param oldCardId
+	 * @param oldWorkload
+	 * @param oldDescription
+	 * @param oldValue
+	 * @param oldbackColor
+	 * @param oldBlocker
+	 * @param oldJRadio
+	 */
+	
+	/**
+	 * Setzt die beim Erstellen gespeicherten Werte passend in die Gui ein.
+	 * @param oldCardId
+	 * @param oldWorkload
+	 * @param oldDescription
+	 * @param oldValue
+	 * @param oldbackColor
+	 * @param oldBlocker
+	 * @param oldJRadio
+	 */
+	public void saveAllOldValues(int oldCardId, int oldWorkload, String oldDescription, int oldValue, Color oldbackColor, boolean oldBlocker, int oldJRadio) {
+	
+		this.oldCardId = oldCardId;
+		this.oldSize = oldWorkload;
+		this.oldDescription = oldDescription;
+		this.oldValue = oldValue;
+		this.oldBackColor = oldbackColor;
+		this.oldBlocker = oldBlocker;
+		this.oldJRadio = oldJRadio;
+	}
+	
+	/**
+	 * Setzt die beim Erstellen gespeicherten Werte passend in die Gui ein.
+	 */
+	public void setAllToOldValues() {
+		
+		this.setIdTextField(oldCardId.toString());
+		this.setSizeTextField(oldSize.toString());
+		this.setDescriptionTextPane(oldDescription);
+		this.setValueComboBox(oldValue);
+		this.setBlockerToggleButton(oldBlocker);
+		this.setOldJRadioButton(oldJRadio);
+		this.setJPanelColor();
+	}
+	 
 	
 	/**
 	 * Um alle Felder und Buttons für die Standard-View im Board zu sperren.
 	 */
 	public void setAllDisabledForBoard() {
 		this.idTextField.setEnabled(false);
-		this.workloadTextField.setEnabled(false);
+		this.sizeTextField.setEnabled(false);
 		this.descriptionTextPane.setEnabled(false);
 		this.rdbtnCreated.setEnabled(false);
 		this.rdbtnDone.setEnabled(false);
@@ -230,9 +392,13 @@ public class CardView extends AbstractView implements View {
 		this.valueComboBox.setEnabled(false);
 		this.blockerToggleButton.setEnabled(false);
 		this.btnSaveAll.setEnabled(false);
+		this.btnDeleteAll.setEnabled(false);
+		this.btnDeleteAll.setVisible(false);
+		this.btnSaveAll.setVisible(false);
+		this.btnAddTitel.setVisible(false);
+		this.btnAddTitel.setEnabled(false);
 		this.btnResetAll.setEnabled(false);
 		this.btnResetAll.setVisible(false);
-		this.btnSaveAll.setVisible(false);
 		
 	}
 	
@@ -241,7 +407,7 @@ public class CardView extends AbstractView implements View {
 	 */
 	public void setAllEnabledForBoard() {
 		this.idTextField.setEnabled(true);
-		this.workloadTextField.setEnabled(true);
+		this.sizeTextField.setEnabled(true);
 		this.descriptionTextPane.setEnabled(true);
 		this.rdbtnCreated.setEnabled(true);
 		this.rdbtnDone.setEnabled(true);
@@ -249,9 +415,12 @@ public class CardView extends AbstractView implements View {
 		this.valueComboBox.setEnabled(true);
 		this.blockerToggleButton.setEnabled(true);
 		this.btnSaveAll.setEnabled(true);
-		this.btnResetAll.setEnabled(true);
-		this.btnResetAll.setVisible(true);
+		this.btnDeleteAll.setEnabled(true);
+		this.btnDeleteAll.setVisible(true);
 		this.btnSaveAll.setVisible(true);
+		this.btnResetAll.setVisible(true);
+		this.btnResetAll.setEnabled(true);
+		
 	}
 	
 	/**
@@ -275,7 +444,7 @@ public class CardView extends AbstractView implements View {
 			JOptionPane.showMessageDialog(parent,"Fehlerhafte Eingabe(JRadio/ Value/ Description)!","ERROR!" , JOptionPane.ERROR_MESSAGE);
 			resetAllValues();
 			setJPanelColor();
-			cardController.deleteCardViewValues(Integer.parseInt(idTextField.getText()), Integer.parseInt(workloadTextField.getText()), descriptionTextPane.getText(), valueComboBox.getSelectedIndex(), getBackgroundColor(), blockerToggleButton.isSelected(), getJRadioButton());
+			//cardController.deleteCardViewValues(Integer.parseInt(idTextField.getText()), Integer.parseInt(sizeTextField.getText()), descriptionTextPane.getText(), valueComboBox.getSelectedIndex(), getBackgroundColor(), blockerToggleButton.isSelected(), getJRadioButton());
 
 		}
 	}
@@ -337,40 +506,34 @@ public class CardView extends AbstractView implements View {
 	 * Zurücksetzen aller Attribut-Werte
 	 */
 	public void resetAllValues() {
-		this.idTextField.setText("00");
-		this.workloadTextField.setText("00");
-		this.descriptionTextPane.setText(" ");
+		this.idTextField.setText("");//00
+		this.sizeTextField.setText("");//00
+		this.descriptionTextPane.setText("");//" "
 		this.valueComboBox.setSelectedIndex(0);
 		this.blockerToggleButton.setSelected(false);
-		this.rdbtnCreated.setSelected(false);
-		this.rdbtnStarted.setSelected(false);
-		this.rdbtnDone.setSelected(false);
+		this.buttonGroup.clearSelection();
+
 	}
-	
-	/**
-	 * 
-	 */
-	@Override
-	public void modelPropertyChange(PropertyChangeEvent event) {
-		// TODO Auto-generated method stub
-		
-	}
-	
 	
 	/**
 	 * Setzt das IdTextFeld auf einen bestimmten Wert.
 	 * @param n
-	 */
+	 */ 
 	public void setIdTextField(String n) {
 		this.idTextField.setText(n);	
+		
+	}
+	
+	public String getIdTextField() {
+		return this.idTextField.getText();
 	}
 	
 	/**
 	 * Setzt das WorkloadTextFeld auf einen bestimmten Wert mit Hilfe des übergebenen Strings.
 	 * @param n
 	 */
-	public void setWorkloadTextField(String n) {
-		this.workloadTextField.setText(n);
+	public void setSizeTextField(String n) {
+		this.sizeTextField.setText(n);
 	}
 	
 	/**
@@ -413,6 +576,7 @@ public class CardView extends AbstractView implements View {
 	 * @param d
 	 */
 	public void setJRadioButton(Color b, Calendar c, Calendar s, Calendar d) {
+		this.background = b;
 		if(c != null && s == null && d == null) {
 			this.rdbtnCreated.isSelected();
 		}
@@ -424,4 +588,22 @@ public class CardView extends AbstractView implements View {
 			this.rdbtnDone.isSelected();
 		}
 	}
+	
+	/**
+	 * Set auf den passenden JRadioButton durch den übergebenen Interger-Wert.
+	 * @param i
+	 */
+	public void setOldJRadioButton(int i) {
+		if(i==0){
+			this.rdbtnCreated.setSelected(true);
+		}
+		else if(i==1){
+			this.rdbtnStarted.setSelected(true);
+		}
+		else if(i==2) {
+			this.rdbtnDone.setSelected(true);
+		}
+	}
+	
 }
+
