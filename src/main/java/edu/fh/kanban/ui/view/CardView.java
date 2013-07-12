@@ -38,6 +38,8 @@ import javax.swing.JTextPane;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 
+import org.apache.commons.lang.RandomStringUtils;
+
 import java.awt.SystemColor;
 import java.beans.PropertyChangeEvent;
 import java.util.Calendar;
@@ -64,6 +66,8 @@ public class CardView extends AbstractView implements View {
 	private TitledBorder tb;
 	private JButton btnAddTitel;
 	private JButton btnResetAll;
+	private String id;
+	public static final int  ID_LENGHT = 3;
 	
 	private int oldValue;
 	private boolean oldBlocker;
@@ -124,6 +128,10 @@ public class CardView extends AbstractView implements View {
 		JLabel aufwandLabel = DefaultComponentFactory.getInstance().createLabel("Aufwand:");
 		aufwandLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		add(aufwandLabel, "6, 2, right, default");
+		
+		this.id = RandomStringUtils.randomNumeric(ID_LENGHT);
+		this.setIdTextField(id);
+		this.idTextField.setEnabled(false);
 		
 		this.sizeTextField = new JTextField();
 		add(this.sizeTextField, "8, 2, fill, fill");
@@ -191,6 +199,9 @@ public class CardView extends AbstractView implements View {
 		
 		this.btnSaveAll = new JButton("Save");
 		add(this.btnSaveAll, "6, 12, fill, fill");
+		if(getCardTitel().isEmpty()==true) {
+			this.btnSaveAll.setEnabled(false);
+		}
 		
 		this.btnSaveAll.addActionListener(new ActionListener()  {
 			public void actionPerformed(ActionEvent e) {
@@ -217,6 +228,9 @@ public class CardView extends AbstractView implements View {
 		
 		this.btnResetAll = new JButton("Reset");
 		add(this.btnResetAll, "10, 12");
+		if(getCardTitel().isEmpty()==true) {
+			this.btnResetAll.setEnabled(false);
+		}
 		
 		this.btnResetAll.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -251,6 +265,7 @@ public class CardView extends AbstractView implements View {
 	private void btnTitelActionPerformed(ActionEvent e) {
 		this.cardTitel = JOptionPane.showInputDialog("Eingabe des Titels:",this.cardTitel);
 		setCardTitel(cardTitel);
+		this.btnSaveAll.setEnabled(true);
 	}
 	/**
 	 * Ursprungszustand (beim ersten Anlegen) wird gespeichert um die Möglichkeit zu haben auf diesen Zustand zurücksetzen zu können.
@@ -266,12 +281,13 @@ public class CardView extends AbstractView implements View {
 		
 		}
 		else {
-			if(count <= 0) {
+			if(count <= 0) { //Integer.parseInt(idTextField.getText())
 				saveAllOldValues(Integer.parseInt(idTextField.getText()), Integer.parseInt(sizeTextField.getText()), descriptionTextPane.getText(), valueComboBox.getSelectedIndex(), getBackgroundColor(), blockerToggleButton.isSelected(), getJRadioButton());count+=1;
 			}
 			cardController.changeCardViewValues(Integer.parseInt(idTextField.getText()), Integer.parseInt(sizeTextField.getText()), descriptionTextPane.getText(), valueComboBox.getSelectedIndex(), getBackgroundColor(), blockerToggleButton.isSelected(), getJRadioButton());
 			setJPanelColor();
-		 }	
+			this.btnResetAll.setEnabled(true);
+		 }
 	}
 	
 	/**
@@ -342,17 +358,7 @@ public class CardView extends AbstractView implements View {
 	 * @param oldBlocker
 	 * @param oldJRadio
 	 */
-	
-	/**
-	 * Setzt die beim Erstellen gespeicherten Werte passend in die Gui ein.
-	 * @param oldCardId
-	 * @param oldWorkload
-	 * @param oldDescription
-	 * @param oldValue
-	 * @param oldbackColor
-	 * @param oldBlocker
-	 * @param oldJRadio
-	 */
+
 	public void saveAllOldValues(int oldCardId, int oldWorkload, String oldDescription, int oldValue, Color oldbackColor, boolean oldBlocker, int oldJRadio) {
 	
 		this.oldCardId = oldCardId;
@@ -406,7 +412,7 @@ public class CardView extends AbstractView implements View {
 	 * Um alle Felder und Bottons für die Bearbeitung auf dem Board freizugeben.
 	 */
 	public void setAllEnabledForBoard() {
-		this.idTextField.setEnabled(true);
+		//this.idTextField.setEnabled(true);
 		this.sizeTextField.setEnabled(true);
 		this.descriptionTextPane.setEnabled(true);
 		this.rdbtnCreated.setEnabled(true);
@@ -506,7 +512,7 @@ public class CardView extends AbstractView implements View {
 	 * Zurücksetzen aller Attribut-Werte
 	 */
 	public void resetAllValues() {
-		this.idTextField.setText("");//00
+		//this.idTextField.setText("");//00
 		this.sizeTextField.setText("");//00
 		this.descriptionTextPane.setText("");//" "
 		this.valueComboBox.setSelectedIndex(0);
@@ -519,8 +525,9 @@ public class CardView extends AbstractView implements View {
 	 * Setzt das IdTextFeld auf einen bestimmten Wert.
 	 * @param n
 	 */ 
-	public void setIdTextField(String n) {
+	public String setIdTextField(String n) {
 		this.idTextField.setText(n);	
+		return idTextField.getText();
 		
 	}
 	

@@ -8,7 +8,7 @@ import java.util.Date;
 
 import edu.fh.kanban.ui.controller.CardController;
 
-public class Card extends AbstractModel{
+public class Card extends AbstractModel {
 	
 	private int id;
 	private int value;

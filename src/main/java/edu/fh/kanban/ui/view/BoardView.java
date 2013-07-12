@@ -97,6 +97,7 @@ public class BoardView extends JPanel implements View{
 				Card card = iCard.next();
 				CardView cardView = new CardView(cardController);
 				cardView.setIdTextField(String.valueOf(card.getId()));
+				cardView.setCardTitel(card.getHeadline());
 				//cardView.setValueComboBox(card.getValue());
 				//cardView.setJRadioButton(null, null, null, null);
 				cardView.setSizeTextField(String.valueOf(card.getSize()));
