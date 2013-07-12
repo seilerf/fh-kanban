@@ -30,21 +30,13 @@ public class HTMLExport {
 		try {
 			builder = dbfactory.newDocumentBuilder();
 		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
  
 		Document doc = builder.newDocument();
 		DOMSource source = new DOMSource(doc);
  
-		Element html = doc.createElement("html");
-		Element head = doc.createElement("head");
-		Element title = doc.createElement("title");
-		title.setTextContent(board.getName());
-		Element body = doc.createElement("body");
-		Element h1 = doc.createElement("h1");
-		Element table = doc.createElement("table");
-		
+		// Algorithmus für die Berechnung der Anzahl Zeilen, die die Tabelle besitzen soll
 		int maxRows = 0;
 		for(Iterator<Column> colIterator = board.getColumnList().iterator(); colIterator.hasNext();){
 			Column column = colIterator.next();
@@ -52,62 +44,90 @@ public class HTMLExport {
 				maxRows = column.getCards().size();
 		}
 		
+		Element html = doc.createElement("html");
+		Element head = doc.createElement("head");
+		// Titel des HTML-Dokuments
+		Element title = doc.createElement("title");
+		title.setTextContent(board.getName());
+		
+		Element body = doc.createElement("body");
+		body.setAttribute("style", "font-family:calibri, sans-serif;");
+		// Überschrift und Trennung dieser vom Inhalt mit einer horizontalen Linie
+		Element h1 = doc.createElement("h1");
+		h1.setAttribute("style", "margin-left: 50px");
+ 		h1.setTextContent("Boardname: " + board.getName());
+		Element hr = doc.createElement("hr");
+		// Tabelle für den Inhalt des Boards
+		Element table = doc.createElement("table");
 		table.setAttribute("rows", String.valueOf(maxRows));
 		table.setAttribute("cols", String.valueOf(board.getColumnList().size()));
-		table.setAttribute("style", "border:1px solid lightgrey; ");
-		//Element tr = doc.createElement("tr");
-		//Element th = doc.createElement("th");
-		//Element td = doc.createElement("td");
-		Element hr = doc.createElement("hr");
+		table.setAttribute("style", "border:1px solid lightgrey; margin-left: 50px; margin-top: 20px;");
+		// Zeile für die Spaltenüberschriften
+		Element headerRow = doc.createElement("tr");
+		// "Normale" Tabellenzeile für die Kartenelemente
+		Element tr = doc.createElement("tr");
 		
+		// Aufbau der Hierarchie des Dokuments
 		doc.appendChild(html);
  		html.appendChild(head);
  		head.appendChild(title);
  		html.appendChild(body);
- 		
  		body.appendChild(h1);
  		body.appendChild(hr);
- 		body.appendChild(table);
- 		
- 		Element headerRow = doc.createElement("tr");
+		body.appendChild(table);
  		table.appendChild(headerRow);
  		
+ 		// Spaltenüberschriften erstellen 
  		for(Iterator<Column> colIterator = board.getColumnList().iterator(); colIterator.hasNext();){
  			Column column = colIterator.next();
  			Element th = doc.createElement("th");
+ 			th.setAttribute("style", "text-align: center; font-size: 1.5em");
  			th.setTextContent(column.getName());
  			headerRow.appendChild(th);
  		}
- 		
- 		Element tr = doc.createElement("tr");
+
  		table.appendChild(tr);
+ 		// Auslesen der Karten jeder Spalte
  		for (Iterator<Column> colIterator = board.getColumnList().iterator(); colIterator.hasNext();){
  			Column column = colIterator.next();
  			Element td = doc.createElement("td");
  			td.setAttribute("padding", "3px");
  			Element ul = doc.createElement("ul");
+ 			ul.setAttribute("style", "list-style-type:none");
  			td.appendChild(ul);
  			if (column.getCards() != null){
+ 				// Für jede Karte wird ein Listenelement angelegt, das dann weitere Details der Karte enthält
  				for(Iterator<Card> cardIterator = column.getCards().iterator(); cardIterator.hasNext();){
  					Card card = cardIterator.next();
  					Element li = doc.createElement("li");
- 					li.setAttribute("style", "padding: 3px; background-color: rgb(" 
+ 					li.setAttribute("style", "padding: 3px; text-align: center; font-weight: bold; background-color: rgb(" 
  							+ card.getBackGround().getRed() + ","
  							+ card.getBackGround().getGreen() + ","
  							+ card.getBackGround().getBlue() + ")");
- 					li.setTextContent(card.getHeadline());
- 					td.appendChild(li);
+ 					li.setTextContent(card.getHeadline() + "\n");
+ 					ul.appendChild(li);
+ 					
  					Element div = doc.createElement("div");
- 					div.setAttribute("style", "max-width: 200px");
- 					div.setTextContent("Beschreibung: " + card.getDescription());
+ 					div.setAttribute("style", "max-width: 300px; text-align: left; font-weight: normal; border: 1px dotted black");
+ 					Element cardUl = doc.createElement("ul");
+ 					cardUl.setAttribute("style", "list-style-type: none; background-color: white");
+ 					Element descriptionLi = doc.createElement("li");
+ 					descriptionLi.setTextContent("Beschreibung: " + card.getDescription());
+ 					Element workloadLi = doc.createElement("li");
+ 					workloadLi.setTextContent("Workload: " + String.valueOf(card.getWorkload()));
+ 					
  					li.appendChild(div);
+ 					div.appendChild(cardUl);
+ 					cardUl.appendChild(descriptionLi);
+ 					cardUl.appendChild(workloadLi);
+ 					
+ 					ul.appendChild(doc.createElement("br"));
  				}
  			}
  			tr.appendChild(td);
  		}
- 		
- 		h1.setTextContent("Boardname: " + board.getName());
  
+ 		// Ausgabe des HTML-Codes in die übergebene Datei
 		StreamResult result = new StreamResult(file);
 		System.out.println("File saved!");
  
@@ -117,13 +137,10 @@ public class HTMLExport {
 		//	transformer.setOutputProperty(OutputKeys.DOCTYPE_PUBLIC);
 			transformer.transform(source, result);
 		} catch (TransformerConfigurationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (TransformerFactoryConfigurationError e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (TransformerException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
