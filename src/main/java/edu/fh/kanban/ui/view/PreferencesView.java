@@ -345,10 +345,26 @@ public class PreferencesView extends JMenuItem implements View {
        /**
         * Auswahl der Spalte mit Listener gibt die auswahl an setter Methode weiter 
         */
-       
-        String[] lang = {
-  		      "Next", "Development", "Test", "Done"
-  		    };
+        Board board=DataManager.getBoard();
+        LinkedList<Column> columnList= board.getColumnList();
+        // board=dm.getBoard();
+        
+        
+        //Die BoardSpalten aus dem Board auslesen
+        
+         Iterator<Column> icolumn = columnList.iterator();
+        String[] lang ;
+        lang = new String[4];
+         int i=0;
+       while (icolumn.hasNext())
+         {
+    	   Column column = (Column) icolumn.next();
+			String spaltname = column.getName();
+			
+         lang[i] = spaltname;
+        i++;
+  		    
+         }
         
         final JComboBox combo1 = new JComboBox();
 		   for ( String s : lang )
@@ -480,7 +496,6 @@ public class PreferencesView extends JMenuItem implements View {
         gbc_d.gridy = 9;
         frame.getContentPane().add(builder2.getPanel(),gbc_d);
         
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(330, 500);
         frame.setLocationByPlatform(true);
         frame.setVisible(true);
@@ -538,10 +553,12 @@ public class PreferencesView extends JMenuItem implements View {
        	 Column column = (Column) icolumn.next();
 			String name = column.getName();
 			
-			System.out.println(name);
-			System.out.println(getselectedColumn());
+			String ausgewähltespalte = getselectedColumn() ;
 			
-			if(getselectedColumn() == column.getName());
+			System.out.println(name);
+			System.out.println(ausgewähltespalte);
+			
+			if (ausgewähltespalte.equals(name))
 			{	
 				
 				System.out.println("hat gefunden unter dem namen");
@@ -553,6 +570,9 @@ public class PreferencesView extends JMenuItem implements View {
 
 				
 			}
+				
+			
+
 			
         }
         
