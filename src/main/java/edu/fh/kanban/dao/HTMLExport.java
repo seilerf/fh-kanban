@@ -87,6 +87,7 @@ public class HTMLExport {
  		}
 
  		table.appendChild(tr);
+ 		String tdWidth = "100px";
  		// Auslesen der Karten jeder Spalte
  		for (Iterator<Column> colIterator = board.getColumnList().iterator(); colIterator.hasNext();){
  			Column column = colIterator.next();
@@ -109,17 +110,51 @@ public class HTMLExport {
  					
  					Element div = doc.createElement("div");
  					div.setAttribute("style", "max-width: 300px; text-align: left; font-weight: normal; border: 1px dotted black");
- 					Element cardUl = doc.createElement("ul");
- 					cardUl.setAttribute("style", "list-style-type: none; background-color: white");
- 					Element descriptionLi = doc.createElement("li");
- 					descriptionLi.setTextContent("Beschreibung: " + card.getDescription());
- 					Element workloadLi = doc.createElement("li");
- 					workloadLi.setTextContent("Workload: " + String.valueOf(card.getWorkload()));
+ 					Element cardTable = doc.createElement("table");
+ 					Element cardTableFirstRow = doc.createElement("tr");
+ 					Element cardTableSecondRow = doc.createElement("tr");
+ 					Element cardTableThirdRow = doc.createElement("tr");
+ 					Element cardID = doc.createElement("td");
+ 					cardID.setAttribute("style", "width: " + tdWidth);
+ 					cardID.setTextContent("ID: " + String.valueOf(card.getId()));
+ 					Element cardBlocker = doc.createElement("td");
+ 					if (card.getBlocker())
+ 						cardBlocker.setAttribute("style", "text-align: center; background-color: red; width: " + tdWidth);
+ 					else
+ 						cardBlocker.setAttribute("style", "text-align: center; background-color: green; width: " + tdWidth);
+ 					cardBlocker.setTextContent(" ");
+ 					Element cardWorkload = doc.createElement("td");
+ 					cardWorkload.setAttribute("style", "text-align: right; width: " + tdWidth);
+ 					cardWorkload.setTextContent("Aufwand: " + String.valueOf(card.getWorkload()));
+ 					Element cardValue = doc.createElement("td");
+ 					cardValue.setTextContent(String.valueOf("Wert: " + card.getValue()));
+ 					Element cardDescription = doc.createElement("td");
+ 					cardDescription.setAttribute("style", "max-width: 300px");
+ 					cardDescription.setAttribute("colspan", "3");
+ 					cardDescription.setTextContent("Beschreibung: " + card.getDescription());
+ 					Element cardCreated = doc.createElement("td");
+ 					cardCreated.setAttribute("style", "width: " + tdWidth);
+ 					cardCreated.setTextContent("11.07.2013");
+ 					Element cardStarted = doc.createElement("td");
+ 					cardStarted.setAttribute("style", "text-align: center; width: " + tdWidth);
+ 					Element cardDone = doc.createElement("td");
+ 					cardDone.setAttribute("style", "text-align: center; width: " + tdWidth);
  					
  					li.appendChild(div);
- 					div.appendChild(cardUl);
- 					cardUl.appendChild(descriptionLi);
- 					cardUl.appendChild(workloadLi);
+ 					div.appendChild(cardTable);
+ 					
+ 					cardTable.appendChild(cardTableFirstRow);
+ 					cardTableFirstRow.appendChild(cardID);
+ 					cardTableFirstRow.appendChild(cardBlocker);
+ 					cardTableFirstRow.appendChild(cardWorkload);
+ 					
+ 					cardTable.appendChild(cardTableSecondRow);
+ 					cardTableSecondRow.appendChild(cardDescription);
+ 					
+ 					cardTable.appendChild(cardTableThirdRow);
+ 					cardTableThirdRow.appendChild(cardCreated);
+ 					cardTableThirdRow.appendChild(cardStarted);
+ 					cardTableThirdRow.appendChild(cardDone);
  					
  					ul.appendChild(doc.createElement("br"));
  				}
