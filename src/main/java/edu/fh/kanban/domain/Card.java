@@ -22,8 +22,7 @@ public class Card extends AbstractModel {
 	private String headline;
 	private Color backGround;
 	
-																												// Date created, Date started, Date done
-																												// this.created = created; this.started = started; this.done = done;
+																												
 	public Card(int id, int value, String description, boolean blocker, int size, String headline, Color backGround, Date created, Date started, Date done) {
 		this.id = id;
 		this.value = value;
@@ -37,63 +36,14 @@ public class Card extends AbstractModel {
 		this.done = done;
 	}
 
-
+	//Getter Headline
 	public String getHeadline() {
 		return headline;
 	}
-
+	
+	//Setter Headline
 	public void setHeadline(String headline) {
 		this.headline = headline;
-	}
-
-	/**
-	 * Setzt das CardId-Attribut auf Null.
-	 */
-	public void cardIdReset() {
-		this.id = 0;
-	}
-	
-	/**
-	 * Setzt das Beschreibung-Attribut auf Null.
-	 */
-	public void beschreibungReset() {
-		this.description = "";
-	}
-	
-	/**
-	 * Setzt das Aufwand-Attribut auf Null.
-	 */
-	public void aufwandReset() {
-		this.value = 0;
-	}
-	
-	/**
-	 * Setzt das Wert-Attribut auf Null.
-	 */
-	public void valueReset() {
-		this.value = 0;
-	}
-	
-	
-	/**
-	 * Setzt das Started-Attribut auf Null.
-	 */
-	public void startedReset() {
-		this.started = null;
-	}
-	
-	/**
-	 * Setzt das Created-Attribut auf Null.
-	 */
-	public void createdReset() {
-		this.created = null;
-	}
-	
-	/**
-	 * Setzt das Done-Attribut auf Null.
-	 */
-	public void doneReset() {
-		this.done = null;
 	}
 	
 	
@@ -146,12 +96,6 @@ public class Card extends AbstractModel {
 	}
 	
 	
-	/**
-	 * Setzt das Blocker-Attribut auf False.
-	 */
-	public void blockerReset() {
-		this.blocker = false;
-	}
 	/**
 	 * Setter für das BackGround-Attribut.
 	 * @return

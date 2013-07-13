@@ -86,7 +86,6 @@ public class CardView extends AbstractView implements View {
 	public CardView(CardController cardController, PreferencesView prefView) {
 		this.cardController = cardController;
 		this.prefView = prefView;
-		prefView.setVisible(false);
 		
 		
 		setBackground(SystemColor.menu);

@@ -39,7 +39,6 @@ public class BoardView extends JPanel implements View{
 	public BoardView(Board board, CardController cardController, PreferencesView prefView){
 		
 		this.prefView = prefView;
-		prefView.setVisible(false);
 		
 		this.cardController = cardController;
 		//Aufbau des Boards mit der Anzahl Spalten, die für die Darstellung notwendig sind;
