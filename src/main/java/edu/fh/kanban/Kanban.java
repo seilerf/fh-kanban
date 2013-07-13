@@ -5,6 +5,7 @@ import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.text.ParseException;
 import java.util.logging.Logger;
 
 import javax.swing.JFrame;
@@ -33,7 +34,7 @@ public class Kanban {
 	static Logger LOGGER = Logger.getLogger(Kanban.class.getName());
 
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ParseException {
 		
 		LOGGER.info("Starting kanban app.");
 		
@@ -73,7 +74,7 @@ public class Kanban {
 		//Views erstellen
 		
 
-		Card emptycard = new Card(0, 0, null, false, 0, null, null);
+		Card emptycard = new Card(0, 0, null, false, 0, null, null, null, null, null);
 		CardController cardcontroller = new CardController();
 		cardcontroller.addModel(emptycard);
 		final CardView cardView = new CardView(cardcontroller);
@@ -98,7 +99,12 @@ public class Kanban {
 		filemenu.add(openMenu);
 		openMenu.addActionListener(new ActionListener () {
 			public void actionPerformed(ActionEvent e) {
-				dm.openFile(new OpenFileDialog().openFile());
+				try {
+					dm.openFile(new OpenFileDialog().openFile());
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				//Update BoardView
 			}
 		});
@@ -117,7 +123,7 @@ public class Kanban {
 			public void actionPerformed(ActionEvent e) {
 				JFrame frame2 = new JFrame();
 				frame2.add(cardView);
-				frame2.setSize(410,240);
+				frame2.setSize(420,250);
 				frame2.setVisible(true);
 			}
 		}); 

@@ -3,6 +3,9 @@ package edu.fh.kanban.dao;
 import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -28,7 +31,7 @@ import edu.fh.kanban.domain.Column;
 public class XMLParser{
 	
 	//Methode, die eine XML-Datei verarbeitet und in den Speicher liest
-	public Board readBoardFromXML(File xmlFile){
+	public Board readBoardFromXML(File xmlFile) throws ParseException {
 
         Document xmlDoc = null;
         Board board = new Board();
@@ -55,7 +58,7 @@ public class XMLParser{
     }
 	
 	//Methode, um Spalten eines Boards aus einer XML-Datei auszulesen
-	private LinkedList<Column> readColumnsFromXML(Element root, Board board) {
+	private LinkedList<Column> readColumnsFromXML(Element root, Board board) throws ParseException {
 	
 		// Eine Liste aller Spalten erstellen
 		List<Element> columns = (List<Element>) root.getChildren();
@@ -84,28 +87,53 @@ public class XMLParser{
 	
 	//Methode, um Karten, die einer Spalte angehören, in eine Datenstruktur zu schreiben 
 	private LinkedList<Card> readCardsFromXML(Element column) {
-		
+		Date created = null;
+		Date started=null;
+		Date done=null;
     	// Alle Karten innerhalb einer Spalte in eine Liste lesen
 		LinkedList<Card> cardList = new LinkedList<Card>();
     	for (int i = 0; i < column.getChildren().size(); i++){
+    		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
     		
     		int id = Integer.valueOf(column.getChildren().get(i).getAttributeValue("id"));
-    		int workload = Integer.valueOf(column.getChildren().get(i).getAttributeValue("workload"));
+    		//int workload = Integer.valueOf(column.getChildren().get(i).getAttributeValue("workload"));
     		int value = Integer.valueOf(column.getChildren().get(i).getAttributeValue("value"));
     		String description = column.getChildren().get(i).getAttributeValue("description");
     		boolean blocker = Boolean.valueOf(column.getChildren().get(i).getAttributeValue("blocker"));
     		int size = Integer.valueOf(column.getChildren().get(i).getAttributeValue("size"));
     		String headline = column.getChildren().get(i).getAttributeValue("headline");
+    		
     		int rgb = 0;
-    		Color backGround;
+    		Color backGround=null;
     		if (column.getChildren().get(i).getAttributeValue("backGround") != ""){
     			rgb = Integer.valueOf(column.getChildren().get(i).getAttributeValue("backGround"));
-    			backGround = new Color(rgb);
-    		} else
+    			if(rgb == 1) {
+    				backGround = Color.blue;
+    			}
+    			if(rgb == 2) {
+    				backGround = Color.orange;
+    			}
+    			if(rgb == 3) {
+    				backGround = Color.red;
+    			}
+    			if(rgb == 4) {
+    				backGround = Color.green;
+    			}
+    		} else {
     			// Wenn keine Farbe in der XML-Datei hinterlegt ist, wird die Karte mit einem leicht grauen Hintergrund versehen
     			backGround = Color.LIGHT_GRAY;
+    			}
     		
-    		cardList.add(new Card(id, value, description, blocker, size, headline, backGround));
+ 
+ 
+    		//String startDate = sdf.format(column.getChildren().get(i).getAttributeValue("started"));
+    		 //= sdf.parse(startDate);
+    		//String doneDate = sdf.format(column.getChildren().get(i).getAttributeValue("started"));
+    		 //= sdf.parse(doneDate);
+    	cardList.add(new Card(id, value, description, blocker, size, headline, backGround, created, started, done));
+    		
+    		
+    		
     	}
     	
     	if (cardList.isEmpty())
@@ -146,15 +174,15 @@ public class XMLParser{
 						// Kartenelemente
 						org.w3c.dom.Element xmlCard = xmlDoc.createElement("Card");
 						xmlCard.setAttribute("id", String.valueOf(card.getId()));
-						xmlCard.setAttribute("workload", String.valueOf(card.getSize()));
+						//xmlCard.setAttribute("workload", String.valueOf(card.getSize()));
 						xmlCard.setAttribute("value", String.valueOf(card.getValue()));
 						xmlCard.setAttribute("headline", card.getHeadline());
 						xmlCard.setAttribute("description", card.getDescription());
 						xmlCard.setAttribute("blocker", String.valueOf(card.getBlocker()));
 						xmlCard.setAttribute("backGround", String.valueOf(card.getBackGround().getRGB()));
-						xmlCard.setAttribute("created", "1");
-						xmlCard.setAttribute("started", "1");
-						xmlCard.setAttribute("done", "1");
+						xmlCard.setAttribute("created", String.valueOf(card.getCreated()));//"1"
+						xmlCard.setAttribute("started", String.valueOf(card.getStarted()) );//"1"
+						xmlCard.setAttribute("done", String.valueOf(card.getDone()));//"1"
 						xmlCard.setAttribute("size", String.valueOf(card.getSize()));	
 						columnElement.appendChild(xmlCard);
 					}

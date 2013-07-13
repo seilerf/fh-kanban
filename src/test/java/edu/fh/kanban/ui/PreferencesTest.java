@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.File;
+import java.text.ParseException;
 import java.util.Iterator;
 
 import javax.swing.JButton;
@@ -29,7 +30,7 @@ import edu.fh.kanban.domain.ColorBox;
 
 public class PreferencesTest {
 	
-	public static void main(String[] args){
+	public static void main(String[] args) throws ParseException{
 		
 final DataManager dm = new DataManager();
 		

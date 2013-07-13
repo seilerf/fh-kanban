@@ -1,6 +1,7 @@
 package edu.fh.kanban.dao;
 
 import java.io.File;
+import java.text.ParseException;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -16,7 +17,7 @@ public class DataManager {
 				
 	}
 	
-	public void openFile(File file) {
+	public void openFile(File file) throws ParseException {
 		if (file.getPath().endsWith(".xml")) {
 			this.importFromXML(file);
 		}
@@ -33,7 +34,7 @@ public class DataManager {
 		}
 	}
 	
-	public void importFromXML(File xmlFile) {
+	public void importFromXML(File xmlFile) throws ParseException {
 		//xmlFile = new File("board.xml");
 		
 		XMLParser xmlParser = new XMLParser();

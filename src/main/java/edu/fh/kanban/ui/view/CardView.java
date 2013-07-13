@@ -43,6 +43,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import java.awt.SystemColor;
 import java.beans.PropertyChangeEvent;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -102,7 +103,7 @@ public class CardView extends AbstractView implements View {
 				FormFactory.RELATED_GAP_COLSPEC,
 				ColumnSpec.decode("max(1dlu;default)"),},
 			new RowSpec[] {
-				FormFactory.RELATED_GAP_ROWSPEC,
+				RowSpec.decode("6dlu"),
 				RowSpec.decode("max(15dlu;default)"),
 				FormFactory.RELATED_GAP_ROWSPEC,
 				RowSpec.decode("max(15dlu;default)"),
@@ -142,7 +143,7 @@ public class CardView extends AbstractView implements View {
 		add(wertLabel, "2, 4, right, default");
 		
 		this.valueComboBox = new JComboBox();
-		this.valueComboBox.setToolTipText("1: Blau = Intangible\r\n2: Orange = Standard\r\n3: Rot = Expedite\r\n4: Grün = Fixed date\r\n");
+		this.valueComboBox.setToolTipText("1:Blau = Intangible|\r\n 2:Orange = Standard|\r\n 3:Rot = Expedite|\r\n 4:Grün = Fixed date\r\n");
 		this.valueComboBox.setModel(new DefaultComboBoxModel(new String[] {"Wähle aus", "1: Blau", "2: Orange", "3: Rot", "4: Grün"}));
 		add(this.valueComboBox, "4, 4, fill, default");
 		
@@ -281,7 +282,7 @@ public class CardView extends AbstractView implements View {
 		
 		}
 		else {
-			if(count <= 0) { //Integer.parseInt(idTextField.getText())
+			if(count <= 0) { 
 				saveAllOldValues(Integer.parseInt(idTextField.getText()), Integer.parseInt(sizeTextField.getText()), descriptionTextPane.getText(), valueComboBox.getSelectedIndex(), getBackgroundColor(), blockerToggleButton.isSelected(), getJRadioButton());count+=1;
 			}
 			cardController.changeCardViewValues(Integer.parseInt(idTextField.getText()), Integer.parseInt(sizeTextField.getText()), descriptionTextPane.getText(), valueComboBox.getSelectedIndex(), getBackgroundColor(), blockerToggleButton.isSelected(), getJRadioButton());
@@ -412,7 +413,6 @@ public class CardView extends AbstractView implements View {
 	 * Um alle Felder und Bottons für die Bearbeitung auf dem Board freizugeben.
 	 */
 	public void setAllEnabledForBoard() {
-		//this.idTextField.setEnabled(true);
 		this.sizeTextField.setEnabled(true);
 		this.descriptionTextPane.setEnabled(true);
 		this.rdbtnCreated.setEnabled(true);
@@ -450,7 +450,7 @@ public class CardView extends AbstractView implements View {
 			JOptionPane.showMessageDialog(parent,"Fehlerhafte Eingabe(JRadio/ Value/ Description)!","ERROR!" , JOptionPane.ERROR_MESSAGE);
 			resetAllValues();
 			setJPanelColor();
-			//cardController.deleteCardViewValues(Integer.parseInt(idTextField.getText()), Integer.parseInt(sizeTextField.getText()), descriptionTextPane.getText(), valueComboBox.getSelectedIndex(), getBackgroundColor(), blockerToggleButton.isSelected(), getJRadioButton());
+			//cardController.deleteCardViewValues(Integer.parseInt(idTextField.getText()), Integer.parseInt(sizeTextField.getText()), descriptionTextPane.getText(), valueComboBox.getSelectedIndex(), getBackgroundColor(), blockerToggleButton.isSelected(), RadioButton());
 
 		}
 	}
@@ -463,6 +463,7 @@ public class CardView extends AbstractView implements View {
 	 */
 	public void setJPanelColor(){
 		int x = this.valueComboBox.getSelectedIndex();
+
 		if(x == 0||x==-1) {
 			this.background = Color.LIGHT_GRAY;
 		}
@@ -512,9 +513,8 @@ public class CardView extends AbstractView implements View {
 	 * Zurücksetzen aller Attribut-Werte
 	 */
 	public void resetAllValues() {
-		//this.idTextField.setText("");//00
-		this.sizeTextField.setText("");//00
-		this.descriptionTextPane.setText("");//" "
+		this.sizeTextField.setText("");
+		this.descriptionTextPane.setText("");
 		this.valueComboBox.setSelectedIndex(0);
 		this.blockerToggleButton.setSelected(false);
 		this.buttonGroup.clearSelection();
@@ -577,12 +577,12 @@ public class CardView extends AbstractView implements View {
 	}
 	
 	/**
-	 * Setzt mit Hilfe der übergebenen Calender Daten die Auswahl auf den passenden JRadioButton.
+	 * Setzt mit Hilfe der übergebenen Daten die Auswahl auf den passenden JRadioButton.
 	 * @param c
 	 * @param s
 	 * @param d
 	 */
-	public void setJRadioButton(Color b, Calendar c, Calendar s, Calendar d) {
+	public void setJRadioButton(Color b, Date c, Date s, Date d) {
 		this.background = b;
 		if(c != null && s == null && d == null) {
 			this.rdbtnCreated.isSelected();

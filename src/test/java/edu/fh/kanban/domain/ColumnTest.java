@@ -32,7 +32,7 @@ public class ColumnTest {
 		this.cardList = new LinkedList<Card>();
 		
 		for (int i = 1; i < 5; i++)
-			this.cardList.add(new Card(2, 5, "Kartenbeschreibung", true, 2, "Karte "+i, Color.BLUE));
+			this.cardList.add(new Card(2, 5, "Kartenbeschreibung", true, 2, "Karte "+i, Color.BLUE, null, null, null));
 		
 		this.column = new Column(colName, limit, cardList);
 		

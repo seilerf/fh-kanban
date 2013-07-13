@@ -2,6 +2,7 @@ package edu.fh.kanban.domain;
 
 import java.awt.Color;
 import java.awt.SystemColor;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -14,16 +15,16 @@ public class Card extends AbstractModel {
 	private int value;
 	private String description;
 	private boolean blocker;
-	private Calendar created;
-	private Calendar started;
-	private Calendar done;
+	private Date created;
+	private Date started;
+	private Date done;
 	private int size;
 	private String headline;
 	private Color backGround;
 	
-		
-	public Card(int id, int value, String description,
-			boolean blocker, int size, String headline, Color backGround) {
+																												// Date created, Date started, Date done
+																												// this.created = created; this.started = started; this.done = done;
+	public Card(int id, int value, String description, boolean blocker, int size, String headline, Color backGround, Date created, Date started, Date done) {
 		this.id = id;
 		this.value = value;
 		this.description = description;
@@ -31,6 +32,9 @@ public class Card extends AbstractModel {
 		this.size = size;
 		this.headline = headline;
 		this.backGround = backGround;
+		this.created = created;
+		this.started = started;
+		this.done = done;
 	}
 
 
@@ -141,10 +145,6 @@ public class Card extends AbstractModel {
 		
 	}
 	
-	//Getter Erstellungsdatum
-	public Calendar getCreated() {
-		return created.getInstance();
-	}
 	
 	/**
 	 * Setzt das Blocker-Attribut auf False.
@@ -163,23 +163,20 @@ public class Card extends AbstractModel {
 		System.out.println("Mein neuer Background:" + this.getBackGround());
 	}
 	
-	public void setDate(Integer i) {
+	public void setDate(Integer i) throws ParseException {
 		if(i==0) {
-			Calendar oldCalendarCreated = this.created;
-			this.created.getInstance();
+			Date oldCalendarCreated = setCreated();
 			firePropertyChange(CardController.JRADIOBUTTON_PROPERTY,oldCalendarCreated,started);
 			System.out.println("Mein neues Started-Datum:" + this.getCreated());
 			
 		}
 		if(i==1) {
-			Calendar oldCalendarStarted = this.started;
-			this.started.getInstance();
+			Date oldCalendarStarted = setStarted();
 			firePropertyChange(CardController.JRADIOBUTTON_PROPERTY,oldCalendarStarted,started);
 			System.out.println("Mein neues Started-Datum:" + this.getStarted());
 		}
 		if(i==2) {
-			Calendar oldCalendarDone = this.done;
-			this.done.getInstance();
+			Date oldCalendarDone = setDone();
 			firePropertyChange(CardController.JRADIOBUTTON_PROPERTY,oldCalendarDone,done);
 			System.out.println("Mein neues Done-Datum:" + this.getDone());
 		}
@@ -192,14 +189,38 @@ public class Card extends AbstractModel {
 	public Color getBackGround() {
 		return this.backGround;
 	}
-	//Getter Startdatum
-	public Calendar getStarted() {
-		return started.getInstance();
+	//Getter Erstellungsdatum
+	public Date getCreated() {
+			return created;
 	}
-	
+	//Setter Erstellungsdatum
+	public Date setStarted() throws ParseException {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+		String date = sdf.format(new Date());
+		this.started = sdf.parse(date);
+		return started;
+	}
+	//Getter Startdatum
+	public Date getStarted() {
+		return started;
+	}
+	//Setter Startdatum
+	public Date setCreated() throws ParseException {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+		String date = sdf.format(new Date());
+		this.created = sdf.parse(date);
+		return created;
+	}
 	//Getter Datum der Fertigstellung
-	public Calendar getDone() {
-		return done.getInstance();
+	public Date getDone() {
+		return done;
+	}
+	//Setter Datum der Fertigstellung
+	public Date setDone() throws ParseException {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+		String date = sdf.format(new Date());
+		this.done = sdf.parse(date);
+		return done;
 	}
 	
 	public boolean getBlocker() {
