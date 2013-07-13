@@ -49,6 +49,7 @@ import java.util.LinkedList;
 
 public class CardView extends AbstractView implements View {
 	private CardController cardController;
+	private PreferencesView prefView;
 	private JTextField idTextField;
 	private JTextField sizeTextField;
 	private JToggleButton blockerToggleButton;
@@ -82,8 +83,10 @@ public class CardView extends AbstractView implements View {
 	/**
 	 * Create the panel.
 	 */
-	public CardView(CardController cardController) {
+	public CardView(CardController cardController, PreferencesView prefView) {
 		this.cardController = cardController;
+		this.prefView = prefView;
+		prefView.setVisible(false);
 		
 		
 		setBackground(SystemColor.menu);
@@ -468,16 +471,16 @@ public class CardView extends AbstractView implements View {
 			this.background = Color.LIGHT_GRAY;
 		}
 		if(x == 1) {
-			this.background = Color.blue;
+			this.background = prefView.getSelectedColorFromBox4();//Color.blue
 		}
 		if(x == 2) {
-			this.background = Color.orange;
+			this.background = prefView.getSelectedColorFromBox1();//Color.orange;
 		}
 		if(x == 3) {
-			this.background = Color.red;
+			this.background = prefView.getSelectedColorFromBox2();//Color.red;
 		}
 		if(x == 4) {
-			this.background = Color.green;
+			this.background = prefView.getSelectedColorFromBox3();//Color.green;
 		}
 		this.setBackground(background);
 		this.rdbtnCreated.setBackground(background);

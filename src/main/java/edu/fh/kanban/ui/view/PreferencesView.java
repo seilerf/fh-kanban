@@ -62,9 +62,14 @@ public class PreferencesView extends JMenuItem implements View {
 	LinkedList<Column> columnList;
 	private int limits;
 	private String spalte;
+	private final ColorBox cb1;
+	private final ColorBox cb2;
+	private final ColorBox cb3;
+	private final ColorBox cb4;
+	private final JFrame frame;
 	
     public PreferencesView() {
-    	final JFrame frame = new JFrame();
+    	frame = new JFrame();//final JFrame 
         FormLayout formLayout = new FormLayout("p,2dlu,p:grow");
         CellConstraints cc = new CellConstraints();
         
@@ -105,7 +110,8 @@ public class PreferencesView extends JMenuItem implements View {
         
         builder3.append("Standard");
         
-         final ColorBox cb1= new ColorBox();
+          cb1= new ColorBox();//final ColorBox
+          cb1.setSelectedIndex(8);
         builder3.append(cb1);
         
         cb1.addActionListener(new ActionListener() {
@@ -152,9 +158,11 @@ public class PreferencesView extends JMenuItem implements View {
         
         builder4.append("Expedite");
         
-        final ColorBox cb2= new ColorBox();
+        cb2= new ColorBox();//final ColorBox 
+        cb2.setSelectedIndex(10);
         builder4.append(cb2);
         
+      
         cb2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)
             {
@@ -167,6 +175,7 @@ public class PreferencesView extends JMenuItem implements View {
                 System.out.println(cb2.LABELS[selectedIndex]+" "+cb2.COLORS[selectedIndex]);
                 
                 String farbe2 = cb2.LABELS[selectedIndex];
+               
                 
              
 		Iterator<Card> icard = cardList.iterator();
@@ -195,7 +204,8 @@ public class PreferencesView extends JMenuItem implements View {
          */
         
         builder5.append("Fixed Date");
-        final ColorBox cb3= new ColorBox();
+         cb3= new ColorBox();//final ColorBox
+         cb3.setSelectedIndex(5);
         builder5.append(cb3);
         
         cb3.addActionListener(new ActionListener() {
@@ -209,7 +219,8 @@ public class PreferencesView extends JMenuItem implements View {
                 cb3.setBackground(cc);               
                 System.out.println(cb3.LABELS[selectedIndex]+" "+cb2.COLORS[selectedIndex]);
                 
-                String farbe3 = cb3.LABELS[selectedIndex];
+                
+                System.out.println("HIER===>"+cb3.COLORS[cb3.getSelectedIndex()]);
                 
            
 		Iterator<Card> icard = cardList.iterator();
@@ -240,7 +251,8 @@ public class PreferencesView extends JMenuItem implements View {
          */
         
         builder6.append("Intangible");
-        final ColorBox cb4= new ColorBox();
+       cb4= new ColorBox();// final ColorBox 
+       cb4.setSelectedIndex(1);
         builder6.append(cb4);
         
         cb4.addActionListener(new ActionListener() {
@@ -255,6 +267,7 @@ public class PreferencesView extends JMenuItem implements View {
                 System.out.println(cb4.LABELS[selectedIndex]+" "+cb2.COLORS[selectedIndex]);
                 
                 String farbe4 = cb4.LABELS[selectedIndex];
+                
                 
             
 		Iterator<Card> icard = cardList.iterator();
@@ -509,7 +522,22 @@ public class PreferencesView extends JMenuItem implements View {
         
     }
 
-	
+    public Color getSelectedColorFromBox1() {
+    	Color cBox1 = this.cb1.COLORS[cb1.getSelectedIndex()];
+    	return cBox1;
+    }
+    public Color getSelectedColorFromBox2() {
+    	Color cBox2 = this.cb2.COLORS[cb2.getSelectedIndex()];
+    	return cBox2;
+    }
+    public Color getSelectedColorFromBox3() {
+    	Color cBox1 = this.cb3.COLORS[cb3.getSelectedIndex()];
+    	return cBox1;
+    }
+    public Color getSelectedColorFromBox4() {
+    	Color cBox1 = this.cb4.COLORS[cb4.getSelectedIndex()];
+    	return cBox1;
+    }
 
 
     protected void setSelectedColumn(String spalt) {
@@ -579,7 +607,9 @@ public class PreferencesView extends JMenuItem implements View {
 		
 	}
 
-	
+	public JFrame getJComponent() {
+		return this.frame;
+	}
 
 
 	

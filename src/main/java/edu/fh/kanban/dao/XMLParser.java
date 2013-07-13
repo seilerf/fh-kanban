@@ -96,7 +96,7 @@ public class XMLParser{
     		Date created = null;
     		Date started = null;
     		Date done = null;
-    		System.out.println("AUS XML==>"+(column.getChildren().get(i).getAttributeValue("created")));
+  
     		String createDate = ((column.getChildren().get(i).getAttributeValue("created")));
     		if(createDate.isEmpty()==false) {
     		created = sdf.parse(createDate);

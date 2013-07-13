@@ -26,6 +26,8 @@ import edu.fh.kanban.ui.controller.CardController;
 
 public class BoardView extends JPanel implements View{
 	
+	private PreferencesView prefView;
+	
 	private CardController cardController;
 	private final String columnWidth = "250dlu";//160
 	private final String rowHeight = "135dlu";//130
@@ -34,7 +36,11 @@ public class BoardView extends JPanel implements View{
 	private boolean changed;
 		
 	//Constructor
-	public BoardView(Board board, CardController cardController){
+	public BoardView(Board board, CardController cardController, PreferencesView prefView){
+		
+		this.prefView = prefView;
+		prefView.setVisible(false);
+		
 		this.cardController = cardController;
 		//Aufbau des Boards mit der Anzahl Spalten, die für die Darstellung notwendig sind;
 		this.setLayout(new FormLayout(this.getColSpec(board.getColumnList().size()), getRowSpec(8)));
@@ -95,7 +101,7 @@ public class BoardView extends JPanel implements View{
 			int row = 4;
 			for (Iterator<Card> iCard = cardList.iterator(); iCard.hasNext();){
 				Card card = iCard.next();
-				CardView cardView = new CardView(cardController);
+				CardView cardView = new CardView(cardController,prefView);
 				cardView.setIdTextField(String.valueOf(card.getId()));
 				cardView.setCardTitel(card.getHeadline());
 				cardView.setDescriptionTextPane(card.getDescription());

@@ -71,17 +71,21 @@ public class Kanban {
 		dm.openFile(new File("board.xml"));
 		
 		Board board = dm.getBoard();
+		
+		final PreferencesView pv= new PreferencesView();
+		pv.getJComponent().setVisible(false);
+		
 		//Views erstellen
 		
 
 		Card emptycard = new Card(0, 0, null, false, 0, null, null, null, null, null);
 		CardController cardcontroller = new CardController();
 		cardcontroller.addModel(emptycard);
-		final CardView cardView = new CardView(cardcontroller);
+		final CardView cardView = new CardView(cardcontroller,pv);
 		cardcontroller.addView(cardView);
 		
 		
-		 final BoardView boardView = new BoardView(board,cardcontroller); //view boardView
+		final BoardView boardView = new BoardView(board,cardcontroller,pv); //view boardView
 		View backlogView = new BacklogView(dm,board);
 		
 		
@@ -106,7 +110,7 @@ public class Kanban {
 					e1.printStackTrace();
 				}
 				//Update BoardView
- catch (InterruptedException e2) {
+				catch (InterruptedException e2) {
 					// TODO Auto-generated catch block
 					e2.printStackTrace();
 				}
@@ -165,7 +169,8 @@ public class Kanban {
             public void actionPerformed(ActionEvent e)
             {
                 //Execute when button is pressed
-                PreferencesView pv= new PreferencesView();
+                pv.getJComponent().setVisible(true);
+                
             }
         });
 
