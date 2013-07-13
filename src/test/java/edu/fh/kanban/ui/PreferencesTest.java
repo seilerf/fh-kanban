@@ -30,7 +30,7 @@ import edu.fh.kanban.domain.ColorBox;
 
 public class PreferencesTest {
 	
-	public static void main(String[] args) throws ParseException{
+	public static void main(String[] args) throws ParseException, InterruptedException{
 		
 final DataManager dm = new DataManager();
 		

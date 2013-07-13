@@ -3,6 +3,7 @@ package edu.fh.kanban.dao;
 import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -31,7 +32,7 @@ import edu.fh.kanban.domain.Column;
 public class XMLParser{
 	
 	//Methode, die eine XML-Datei verarbeitet und in den Speicher liest
-	public Board readBoardFromXML(File xmlFile) throws ParseException {
+	public Board readBoardFromXML(File xmlFile) throws ParseException, InterruptedException {
 
         Document xmlDoc = null;
         Board board = new Board();
@@ -58,7 +59,7 @@ public class XMLParser{
     }
 	
 	//Methode, um Spalten eines Boards aus einer XML-Datei auszulesen
-	private LinkedList<Column> readColumnsFromXML(Element root, Board board) throws ParseException {
+	private LinkedList<Column> readColumnsFromXML(Element root, Board board) throws ParseException, InterruptedException {
 	
 		// Eine Liste aller Spalten erstellen
 		List<Element> columns = (List<Element>) root.getChildren();
@@ -86,22 +87,39 @@ public class XMLParser{
 	}
 	
 	//Methode, um Karten, die einer Spalte angehören, in eine Datenstruktur zu schreiben 
-	private LinkedList<Card> readCardsFromXML(Element column) {
-		Date created = null;
-		Date started=null;
-		Date done=null;
+	private LinkedList<Card> readCardsFromXML(Element column) throws ParseException, InterruptedException {
+		
     	// Alle Karten innerhalb einer Spalte in eine Liste lesen
 		LinkedList<Card> cardList = new LinkedList<Card>();
     	for (int i = 0; i < column.getChildren().size(); i++){
-    		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+    		DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    		Date created = null;
+    		Date started = null;
+    		Date done = null;
+    		System.out.println("AUS XML==>"+(column.getChildren().get(i).getAttributeValue("created")));
+    		String createDate = ((column.getChildren().get(i).getAttributeValue("created")));
+    		if(createDate.isEmpty()==false) {
+    		created = sdf.parse(createDate);
+    		}
     		
+    		String starteDate = ((column.getChildren().get(i).getAttributeValue("started")));
+    		if(starteDate.isEmpty()==false) {
+    		started = sdf.parse(starteDate);
+    		}
+    		
+    		String doneDate = ((column.getChildren().get(i).getAttributeValue("done")));
+    		if(doneDate.isEmpty()==false) {
+    		done = sdf.parse(doneDate);
+    		}
+    			
+    	
     		int id = Integer.valueOf(column.getChildren().get(i).getAttributeValue("id"));
-    		//int workload = Integer.valueOf(column.getChildren().get(i).getAttributeValue("workload"));
     		int value = Integer.valueOf(column.getChildren().get(i).getAttributeValue("value"));
     		String description = column.getChildren().get(i).getAttributeValue("description");
     		boolean blocker = Boolean.valueOf(column.getChildren().get(i).getAttributeValue("blocker"));
     		int size = Integer.valueOf(column.getChildren().get(i).getAttributeValue("size"));
     		String headline = column.getChildren().get(i).getAttributeValue("headline");
+    		
     		
     		int rgb = 0;
     		Color backGround=null;
@@ -123,17 +141,8 @@ public class XMLParser{
     			// Wenn keine Farbe in der XML-Datei hinterlegt ist, wird die Karte mit einem leicht grauen Hintergrund versehen
     			backGround = Color.LIGHT_GRAY;
     			}
-    		
- 
- 
-    		//String startDate = sdf.format(column.getChildren().get(i).getAttributeValue("started"));
-    		 //= sdf.parse(startDate);
-    		//String doneDate = sdf.format(column.getChildren().get(i).getAttributeValue("started"));
-    		 //= sdf.parse(doneDate);
+
     	cardList.add(new Card(id, value, description, blocker, size, headline, backGround, created, started, done));
-    		
-    		
-    		
     	}
     	
     	if (cardList.isEmpty())
@@ -142,7 +151,7 @@ public class XMLParser{
     		return cardList;
 	}
 	
-	public void writeXML(Board board, File file){
+	public void writeXML(Board board, File file) {
 		 
 		try {
 	 
@@ -180,7 +189,7 @@ public class XMLParser{
 						xmlCard.setAttribute("description", card.getDescription());
 						xmlCard.setAttribute("blocker", String.valueOf(card.getBlocker()));
 						xmlCard.setAttribute("backGround", String.valueOf(card.getBackGround().getRGB()));
-						xmlCard.setAttribute("created", String.valueOf(card.getCreated()));//"1"
+						xmlCard.setAttribute("created", String.valueOf(card.getCreated()));
 						xmlCard.setAttribute("started", String.valueOf(card.getStarted()) );//"1"
 						xmlCard.setAttribute("done", String.valueOf(card.getDone()));//"1"
 						xmlCard.setAttribute("size", String.valueOf(card.getSize()));	

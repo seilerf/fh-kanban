@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Board name="TestBoard">
     <Column name="Next" limit="3" maxCol="1">
-		<Card id="1" value="2" headline="Karte 1" description="Kartenbeschreibung, die ein wenig länger ist, als alle anderen Beschreibungen in diesem Board."  blocker="false"  backGround ="2" created="&quot;2013-07-12'Fri'12:00:00&quot;" started='"Sat Jul 13 15:23:29 CEST 2013"' done="" size="3"/>
-		<Card id="2" value="3" headline="Karte 2" description="Kartenbeschreibung"  blocker="true"  backGround ="3" created="Wed Jul 10 15:23:29 CEST 2013" started="" done="" size="4"/>
-		<Card id="3" value="4" headline="Karte 3" description="Kartenbeschreibung"  blocker="true"  backGround ="4" created="Wed Jul 10 15:23:29 CEST 2013" started="Wed Jul 10 15:24:29 CEST 2013" done="Wed Jul 10 15:25:29 CEST 2013" size="7"/>
+		<Card id="1" value="2" headline="Karte 1" description="Kartenbeschreibung, die ein wenig länger ist, als alle anderen Beschreibungen in diesem Board."  blocker="false"  backGround ="2" created="2013-07-12 12:00:00" started="2013-07-12 13:00:00" done="" size="3"/>
+		<Card id="2" value="3" headline="Karte 2" description="Kartenbeschreibung"  blocker="true"  backGround ="3" created="2013-07-11 10:30:00" started="" done="" size="4"/>
+		<Card id="3" value="4" headline="Karte 3" description="Kartenbeschreibung"  blocker="true"  backGround ="4" created="2013-07-5 12:00:00" started="2013-07-5 13:00:00" done="2013-07-5 14:00:00" size="7"/>
 	</Column>
 	<Column name="Development" limit="2" maxCol="2">
 	</Column>
 	<Column name ="Test" limit="4" maxCol="2">
-		<Card id="4" value="4" headline="Karte 4" description="Kartenbeschreibung"  blocker="false"  backGround ="4" created="Tue Jul 9 15:23:29 CEST 2013" started="" done="" size="1"/>
-		<Card id="5" value="1" headline="Karte 5" description="Kartenbeschreibung"  blocker="false"  backGround ="1" created="Wed Jul 10 15:23:29 CEST 2013" started="Wed Jul 10 15:25:29 CEST 2013" done="" size="3"/>
+		<Card id="4" value="4" headline="Karte 4" description="Kartenbeschreibung"  blocker="false"  backGround ="4" created="2013-07-3 09:00:00" started="" done="" size="1"/>
+		<Card id="5" value="1" headline="Karte 5" description="Kartenbeschreibung"  blocker="false"  backGround ="1" created="2013-07-7 12:00:00" started="2013-07-7 22:00:00" done="" size="3"/>
 	</Column>
 	<Column name ="Done" limit="2" maxCol="1">
 	</Column>

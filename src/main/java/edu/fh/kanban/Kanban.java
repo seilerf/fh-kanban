@@ -34,7 +34,7 @@ public class Kanban {
 	static Logger LOGGER = Logger.getLogger(Kanban.class.getName());
 
 	
-	public static void main(String[] args) throws ParseException {
+	public static void main(String[] args) throws ParseException, InterruptedException {
 		
 		LOGGER.info("Starting kanban app.");
 		
@@ -106,6 +106,10 @@ public class Kanban {
 					e1.printStackTrace();
 				}
 				//Update BoardView
+ catch (InterruptedException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
 			}
 		});
 		

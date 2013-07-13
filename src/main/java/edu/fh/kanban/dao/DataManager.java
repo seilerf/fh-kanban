@@ -17,7 +17,7 @@ public class DataManager {
 				
 	}
 	
-	public void openFile(File file) throws ParseException {
+	public void openFile(File file) throws ParseException, InterruptedException {
 		if (file.getPath().endsWith(".xml")) {
 			this.importFromXML(file);
 		}
@@ -34,7 +34,7 @@ public class DataManager {
 		}
 	}
 	
-	public void importFromXML(File xmlFile) throws ParseException {
+	public void importFromXML(File xmlFile) throws ParseException, InterruptedException {
 		//xmlFile = new File("board.xml");
 		
 		XMLParser xmlParser = new XMLParser();

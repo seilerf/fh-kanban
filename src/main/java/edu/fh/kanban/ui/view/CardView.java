@@ -585,14 +585,14 @@ public class CardView extends AbstractView implements View {
 	public void setJRadioButton(Color b, Date c, Date s, Date d) {
 		this.background = b;
 		if(c != null && s == null && d == null) {
-			this.rdbtnCreated.isSelected();
+			this.rdbtnCreated.setSelected(true);
 		}
 		if(c != null && s != null && d == null) {
-			this.rdbtnStarted.isSelected();
+			this.rdbtnStarted.setSelected(true);
 			
 		}
 		if(c != null && s != null && d != null) {
-			this.rdbtnDone.isSelected();
+			this.rdbtnDone.setSelected(true);
 		}
 	}
 	
