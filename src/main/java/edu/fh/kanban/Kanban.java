@@ -54,14 +54,14 @@ public class Kanban {
 		 */
 		DAOFactory xmlfactory = DAOFactory.getDAOFactory(DAOFactory.XML);
 		BoardDAO boardDAO = xmlfactory.getBoardDAO();
-		Board board2 = boardDAO.findBoard();//noch nicht implementiert
+		//Board board2 = boardDAO.findBoard();//noch nicht implementiert
 	
 		/** Alternative: HTMLFactory
 		 * 
 		 */
 		DAOFactory htmlfactory = DAOFactory.getDAOFactory(DAOFactory.HTML);
 		BoardDAO boardDAO2 = htmlfactory.getBoardDAO();
-		Board board3 = boardDAO.findBoard();
+		//Board board3 = boardDAO.findBoard();
 		
 		
 		
