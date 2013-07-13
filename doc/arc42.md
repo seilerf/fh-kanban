@@ -13,7 +13,19 @@ somit schnellere Durchlaufzeiten zu erreichen. Dadurch sollen Probleme schnell s
 # 2. Randbedingungen
 
 ## 2.1. Technische Randbedingungen
+Jede/r Teilnehmer/in an diesem Projekt ist in Besitz eines Notebooks, auf dem er/sie seinen/ihren Beitrag zur Realisierung beisteuern kann. Zur Entwicklung 
+nutzen alle Teilnehmer/innen die Entwicklungsumgebung Eclipse. Als Plug-Ins sind bei allen Mitwirkenden neben den Standard-Java-Libraries ein Eclipse Git 
+Teamprovider, sowie die Eclipse GitHub-Integration und Maven Integration for Eclipse "m2e" intsalliert. Für den Austausch des Quellcodes wurde eine Repository 
+(https://github.com/seilerf/fh-kanban) bei github.com erstellt. Dies ist ein Fork einer anderen Repository (https://github.com/nikolaialex/fh-kanban). Diese Repository 
+wurde von Nikolai Alex erstellt und stellt der Basis für die Enwticklung der Kanban-Applikation dar. Jeder Teilnehmer/in hat Zugriff auf diese Repository und wurde 
+als "Member" eingetragen, sodass jede/r seinen/ihren eigenen Code integrieren kann. Dies wurde mit einem Test innerhalb der Vorlesungszeit bestätigt. 
+
 ## 2.2. Organisatorische Randbedingungen
+Der Zeitrahmen für das Projekt beträgt 14 Tage. Beginn des Projektes war am 01.07.2013, die Abgabe ist auf den 14.07.2013 terminiert. 
+
+Die Mitwirkenden des Projektes haben unterschiedliche Wohnorte, weshalb darauf verzichtet wurde, eine gemeinsame Entwicklung in den Hochschulräumen der Ostfalia in Wolfsburg
+durchzuführen. Es wurden Aufgaben verteilt und dann bei einem gelegentlichen Treffen in Wolfsburg, via Skype unter einzelnen Teilnehmern/innen oder via Facebook unter allen 
+Teilnehmern/innen besprochen. 
 ## 2.3. Konventionen
 
 # 3. Kontextabgrenzung
@@ -31,6 +43,11 @@ somit schnellere Durchlaufzeiten zu erreichen. Dadurch sollen Probleme schnell s
 # 7. Konzepte
 ## 7.1 Fachliche Strukturen
 ## 7.2 Typische Muster und Strukturen
+### 7.2.1 Muster
+#### 7.2.1.1 MVC
+### 7.2.2 Datenstrukturen
+#### 7.2.2.1 Listen
+#### 7.2.2.2 
 ## 7.3. Ausnahme- und Fehlerbehandlung
 ## 7.4. Bedienoberfläche
 ## 7.5. Ergonomie
@@ -50,9 +67,11 @@ dann "Board speichern...". Es öffnet sich ein Dialog, in dem man den Speicheror
 
 Die Speicherung kann in Form einer XML-Datei erfolgen. Ein DataManager erkennt, in welchem Format die Datei gespeichert werden soll und 
 ruft den dazu notwendigen Parser auf. Bei der Speicherung im XML-Format wird dann ein XMLParser aufgerufen, der als Parameter das gesamte 
-Board übergeben bekommt und dann alle Spalten und deren Karten durchläuft und in XML-Schreibweise parst. Als Zieldatei kann eine beliebige Datei 
+Board übergeben bekommt und dann alle Spalten und deren Karten durchläuft und in XML-Schreibweise parst. Als Zieldatei kann eine beliebige Datei im XML-Format
 angegeben oder auch neu erstellt werden, sofern der User die Berechtigung hat, auf das Verzeichnis, in dem gespeichert werden soll, zuzugreifen. 
 
-Außerdem kann die Speicherung im CSV-Format und im HTML-Format erfolgen. 
+Der Ablauf für die Speicherung eines Boards in HTML-Schreibweise ist ähnlich. Es muss wieder der Dateimenüeintrag "Board speichern..." ausgewählt werden. Gibt der 
+Benutzer nun allerdings eine Datei mit der Endung ".html" ein, so erkennt das der DataManager und ruft dementsprechend eine andere Funktion auf - die HTMLExport-Funktion. 
+Diese legt dann alle Karten des Boards in einem HTML-Dokument an. Dieses Dokument kann der Dokumention von Ständen des Bretts zu einem bestimmten Entwicklungszeitpunkt dienen. 
 ## 7.11. Plausibilisierung und Validierung
 ## 7.12. Transaktionsbehandlung
