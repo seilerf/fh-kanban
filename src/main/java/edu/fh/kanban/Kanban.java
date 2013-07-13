@@ -14,6 +14,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
 
+import edu.fh.kanban.dao.BoardDAO;
+import edu.fh.kanban.dao.DAOFactory;
 import edu.fh.kanban.dao.DataManager;
 import edu.fh.kanban.domain.Board;
 import edu.fh.kanban.domain.Card;
@@ -44,6 +46,22 @@ public class Kanban {
 		
 		LOGGER.info("Creating UI components.");
 		
+		
+		/** Beispiel DAOs: Objekt in Ressource suchen:
+		 * 1. Erzeugung einer speziellen DAOFactory (z.B. xmlFactory), die Board-, Card- und ColumnDAOs erzeugen kann
+		 * 2. Erzeugung eines Board-/Card- oder Column DAOs aus der speziellen DAOFactory
+		 * 3. Suche/Erzeugung des DAO-Objektes (hier Board, Card oder Column) aus dem DAO
+		 */
+		DAOFactory xmlfactory = DAOFactory.getDAOFactory(DAOFactory.XML);
+		BoardDAO boardDAO = xmlfactory.getBoardDAO();
+		Board board2 = boardDAO.findBoard();//noch nicht implementiert
+	
+		/** Alternative: HTMLFactory
+		 * 
+		 */
+		DAOFactory htmlfactory = DAOFactory.getDAOFactory(DAOFactory.HTML);
+		BoardDAO boardDAO2 = htmlfactory.getBoardDAO();
+		Board board3 = boardDAO.findBoard();
 		
 		
 		
