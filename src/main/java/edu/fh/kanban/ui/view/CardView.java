@@ -38,7 +38,7 @@ import javax.swing.JTextPane;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 
-import org.apache.commons.lang.RandomStringUtils;
+import org.apache.commons.lang3.RandomStringUtils;
 
 import java.awt.SystemColor;
 import java.beans.PropertyChangeEvent;
