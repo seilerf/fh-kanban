@@ -15,12 +15,13 @@ import static org.junit.Assert.*;
 
 public class XMLParserTest {
 	
-	/**private XMLParser xmlParser = new XMLParser();
+	private XMLParser xmlParser = new XMLParser();
 	private File file = new File("board.xml");
-	private Board board = xmlParser.readBoardFromXML(file);
+	private Board board  = new Board();
 	
 	@Test
-	public void testBoardImport() throws ParseException {
+	public void testBoardImport() throws ParseException, InterruptedException  {
+		this.board = xmlParser.readBoardFromXML(file);
 		assertEquals("Vom Typ Board", "Board", xmlParser.readBoardFromXML(file).getClass().getSimpleName());
 		assertEquals("Boardname.", "TestBoard", this.board.getName());
 	}
@@ -43,5 +44,5 @@ public class XMLParserTest {
 		return new JUnit4TestAdapter(XMLParserTest.class);
 	}
 
-*/
+
 }
