@@ -50,7 +50,7 @@ public class Kanban {
 		/** Beispiel DAOs: Objekt in Ressource suchen:
 		 * 1. Erzeugung einer speziellen DAOFactory (z.B. xmlFactory), die Board-, Card- und ColumnDAOs erzeugen kann
 		 * 2. Erzeugung eines Board-/Card- oder Column DAOs aus der speziellen DAOFactory
-		 * 3. Suche/Erzeugung des DAO-Objektes (hier Board, Card oder Column) aus dem DAO
+		 * 3. Suchedes Objektes (hier Board, Card oder Column) durch DAO
 		 */
 		DAOFactory xmlfactory = DAOFactory.getDAOFactory(DAOFactory.XML);
 		BoardDAO boardDAO = xmlfactory.getBoardDAO();
