@@ -431,6 +431,10 @@ public class CardView extends AbstractView implements View {
 		
 	}
 	
+	public JTextField getSizeTextField() {
+		return this.idTextField;
+	}
+	
 	/**
 	 * Rückgabe des Hintergrundfarbe.
 	 * @return
@@ -529,7 +533,7 @@ public class CardView extends AbstractView implements View {
 	 */ 
 	public String setIdTextField(String n) {
 		this.idTextField.setText(n);	
-		return idTextField.getText();
+		return this.idTextField.getText();
 		
 	}
 	
@@ -541,8 +545,13 @@ public class CardView extends AbstractView implements View {
 	 * Setzt das WorkloadTextFeld auf einen bestimmten Wert mit Hilfe des übergebenen Strings.
 	 * @param n
 	 */
-	public void setSizeTextField(String n) {
+	public String setSizeTextField(String n) {
 		this.sizeTextField.setText(n);
+		return this.sizeTextField.getText();
+	}
+	
+	public String getSizeTextFieldValue() {
+		return this.sizeTextField.getText();
 	}
 	
 	/**
