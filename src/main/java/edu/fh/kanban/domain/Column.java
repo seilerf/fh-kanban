@@ -15,7 +15,9 @@ public class Column {
 		this.limit = limit;
 		this.cardList = cardList;
 	}
-
+	public void addCard(Card card){
+		cardList.add(card);
+	}
 	/**
 	 * @return the cards
 	 */
