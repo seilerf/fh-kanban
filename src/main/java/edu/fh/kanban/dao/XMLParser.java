@@ -190,7 +190,7 @@ public class XMLParser{
 						xmlCard.setAttribute("headline", card.getHeadline());
 						xmlCard.setAttribute("description", card.getDescription());
 						xmlCard.setAttribute("blocker", String.valueOf(card.getBlocker()));
-						xmlCard.setAttribute("backGround", String.valueOf(card.getBackGround().getRGB()));
+						xmlCard.setAttribute("backGround", String.valueOf(card.getBackGround()));
 						xmlCard.setAttribute("created", String.valueOf(card.getCreated()));
 						xmlCard.setAttribute("started", String.valueOf(card.getStarted()) );//"1"
 						xmlCard.setAttribute("done", String.valueOf(card.getDone()));//"1"

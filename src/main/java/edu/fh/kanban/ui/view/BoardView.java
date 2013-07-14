@@ -160,7 +160,7 @@ public class BoardView extends AbstractView implements View{
 	public void setGUI(){
 		getComponent().removeAll();
 		this.writeColumns(board.getColumnList());
-		getComponent().updateUI();
+		updateUI();
 		System.out.println("Ich wurde geändert!");
 	}
 	
