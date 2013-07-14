@@ -170,6 +170,7 @@ public class BoardView extends AbstractView implements View{
 
 	@Override
 	public void modelPropertyChange(PropertyChangeEvent event) {
+		this.removeAll();
 		this.writeColumns(board.getColumnList());
 		updateUI();
 		System.out.println("Ich wurde geändert!");
