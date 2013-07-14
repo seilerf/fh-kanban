@@ -47,15 +47,15 @@ Teilnehmern/innen besprochen.
 Die Klasse Card repräsentiert die Kanban-Karten auf Domainebene. Sie mit ist mit dem CardController und der CardView über das MVC-Pattern
 verknüpft. Um ihre Werte abzurufen und zu setzen verfügt sie über die passenden Getter und Setter Funktionen. Die zur Verfügung gestellten
 Attribute:
-ID: 		==> Integer
-Aufwand: 	==> Integer	
+ID: 			==> Integer
+Aufwand: 		==> Integer	
 Beschreibung:	==> String
-Blocker:	==> Boolean
-Wert: 		==> Integer
-Created:	==> Date
-Started:	==> Date
-Done:		==> Date
-Headline:	==> String
+Blocker:		==> Boolean
+Wert: 			==> Integer
+Created:		==> Date
+Started:		==> Date
+Done:			==> Date
+Headline:		==> String
 Background: 	==> Color
 
 ### 7.1.2 CardController
@@ -69,7 +69,6 @@ verfügt jeweils über eine ArrayList, in welcher die Views und die Models gespe
 und zum Löschen von Views und Models bereitgestellt. Des Weiteren stellt der AbstractController die Methode setModelProperty() zur Verfügung,
 welche mit den Übergabeparametern PropertyName und newValue die Arrayliste der Modelle durchläuft und die entsprechenden Setter-Methoden der 
 Card Klasse entsprechend der PropertyNamen aufruft und dieses entsprechend setzt.
-
 
 ## 7.2 Typische Muster und Strukturen
 ### 7.2.1 Muster

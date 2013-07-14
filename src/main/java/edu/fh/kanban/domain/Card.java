@@ -139,7 +139,7 @@ public class Card extends AbstractModel {
 	}
 	//Setter Erstellungsdatum
 	public Date setStarted() throws ParseException {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String date = sdf.format(new Date());
 		this.started = sdf.parse(date);
 		return started;
@@ -150,7 +150,7 @@ public class Card extends AbstractModel {
 	}
 	//Setter Startdatum
 	public Date setCreated() throws ParseException {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String date = sdf.format(new Date());
 		this.created = sdf.parse(date);
 		return created;
@@ -161,7 +161,7 @@ public class Card extends AbstractModel {
 	}
 	//Setter Datum der Fertigstellung
 	public Date setDone() throws ParseException {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String date = sdf.format(new Date());
 		this.done = sdf.parse(date);
 		return done;

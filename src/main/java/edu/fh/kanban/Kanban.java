@@ -141,6 +141,14 @@ public class Kanban {
 			}
 		}); 
 		
+		JMenuItem refreshBoard = new JMenuItem("Board aktualisieren");
+		filemenu.add(refreshBoard);
+		refreshBoard.addActionListener(new ActionListener () {
+			public void actionPerformed(ActionEvent e) {
+				boardView.setGUI();
+			}
+		});
+		
 		
 		JMenu prefmenu= new JMenu("Einstellungen");
 		//prefmenu.add(menuItem)

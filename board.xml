@@ -1,16 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Board name="TestBoard">
-    <Column name="Next" limit="3" maxCol="1">
-		<Card id="1" value="2" headline="Karte 1" description="Kartenbeschreibung, die ein wenig länger ist, als alle anderen Beschreibungen in diesem Board."  blocker="false"  backGround ="2" created="2013-07-12 12:00:00" started="2013-07-12 13:00:00" done="" size="3"/>
-		<Card id="2" value="3" headline="Karte 2" description="Kartenbeschreibung"  blocker="true"  backGround ="3" created="2013-07-11 10:30:00" started="" done="" size="4"/>
-		<Card id="3" value="4" headline="Karte 3" description="Kartenbeschreibung"  blocker="true"  backGround ="4" created="2013-07-5 12:00:00" started="2013-07-5 13:00:00" done="2013-07-5 14:00:00" size="7"/>
-	</Column>
-	<Column name="Development" limit="2" maxCol="2">
-	</Column>
-	<Column name ="Test" limit="4" maxCol="2">
-		<Card id="4" value="4" headline="Karte 4" description="Kartenbeschreibung"  blocker="false"  backGround ="4" created="2013-07-3 09:00:00" started="" done="" size="1"/>
-		<Card id="5" value="1" headline="Karte 5" description="Kartenbeschreibung"  blocker="false"  backGround ="1" created="2013-07-7 12:00:00" started="2013-07-7 22:00:00" done="" size="3"/>
-	</Column>
-	<Column name ="Done" limit="2" maxCol="1">
-	</Column>
-</Board>
+<?xml version="1.0" encoding="UTF-8"?><Board name="TestBoard"><Column limit="3" maxCol="2" name="Next"><Card backGround="-14336" blocker="false" created="2013-07-14 12:00:00" description="Kartenbeschreibung, die ein wenig länger ist, als alle anderen Beschreibungen in diesem Board." done="2013-07-14 14:00:00" headline="Karte 1" id="1" size="3" started="2013-07-14 13:00:00" value="2"/><Card backGround="-65536" blocker="true" created="2013-07-14 12:00:00" description="Kartenbeschreibung" done="2013-07-14 14:00:00" headline="Karte 2" id="2" size="4" started="2013-07-14 13:00:00" value="3"/><Card backGround="-16711936" blocker="true" created="2013-07-14 12:00:00" description="Kartenbeschreibung" done="2013-07-14 15:00:00" headline="Karte 3" id="3" size="7" started="2013-07-14 14:00:00" value="4"/></Column><Column limit="2" maxCol="2" name="Development"/><Column limit="4" maxCol="2" name="Test"><Card backGround="-16711936" blocker="false" created="2013-07-14 12:00:00" description="Kartenbeschreibung" done="2013-07-14 14:00:00" headline="Karte 4" id="4" size="1" started="2013-07-14 15:00:00" value="4"/><Card backGround="-16776961" blocker="false" created="2013-07-14 12:00:00 " description="Kartenbeschreibung" done="2013-07-14 13:00:00" headline="Karte 5" id="5" size="3" started="2013-07-14 12:30:00" value="1"/></Column><Column limit="2" maxCol="2" name="Done"/></Board>

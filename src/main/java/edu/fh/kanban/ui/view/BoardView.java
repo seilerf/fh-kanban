@@ -31,7 +31,7 @@ public class BoardView extends AbstractView implements View{
 	private PreferencesView prefView;
 	
 	private CardController cardController;
-	private final String columnWidth = "250dlu";//160
+	private final String columnWidth = "270dlu";//160
 	private final String rowHeight = "135dlu";//130
 	private final String padding = "4dlu";
 	private LinkedList<CardView> cardViewList = new LinkedList<CardView>(); 
@@ -158,9 +158,9 @@ public class BoardView extends AbstractView implements View{
 	}
 	
 	public void setGUI(){
-		this.removeAll();
+		getComponent().removeAll();
 		this.writeColumns(board.getColumnList());
-		updateUI();
+		getComponent().updateUI();
 		System.out.println("Ich wurde geändert!");
 	}
 	

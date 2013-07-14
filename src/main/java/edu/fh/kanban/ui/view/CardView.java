@@ -45,6 +45,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 
 import java.awt.SystemColor;
 import java.beans.PropertyChangeEvent;
+import java.io.File;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
@@ -316,7 +317,7 @@ public class CardView extends AbstractView implements View {
 			}
 			cardController.changeCardViewValues(Integer.parseInt(idTextField.getText()), Integer.parseInt(sizeTextField.getText()), descriptionTextPane.getText(), valueComboBox.getSelectedIndex(), getBackgroundColor(), blockerToggleButton.isSelected(), getJRadioButton());
 			dm.getBoard().getColumnList().get(columnComboBox.getSelectedIndex()).addCard(new Card(Integer.parseInt(idTextField.getText()), Integer.parseInt(sizeTextField.getText()), descriptionTextPane.getText(),blockerToggleButton.isSelected(), Integer.parseInt(sizeTextField.getText()), cardTitel, getBackgroundColor(),null,null,null));
-			
+			dm.saveFile(new File("Board.xml"));
 			setJPanelColor();
 			this.btnResetAll.setEnabled(true);
 		 }
@@ -437,6 +438,8 @@ public class CardView extends AbstractView implements View {
 		this.btnAddTitel.setEnabled(false);
 		this.btnResetAll.setEnabled(false);
 		this.btnResetAll.setVisible(false);
+		this.columnComboBox.setVisible(false);
+		this.columnComboBox.setEnabled(false);
 		
 	}
 	
