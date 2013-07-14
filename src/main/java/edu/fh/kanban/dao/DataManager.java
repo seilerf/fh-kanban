@@ -58,7 +58,7 @@ public class DataManager extends AbstractModel {
 	 * @return the board
 	 */
 	public static Board getBoard() {
-		firePropertyChange(BoardController.WTFSOMETHINGHASCHANGED_PROPERTY, null, null);
+		firePropertyChange(BoardController.GUICHANGE_PROPERTY, null, null);
 		return board;
 	}
 	

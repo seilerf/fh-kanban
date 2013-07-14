@@ -156,7 +156,13 @@ public class BoardView extends AbstractView implements View{
 		  
 	  }
 	}
-
+	
+	public void setGUI(){
+		this.removeAll();
+		this.writeColumns(board.getColumnList());
+		updateUI();
+		System.out.println("Ich wurde geändert!");
+	}
 	
 	// Methode, die alle GUI-Elemente für das Board-GUI erzeugt
 	public void buildBoard() {
@@ -170,10 +176,7 @@ public class BoardView extends AbstractView implements View{
 
 	@Override
 	public void modelPropertyChange(PropertyChangeEvent event) {
-		this.removeAll();
-		this.writeColumns(board.getColumnList());
-		updateUI();
-		System.out.println("Ich wurde geändert!");
+		
 		
 	}
 }

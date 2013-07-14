@@ -45,6 +45,7 @@ public class Board extends AbstractModel {
 		return id;
 	}
 	
+	
 	/**
 	 * @return the columnList
 	 */
