@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
 
@@ -179,7 +180,9 @@ public class Kanban {
 		
 	
 		JTabbedPane pane = new JTabbedPane();
-		pane.addTab("Board", boardView.getComponent());
+		JScrollPane jsp = new JScrollPane();
+		jsp.setViewportView(boardView.getComponent());
+		pane.addTab("Board", jsp);
 		pane.addTab("Backlog", backlogView.getComponent());
 	
 		

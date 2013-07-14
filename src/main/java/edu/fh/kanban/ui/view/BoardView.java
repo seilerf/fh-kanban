@@ -8,7 +8,9 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+
 
 
 
@@ -53,12 +55,17 @@ public class BoardView extends JPanel implements View{
 		int count = 2;
 		//Spaltenüberschriften in das GUI schreiben
 		for (Iterator<Column> i = columns.iterator(); i.hasNext();){
+			JPanel currentColumn = new JPanel();
 			Column column = i.next();
 			String name = column.getName();
 			JLabel columnLabel = new JLabel(name);
 			columnLabel.setAlignmentY(CENTER_ALIGNMENT);
 			columnLabel.setFont(columnLabel.getFont().deriveFont(columnLabel.getFont().getStyle() | Font.BOLD));
-			add(columnLabel, CC.xy(count, 2, CellConstraints.CENTER, CellConstraints.CENTER));
+			JScrollPane jsp = new JScrollPane();
+			
+			currentColumn.add(columnLabel, CC.xy(count, 2, CellConstraints.CENTER, CellConstraints.CENTER));
+			
+			jsp.setViewportView(currentColumn);
 			
 			// Karten übertragen
 			LinkedList<Card> cardList = column.getCards();
@@ -66,6 +73,7 @@ public class BoardView extends JPanel implements View{
 			
 			count+=2;
 		}
+		
 		
 	}
 	
