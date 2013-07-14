@@ -11,6 +11,8 @@ import javax.swing.JLabel;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
+import edu.fh.kanban.dao.DataManager;
+import edu.fh.kanban.domain.Column;
 import edu.fh.kanban.ui.controller.CardController;
 
 import java.awt.Component;
@@ -47,6 +49,8 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import javax.swing.SwingConstants;
+
 public class CardView extends AbstractView implements View {
 	private CardController cardController;
 	private PreferencesView prefView;
@@ -79,6 +83,8 @@ public class CardView extends AbstractView implements View {
 	private Integer oldSize;
 	private int oldJRadio;
 	private int count = 0;
+	private JLabel lblSpalte;
+	private JComboBox columnComboBox;
 	
 	/**
 	 * Create the panel.
@@ -118,7 +124,9 @@ public class CardView extends AbstractView implements View {
 				FormFactory.RELATED_GAP_ROWSPEC,
 				RowSpec.decode("max(14dlu;default)"),
 				FormFactory.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("max(2dlu;default)"),});
+				RowSpec.decode("14dlu"),
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,});
 		setLayout(formLayout);
 		
 		JLabel idLabel = DefaultComponentFactory.getInstance().createLabel("ID:");
@@ -231,6 +239,22 @@ public class CardView extends AbstractView implements View {
 		
 		this.btnResetAll = new JButton("Reset");
 		add(this.btnResetAll, "10, 12");
+		
+		lblSpalte = new JLabel("Spalte: ");
+		lblSpalte.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblSpalte.setHorizontalAlignment(SwingConstants.RIGHT);
+		add(lblSpalte, "8, 14");
+		
+		String[] columnNames = new String[DataManager.getBoard().getColumnList().size()];
+		Iterator<Column> columnList = DataManager.getBoard().getColumnList().iterator();
+		int i = 0;
+		while(columnList.hasNext()){
+			columnNames[i] = columnList.next().getName();
+			i++;
+		}
+		
+		columnComboBox = new JComboBox(columnNames);
+		add(columnComboBox, "10, 14, fill, default");
 		if(getCardTitel().isEmpty()==true) {
 			this.btnResetAll.setEnabled(false);
 		}
