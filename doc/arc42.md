@@ -65,7 +65,11 @@ für die Anpassung der Werte in der Karte von Nöten ist.
 
 ### 7.1.3 AbstractController
 Der AbstractKontroller implmentiert das Interface PropertyChangeListener und importiert zusätzlich die den PropertyChangeListener. Er
-verfügt jeweils über eine ArrayList, in welcher die Views und die Models gespeichert werden.
+verfügt jeweils über eine ArrayList, in welcher die Views und die Models gespeichert werden. Zusätzlich werden noch Methoden zum Hinzufügen
+und zum Löschen von Views und Models bereitgestellt. Des Weiteren stellt der AbstractController die Methode setModelProperty() zur Verfügung,
+welche mit den Übergabeparametern PropertyName und newValue die Arrayliste der Modelle durchläuft und die entsprechenden Setter-Methoden der 
+Card Klasse entsprechend der PropertyNamen aufruft und dieses entsprechend setzt.
+
 
 ## 7.2 Typische Muster und Strukturen
 ### 7.2.1 Muster
