@@ -30,6 +30,7 @@ import edu.fh.kanban.domain.Board;
 import edu.fh.kanban.domain.Card;
 import edu.fh.kanban.domain.CardNameComparator;
 import edu.fh.kanban.domain.CardValueComparator;
+import edu.fh.kanban.domain.SearchClass;
 import edu.fh.kanban.domain.SortClass;
 import edu.fh.kanban.ui.controller.BacklogController;
 
@@ -74,7 +75,8 @@ public class BacklogView extends JPanel implements View{
 		
 		
 		
-		FormLayout cardLayout = new FormLayout("160dlu,10dlu,160dlu,10dlu,160dlu", "130dlu,130dlu,130dlu");
+		//FormLayout cardLayout = new FormLayout("160dlu,10dlu,160dlu,10dlu,160dlu", "130dlu,130dlu,130dlu");
+		FormLayout cardLayout = new FormLayout("160dlu,10dlu,160dlu,10dlu,160dlu", getRows(cardList));
 		FormLayout searchLayout = new FormLayout("200dlu,10dlu,p");
         
 		cardbuilder = new DefaultFormBuilder(cardLayout);
@@ -124,7 +126,7 @@ public class BacklogView extends JPanel implements View{
             	removeAll();
             	showBacklog();
             	showCardsSortedByHeadline(cardList);
-            	System.out.println("HeadlineButton gedrückt");
+            	//System.out.println("HeadlineButton gedrückt");
             	updateUI();
             }
         });
@@ -134,7 +136,7 @@ public class BacklogView extends JPanel implements View{
             	removeAll();
             	showBacklog();
             	showCardsSortedByValue(cardList);
-            	System.out.println("ValueButton gedrückt");
+            	//System.out.println("ValueButton gedrückt");
             	updateUI();
             }
         });
@@ -144,7 +146,7 @@ public class BacklogView extends JPanel implements View{
             	removeAll();
             	showBacklog();
             	showCardsSortedbySize(cardList);
-            	System.out.println("SizeButton gedrückt");
+            	//System.out.println("SizeButton gedrückt");
             	updateUI();
             }
         });
@@ -154,24 +156,27 @@ public class BacklogView extends JPanel implements View{
             	removeAll();
             	showBacklog();
             	showCardsSortedByCreationTime(cardList);
-            	System.out.println("CreateButton gedrückt");
+            	//System.out.println("CreateButton gedrückt");
             	updateUI();
             }
         });
 		searchButton.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent event) {
-            	//removeAll();
-            	//showBacklog();
+            	String searchString = search.getText();
+            	if(!searchString.equals("")){
+            		removeAll();
+                	showBacklog();
+                	showResultCards(searchString, cardList);
+                	updateUI();
+            	}
             	
-            	//updateUI();
+            	
             }
         });
 	}
 	
-	
-	
-	public void showCardsSortedByCreationTime(LinkedList<Card> list){
+	public String getRows(LinkedList<Card> list){
 		String s = "130dlu";
 		int anzahl=list.size();
 		//System.out.println("Elemente "+ anzahl);
@@ -187,14 +192,30 @@ public class BacklogView extends JPanel implements View{
 			}
 		}
 		//System.out.println(s);
+		return s;
+	}
+	
+	public void showResultCards(String s, LinkedList<Card> list){
 		
+		LinkedList<Card> result = SearchClass.search(s, list);
 		
-		
+		Iterator<Card> test = result.iterator();
+  		while(test.hasNext()){
+  			Card c = test.next();
+  			
+  			CardViewBoard cardView = new CardViewBoard(c);
+  			cardView.setBackground(c.getBackGround());
+  			cardbuilder.append(cardView);
+  		}
+	}
+	
+	
+	public void showCardsSortedByCreationTime(LinkedList<Card> list){
 		
 		Iterator<Card> test = list.iterator();
   		while(test.hasNext()){
   			Card c = test.next();
-  			//System.out.println("ID: "+c.getId());
+  			
   			CardViewBoard cardView = new CardViewBoard(c);
   			cardView.setBackground(c.getBackGround());
   			cardbuilder.append(cardView);

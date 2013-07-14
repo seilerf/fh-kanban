@@ -6,6 +6,7 @@ import java.util.List;
 
 import edu.fh.kanban.domain.Card;
 import edu.fh.kanban.domain.SortClass;
+import edu.fh.kanban.domain.SearchClass;
 
 /*
  * Autor: Inna Maier
@@ -25,7 +26,8 @@ public class TestBacklog {
 	    list.add(new Card(6, 5, "f", false, 1, "Bla", null, null, null, null));
 	    
 	    testSortalgorithmen(list);
-	   
+	    
+	    testSearch(list);
 		
 	}
 	
@@ -55,6 +57,36 @@ public class TestBacklog {
 		  			System.out.println(c.getHeadline());
 		  		}
 		
+	}
+	
+public static void testSearch(LinkedList<Card> list){
+		
+		String s = "ie";
+		
+		LinkedList<Card> cards =SearchClass.search(s, list);
+		System.out.println("ie wurde in der Karte mit der ID: "+cards.getFirst().getId()+" gefunden.");
+		
+		String s1 = "e";
+		
+		LinkedList<Card> cards1 = SearchClass.search(s1, list);
+		System.out.println("e wurde in den Karten gefunden mit der ID: ");
+		Iterator<Card> it = cards1.iterator();
+		while(it.hasNext()){
+			Card c = it.next();
+			System.out.println(c.getId());
+		}
+		
+		String s2 = "1";
+		
+		LinkedList<Card> cards2 = SearchClass.search(s2, list);
+		System.out.println("1 wurde in den Karten gefunden mit der ID: ");
+		Iterator<Card> it2 = cards2.iterator();
+		while(it2.hasNext()){
+			Card c = it2.next();
+			System.out.println(c.getId());
+		}
+	
+	
 	}
 	
 	

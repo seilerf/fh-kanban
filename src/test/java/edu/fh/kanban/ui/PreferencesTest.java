@@ -47,17 +47,11 @@ final DataManager dm = new DataManager();
         
         DefaultFormBuilder builder2 = new DefaultFormBuilder(formLayout); 
         builder2.setDefaultDialogBorder();
-        
-        
+         
         
         ButtonBarBuilder2 b = ButtonBarBuilder2.createLeftToRightBuilder();
-       
-       
-        
          
-        builder.append("Name:");
-        
-            
+        builder.append("Name:");  
                    
         final JTextField name = new JTextField();
         
@@ -71,8 +65,7 @@ final DataManager dm = new DataManager();
         
         speichern.addActionListener(new ActionListener() {
  
-            public void actionPerformed(ActionEvent e)
-            {
+            public void actionPerformed(ActionEvent e) {
                 
             	String boardname = name.getText();
             	ändereBoardNamen(e,boardname);
@@ -128,11 +121,10 @@ final DataManager dm = new DataManager();
 	 * @param name
 	 */
 	
-	public static void ändereBoardNamen(ActionEvent e, String name)
-	{
+	public static void ändereBoardNamen(ActionEvent e, String name) {
 		
         DataManager dm= new DataManager();
-      Board   board=dm.getBoard();
+        Board   board=dm.getBoard();
         
       
         System.out.println(board.getName());
