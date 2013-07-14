@@ -145,7 +145,7 @@ public class CardView extends AbstractView implements View {
 		add(wertLabel, "2, 4, right, default");
 		
 		this.valueComboBox = new JComboBox();
-		this.valueComboBox.setToolTipText("1:Blau = Intangible|\r\n 2:Orange = Standard|\r\n 3:Rot = Expedite|\r\n 4:Grün = Fixed date\r\n");
+		this.valueComboBox.setToolTipText("DefaultSetUp \r\n1:Blau = Intangible|\r\n 2:Orange = Standard|\r\n 3:Rot = Expedite|\r\n 4:Grün = Fixed date\r\n");
 		this.valueComboBox.setModel(new DefaultComboBoxModel(new String[] {"Wähle aus", "1: Blau", "2: Orange", "3: Rot", "4: Grün"}));
 		add(this.valueComboBox, "4, 4, fill, default");
 		

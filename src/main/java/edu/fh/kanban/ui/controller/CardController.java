@@ -1,14 +1,6 @@
 package edu.fh.kanban.ui.controller;
 
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.concurrent.Callable;
-
-import edu.fh.kanban.domain.Card;
-import edu.fh.kanban.ui.view.CardView;
 
 
 public class CardController extends AbstractController {

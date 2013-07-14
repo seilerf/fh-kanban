@@ -42,6 +42,31 @@ Teilnehmern/innen besprochen.
 
 # 7. Konzepte
 ## 7.1 Fachliche Strukturen
+## 7.1 Fachliche Strukturen
+### 7.1.1 Card
+Die Klasse Card repräsentiert die Kanban-Karten auf Domainebene. Sie mit ist mit dem CardController und der CardView über das MVC-Pattern
+verknüpft. Um ihre Werte abzurufen und zu setzen verfügt sie über die passenden Getter und Setter Funktionen. Die zur Verfügung gestellten
+Attribute:
+ID: 		==> Integer
+Aufwand: 	==> Integer	
+Beschreibung:	==> String
+Blocker:	==> Boolean
+Wert: 		==> Integer
+Created:	==> Date
+Started:	==> Date
+Done:		==> Date
+Headline:	==> String
+Background: 	==> Color
+
+### 7.1.2 CardController
+Der CardController ist eine abgeleitete Klasse vom abstrakten Controller und dient zur Kommunikation zwischen der Karte und der KarteView.
+Hier werden die benötigten String Properties für die Kommunikation anleget. Des Weiteren erfolgen hier die Funktionsaufrufe, welche für
+für die Anpassung der Werte in der Karte von Nöten ist.
+
+### 7.1.3 AbstractController
+Der AbstractKontroller implmentiert das Interface PropertyChangeListener und importiert zusätzlich die den PropertyChangeListener. Er
+verfügt jeweils über eine ArrayList, in welcher die Views und die Models gespeichert werden.
+
 ## 7.2 Typische Muster und Strukturen
 ### 7.2.1 Muster
 #### 7.2.1.1 MVC
@@ -50,6 +75,32 @@ Teilnehmern/innen besprochen.
 #### 7.2.2.2 
 ## 7.3. Ausnahme- und Fehlerbehandlung
 ## 7.4. Bedienoberfläche
+### 7.4.1 CardView
+Die CardView ist eine interaktive Benutzeroberfläche und dient einerseits zur Darstellung der Karten auf dem Kanban-Board, welche 
+durch die BoardView repräsentiert werden, und andererseits zum Anlegen neuer Karten. Beim Anlegen einer neuen Karte müssen die 
+notwendigen Attribute, entsprechend der Klasse Card, in die passenden Gui-Felder eingetragen werden. Die CardView verfügt über
+mehrere verschiedene Buttons, die nicht zu jedem Zeitpunkt verfügbar und sichtbar sind. Zum Bespiel beim Anlegen einer neuen Karte
+muss zuerst ein Titel gesetzt werden über den Title Button um, die Möglichkeit zu haben die Karte speichern zu können. Des Weiteren
+ist erst nach dem ersten Speichern die Möglichkeit des Resets freigegeben. Denn der Reset Button setzt falls ausgewählt auf den ersten
+gespeicherten Zustand zurück, egal wieviele verschiedene Speicherungen in der Folge durchgeführt wurden. Als vierter und letzter Button
+existiert der Delete Button, welcher die einfache Funktion hat alle in der Gui dargestellten Werte auf den Ausgangszustand zurück
+zusetzen.
+Ebenfalls wird die CardView genutzt um die Kanban-Karten in der BoardView darzustellen. Die dort genutzten CardViews verfügen ebenfalls
+über die zuvor dargestellten Funktionen, allerdings ist die Möglichkeit des Titel setzen nicht gegeben, weil die in der BoardView
+dargestellten Karten aus der XML-Datei eingelesen werden und bereits über einen Titel verfügen und dieser damit nicht mehr neu
+erzeugt werden muss. Im nachhinein ist eine Änderung des Titels nicht mehr möglich.
+Die Eingaben sind treu den Datentypen entsprechend durchzuführen um Fehlermeldungen zu vermeiden.
+ID: 		==> Integer	(Wird automatisch gesetzt)
+Aufwand: 	==> Integer	(Darf nicht null sein oder ein falscher Datentyp)
+Beschreibung:	==> String	(Darf nicht null sein)
+Wert:		==> ComboBox	(Es muss eine Auswahl getroffen werden/Darf nicht null sein)
+Blocker:	==> Boolean	(Grundzustand : false kann auf true geändert werden)
+Created:	==> ToggleButton(Gehört zur Buttongroup eine der drei Auswahlmöglichkeiten muss gesetzt werden)
+Started:	==> ToggleButton(Gehört zur Buttongroup eine der drei Auswahlmöglichkeiten muss gesetzt werden)
+Done:		==> ToggleButton(Gehört zur Buttongroup eine der drei Auswahlmöglichkeiten muss gesetzt werden)
+Die CardView interagiert mit dem CardController um die in der Gui gesetzen Werte in die Modelklasse Card zu übertragen.
+Da die Klassen Card, CardController und CardView mit dem MVC-Pattern realisiert wurden.
+
 ## 7.5. Ergonomie
 ## 7.6. Geschäftsregeln
 ## 7.7. Konfiguration
