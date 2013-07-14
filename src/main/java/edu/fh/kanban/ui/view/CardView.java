@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 import edu.fh.kanban.dao.DataManager;
+import edu.fh.kanban.domain.Card;
 import edu.fh.kanban.domain.Column;
 import edu.fh.kanban.ui.controller.CardController;
 
@@ -85,11 +86,13 @@ public class CardView extends AbstractView implements View {
 	private int count = 0;
 	private JLabel lblSpalte;
 	private JComboBox columnComboBox;
+	private DataManager dm;
 	
 	/**
 	 * Create the panel.
 	 */
-	public CardView(CardController cardController, PreferencesView prefView) {
+	public CardView(CardController cardController, PreferencesView prefView, DataManager dm) {
+		this.dm = dm;
 		this.cardController = cardController;
 		this.prefView = prefView;
 		
@@ -312,6 +315,8 @@ public class CardView extends AbstractView implements View {
 				saveAllOldValues(Integer.parseInt(idTextField.getText()), Integer.parseInt(sizeTextField.getText()), descriptionTextPane.getText(), valueComboBox.getSelectedIndex(), getBackgroundColor(), blockerToggleButton.isSelected(), getJRadioButton());count+=1;
 			}
 			cardController.changeCardViewValues(Integer.parseInt(idTextField.getText()), Integer.parseInt(sizeTextField.getText()), descriptionTextPane.getText(), valueComboBox.getSelectedIndex(), getBackgroundColor(), blockerToggleButton.isSelected(), getJRadioButton());
+			dm.getBoard().getColumnList().get(columnComboBox.getSelectedIndex()).addCard(new Card(Integer.parseInt(idTextField.getText()), Integer.parseInt(sizeTextField.getText()), descriptionTextPane.getText(),blockerToggleButton.isSelected(), Integer.parseInt(sizeTextField.getText()), cardTitel, getBackgroundColor(),null,null,null));
+			
 			setJPanelColor();
 			this.btnResetAll.setEnabled(true);
 		 }

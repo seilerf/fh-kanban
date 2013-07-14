@@ -1,5 +1,6 @@
 package edu.fh.kanban.ui.view;
 
+import java.beans.PropertyChangeEvent;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.ListIterator;
@@ -9,6 +10,7 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
 
 
 
@@ -24,7 +26,7 @@ import edu.fh.kanban.domain.Column;
 import edu.fh.kanban.ui.controller.CardController;
 
 
-public class BoardView extends JPanel implements View{
+public class BoardView extends AbstractView implements View{
 	
 	private PreferencesView prefView;
 	
@@ -34,12 +36,13 @@ public class BoardView extends JPanel implements View{
 	private final String padding = "4dlu";
 	private LinkedList<CardView> cardViewList = new LinkedList<CardView>(); 
 	private boolean changed;
-		
+	private DataManager dm;
+	private Board board;
 	//Constructor
-	public BoardView(Board board, CardController cardController, PreferencesView prefView){
-		
+	public BoardView(Board board, CardController cardController, PreferencesView prefView, DataManager dm){
+		this.dm = dm;
 		this.prefView = prefView;
-		
+		this.board = board;
 		this.cardController = cardController;
 		//Aufbau des Boards mit der Anzahl Spalten, die für die Darstellung notwendig sind;
 		this.setLayout(new FormLayout(this.getColSpec(board.getColumnList().size()), getRowSpec(8)));
@@ -100,7 +103,7 @@ public class BoardView extends JPanel implements View{
 			int row = 4;
 			for (Iterator<Card> iCard = cardList.iterator(); iCard.hasNext();){
 				Card card = iCard.next();
-				CardView cardView = new CardView(cardController,prefView);
+				CardView cardView = new CardView(cardController,prefView,dm);
 				cardView.setIdTextField(String.valueOf(card.getId()));
 				cardView.setCardTitel(card.getHeadline());
 				cardView.setDescriptionTextPane(card.getDescription());
@@ -163,5 +166,13 @@ public class BoardView extends JPanel implements View{
 	@Override
 	public JComponent getComponent() {
 		return this;
+	}
+
+	@Override
+	public void modelPropertyChange(PropertyChangeEvent event) {
+		this.writeColumns(board.getColumnList());
+		updateUI();
+		System.out.println("Ich wurde geändert!");
+		
 	}
 }

@@ -9,6 +9,7 @@ import javax.swing.JRadioButton;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import edu.fh.kanban.dao.DataManager;
 import edu.fh.kanban.domain.Board;
 import edu.fh.kanban.ui.controller.CardController;
 import edu.fh.kanban.ui.view.CardView;
@@ -34,11 +35,14 @@ public class CardViewTest {
 	private static boolean rdbtnStarted;
 	private static boolean rdbtnDone;
 	private static boolean rdbtnReferenz;
-	
+	private static DataManager dm;
+	public CardViewTest(DataManager dm){
+		this.dm = dm;
+	}
 	@BeforeClass
 	public static void setBeforeTesting() {
-		cardView = new CardView(cardController,prefView);
-		referenz = new CardView(cardController,prefView);
+		cardView = new CardView(cardController,prefView,dm);
+		referenz = new CardView(cardController,prefView,dm);
 		oldId = 23;
 		cardId = 10;
 		size = 4;

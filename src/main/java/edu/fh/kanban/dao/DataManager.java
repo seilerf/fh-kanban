@@ -5,11 +5,13 @@ import java.text.ParseException;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import edu.fh.kanban.domain.AbstractModel;
 import edu.fh.kanban.domain.Board;
 import edu.fh.kanban.domain.Card;
 import edu.fh.kanban.domain.Column;
+import edu.fh.kanban.ui.controller.BoardController;
 
-public class DataManager {
+public class DataManager extends AbstractModel {
 	
 	private static Board board;
 
@@ -56,6 +58,7 @@ public class DataManager {
 	 * @return the board
 	 */
 	public static Board getBoard() {
+		firePropertyChange(BoardController.WTFSOMETHINGHASCHANGED_PROPERTY, null, null);
 		return board;
 	}
 	

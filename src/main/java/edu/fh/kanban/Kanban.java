@@ -21,6 +21,7 @@ import edu.fh.kanban.dao.DAOFactory;
 import edu.fh.kanban.dao.DataManager;
 import edu.fh.kanban.domain.Board;
 import edu.fh.kanban.domain.Card;
+import edu.fh.kanban.ui.controller.BoardController;
 import edu.fh.kanban.ui.controller.CardController;
 import edu.fh.kanban.ui.dialog.OpenFileDialog;
 import edu.fh.kanban.ui.dialog.SaveFileDialog;
@@ -82,18 +83,21 @@ public class Kanban {
 		Card emptycard = new Card(0, 0, null, false, 0, null, null, null, null, null);
 		CardController cardcontroller = new CardController();
 		cardcontroller.addModel(emptycard);
-		final CardView cardView = new CardView(cardcontroller,pv);
+		final CardView cardView = new CardView(cardcontroller,pv,dm);
 		cardcontroller.addView(cardView);
 		
 		
-		final BoardView boardView = new BoardView(board,cardcontroller,pv); //view boardView
+		final BoardView boardView = new BoardView(board,cardcontroller,pv,dm); //view boardView
 		View backlogView = new BacklogView(dm,board);
-		
+		BoardController boardController = new BoardController();
+		boardController.addModel(board);
+		boardController.addView(boardView);
 		
 		
 		JMenuBar menubar = new JMenuBar();
 		JMenu filemenu = new JMenu("Datei");
 		menubar.add(filemenu);
+		
 		
 		/**
 		 * Zu der Menüoption -> File wurde eine Menü-Optionen hinzugefügt:
@@ -132,7 +136,7 @@ public class Kanban {
 			public void actionPerformed(ActionEvent e) {
 				JFrame frame2 = new JFrame();
 				frame2.add(cardView);
-				frame2.setSize(420,250);
+				frame2.setSize(420,270);
 				frame2.setVisible(true);
 			}
 		}); 

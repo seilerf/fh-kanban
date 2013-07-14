@@ -74,7 +74,9 @@ public class XMLParser{
         	// Liste der Karten, die zu dieser Spalte gehören, erstellen
         	LinkedList<Card> cards = this.readCardsFromXML(columns.get(i));
         	
+        	
         	columnList.add(new Column(name, limit, cards));
+        	
         }
         
         // Spalten an das Board übergeben
