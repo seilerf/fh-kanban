@@ -1,4 +1,4 @@
-﻿package edu.fh.kanban.ui.view;
+package edu.fh.kanban.ui.view;
 
 import com.jgoodies.forms.builder.ButtonBarBuilder2;
 import com.jgoodies.forms.builder.DefaultFormBuilder;
