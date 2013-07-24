@@ -10,6 +10,8 @@ public class Board extends AbstractModel {
 
 	private String name;
 	private int id;
+	private Preference preference;
+
 	private LinkedList<Column> columnList;
 	
 	public Board(){
@@ -24,6 +26,10 @@ public class Board extends AbstractModel {
 	public String getName() {
 		return name;
 	}
+	
+
+	
+	
 
 	/**
 	 * @param columnList the columnList to set

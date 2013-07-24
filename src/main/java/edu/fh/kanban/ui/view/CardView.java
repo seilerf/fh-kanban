@@ -11,9 +11,9 @@ import javax.swing.JLabel;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
-import edu.fh.kanban.dao.DataManager;
 import edu.fh.kanban.domain.Card;
 import edu.fh.kanban.domain.Column;
+import edu.fh.kanban.domain.Preference;
 import edu.fh.kanban.ui.controller.CardController;
 
 import java.awt.Component;
@@ -55,7 +55,9 @@ import javax.swing.SwingConstants;
 
 public class CardView extends AbstractView implements View {
 	private CardController cardController;
-	private PreferencesView prefView;
+	public static final String INTANGIBLE   = "1";
+	
+	private Preference pref;
 	private JTextField idTextField;
 	private JTextField sizeTextField;
 	private JToggleButton blockerToggleButton;
@@ -87,15 +89,14 @@ public class CardView extends AbstractView implements View {
 	private int count = 0;
 	private JLabel lblSpalte;
 	private JComboBox columnComboBox;
-	private DataManager dm;
 	
 	/**
 	 * Create the panel.
 	 */
-	public CardView(CardController cardController, PreferencesView prefView, DataManager dm) {
-		this.dm = dm;
+	public CardView(CardController cardController) {
+		
 		this.cardController = cardController;
-		this.prefView = prefView;
+		
 		
 		
 		setBackground(SystemColor.menu);
@@ -249,16 +250,8 @@ public class CardView extends AbstractView implements View {
 		lblSpalte.setHorizontalAlignment(SwingConstants.RIGHT);
 		add(lblSpalte, "8, 14");
 		
-		String[] columnNames = new String[DataManager.getBoard().getColumnList().size()];
-		Iterator<Column> columnList = DataManager.getBoard().getColumnList().iterator();
-		int i = 0;
-		while(columnList.hasNext()){
-			columnNames[i] = columnList.next().getName();
-			i++;
-		}
-		
-		columnComboBox = new JComboBox(columnNames);
-		add(columnComboBox, "10, 14, fill, default");
+	
+	
 		if(getCardTitel().isEmpty()==true) {
 			this.btnResetAll.setEnabled(false);
 		}
@@ -316,8 +309,6 @@ public class CardView extends AbstractView implements View {
 				saveAllOldValues(Integer.parseInt(idTextField.getText()), Integer.parseInt(sizeTextField.getText()), descriptionTextPane.getText(), valueComboBox.getSelectedIndex(), getBackgroundColor(), blockerToggleButton.isSelected(), getJRadioButton());count+=1;
 			}
 			cardController.changeCardViewValues(Integer.parseInt(idTextField.getText()), Integer.parseInt(sizeTextField.getText()), descriptionTextPane.getText(), valueComboBox.getSelectedIndex(), getBackgroundColor(), blockerToggleButton.isSelected(), getJRadioButton());
-			dm.getBoard().getColumnList().get(columnComboBox.getSelectedIndex()).addCard(new Card(Integer.parseInt(idTextField.getText()), Integer.parseInt(sizeTextField.getText()), descriptionTextPane.getText(),blockerToggleButton.isSelected(), Integer.parseInt(sizeTextField.getText()), cardTitel, getBackgroundColor(),null,null,null));
-			dm.saveFile(new File("Board.xml"));
 			setJPanelColor();
 			this.btnResetAll.setEnabled(true);
 		 }
@@ -340,47 +331,6 @@ public class CardView extends AbstractView implements View {
 		setAllToOldValues();
 	}
 	
-	@Override
-	public void modelPropertyChange(PropertyChangeEvent event) {
-		
-		/**if(event.getPropertyName() == CardController.CARDID_PROPERTY) {
-			setOldCardId(event.getOldValue().toString());
-			System.out.println("HIER\n\n\n"+getOldCardId());
-		}
-		switch (event.getPropertyName()) {
-		case CardController.CARDID_PROPERTY: {
-			String oID = event.getOldValue().toString();
-			setOldCardId(oID);
-			//setOldCardId(event.getOldValue().toString());
-			System.out.println(oID+"<===HIER!! Alte_CardId");
-		}
-		
-		case CardController.SIZE_PROPERTY: {
-			this.oldSize = event.getOldValue().toString();
-			 System.out.println("HIER!!! Alter_Workload ===>"+oldSize);	 
-		}
-		
-		case CardController.VALUE_PROPERTY: {
-			this.oldValue =  (int) event.getOldValue();
-		}
-		
-		case CardController.BLOCKER_PROPERTY: {
-			this.oldBlocker = (boolean) event.getOldValue();	
-		}
-		
-		case CardController.BACKGROUND_PROPERTY: {
-			this.oldBackColor = (Color) event.getOldValue();	
-		}
-		
-		case CardController.DESCRIPTION_PROPERTY: {
-			this.oldDescription = event.getOldValue().toString();
-		}
-		
-		case CardController.JRADIOBUTTON_PROPERTY: {
-			
-		}
-	  }*/
-	}
 	/**
 	 * Speichert die beim Erstellen gespeicherten Werte um einen Reset zu ermöglichen.
 	 * @param oldCardId
@@ -505,8 +455,16 @@ public class CardView extends AbstractView implements View {
 		if(x == 0||x==-1) {
 			this.background = Color.LIGHT_GRAY;
 		}
+		//Intengiable
 		if(x == 1) {
-			this.background = prefView.getSelectedColorFromBox4();//Color.blue
+			if(pref.getColorIntagible() == "Green")
+						
+						this.background = new Color(pref.getColorIntagible())
+						new Color();
+					}
+					
+					(Color)pref.getColorIntagible();
+					prefView.getSelectedColorFromBox4();//Color.blue
 		}
 		if(x == 2) {
 			this.background = prefView.getSelectedColorFromBox1();//Color.orange;
@@ -653,6 +611,86 @@ public class CardView extends AbstractView implements View {
 		else if(i==2) {
 			this.rdbtnDone.setSelected(true);
 		}
+	}
+
+	@Override
+	public void modelPropertyChange(PropertyChangeEvent event) {
+		
+		switch (event.getPropertyName()) {
+		case CardController.CARDID_PROPERTY: {
+			 String newStringValue = event.getNewValue().toString();
+             if (!idTextField.getText().equals(newStringValue)) {
+                 idTextField.setText(newStringValue);
+             }
+             break;
+		}
+		
+		case CardController.SIZE_PROPERTY: {
+			String newStringValue = event.getNewValue().toString();
+            if (!sizeTextField.getText().equals(newStringValue)) {
+            	sizeTextField.setText(newStringValue);
+            }
+            break;
+			
+		}
+		
+		case CardController.VALUE_PROPERTY: {
+			Integer newIntValue = Integer.parseInt(event.getNewValue().toString());
+			Integer currentSelection = Integer.parseInt(valueComboBox.getSelectedItem().toString());
+			if (!(newIntValue == currentSelection)) {
+            	valueComboBox.setSelectedIndex(newIntValue);
+            }
+            break;
+		}
+		
+		case CardController.BLOCKER_PROPERTY: {
+			Object newObject = event.getNewValue();
+			Card newCard = 	(Card) newObject;
+			boolean newBlocker = newCard.getBlocker();
+			boolean oldBlocker = blockerToggleButton.isSelected();
+		
+            if (!newBlocker==oldBlocker) {
+            	blockerToggleButton.setSelected(newBlocker);
+            }
+            break;
+		}
+		
+		case CardController.BACKGROUND_PROPERTY: {
+			Color oldBackGround = this.getBackground();
+			Color newColor = (Color)event.getNewValue();
+			if(!oldBackGround.equals(newColor)){
+				this.setBackground(newColor);
+			}
+		}
+		
+		case CardController.DESCRIPTION_PROPERTY: {
+			String newStringValue = event.getNewValue().toString();
+            if (!descriptionTextPane.getText().equals(newStringValue)) {
+            	descriptionTextPane.setText(newStringValue);
+            }
+            break;
+		}
+		
+		case CardController.JRADIOBUTTON_PROPERTY: {
+			Object newObject = event.getNewValue();
+			Card newCard = 	(Card) newObject;
+			boolean newBlocker = newCard.getBlocker();
+			if(newCard.getCreated()!= null && newCard.getStarted() == null) {
+				rdbtnCreated.isSelected();
+			}
+			if(newCard.getStarted()!= null && newCard.getDone() == null) {
+				rdbtnStarted.isSelected();
+			}
+			if(newCard.getDescription()!= null) {
+				rdbtnDone.isSelected();
+			}
+		}
+	  }
+	}
+
+	public void setPreference(Preference pref) {
+		this.pref = pref;
+		
 	}
 	
 }

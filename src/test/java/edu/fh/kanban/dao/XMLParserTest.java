@@ -14,7 +14,7 @@ import edu.fh.kanban.domain.Column;
 import static org.junit.Assert.*;
 
 public class XMLParserTest {
-	
+	/*
 	private XMLParser xmlParser = new XMLParser();
 	private File file = new File("board.xml");
 	private Board board  = new Board();
@@ -43,6 +43,6 @@ public class XMLParserTest {
 	public static junit.framework.Test suite() {
 		return new JUnit4TestAdapter(XMLParserTest.class);
 	}
-
+*/
 
 }

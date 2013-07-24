@@ -18,26 +18,21 @@ import javax.swing.UIManager;
 
 import edu.fh.kanban.dao.BoardDAO;
 import edu.fh.kanban.dao.DAOFactory;
-import edu.fh.kanban.dao.DataManager;
+import edu.fh.kanban.dao.PreferenceDAO;
 import edu.fh.kanban.domain.Board;
-import edu.fh.kanban.domain.Card;
+import edu.fh.kanban.domain.Preference;
 import edu.fh.kanban.ui.controller.BoardController;
-import edu.fh.kanban.ui.controller.CardController;
-import edu.fh.kanban.ui.dialog.OpenFileDialog;
-import edu.fh.kanban.ui.dialog.SaveFileDialog;
-import edu.fh.kanban.ui.view.BacklogView;
 import edu.fh.kanban.ui.view.BoardView;
-import edu.fh.kanban.ui.view.CardView;
-import edu.fh.kanban.ui.view.PreferencesView;
-import edu.fh.kanban.ui.view.View;
+
 
 public class Kanban {
 
 	static Logger LOGGER = Logger.getLogger(Kanban.class.getName());
-
+	
 	
 	public static void main(String[] args) throws ParseException, InterruptedException {
-		
+		final DAOFactory xmlfactory = DAOFactory.getDAOFactory(DAOFactory.XML);
+		Board board = null;
 		LOGGER.info("Starting kanban app.");
 		
 		LOGGER.info("Setting look and feel.");
@@ -48,50 +43,35 @@ public class Kanban {
 		}
 		
 		LOGGER.info("Creating UI components.");
-		
-		
+
+		//Views erstellen
+
+		//View backlogView = new BacklogView(dm,board);
+		//Inna: Bitte den Konstruktor anpassen auf:
+		//BacklogView(BacklogController) (siehe Links..)
 		/** Beispiel DAOs: Objekt in Ressource suchen:
 		 * 1. Erzeugung einer speziellen DAOFactory (z.B. xmlFactory), die Board-, Card- und ColumnDAOs erzeugen kann
 		 * 2. Erzeugung eines Board-/Card- oder Column DAOs aus der speziellen DAOFactory
 		 * 3. Suchedes Objektes (hier Board, Card oder Column) durch DAO
 		 */
-		DAOFactory xmlfactory = DAOFactory.getDAOFactory(DAOFactory.XML);
+		
 		BoardDAO boardDAO = xmlfactory.getBoardDAO();
-		//Board board2 = boardDAO.findBoard();//noch nicht implementiert
+		try{
+			board = boardDAO.findBoard(new File("Board.xml"));
+		}
+		catch(NullPointerException e){
+			System.out.println("Es lag ein Fehler vor");
+		}
+		System.out.println("Karten lesen beendet");
 	
-		/** Alternative: HTMLFactory
-		 * 
-		 */
-		DAOFactory htmlfactory = DAOFactory.getDAOFactory(DAOFactory.HTML);
-		BoardDAO boardDAO2 = htmlfactory.getBoardDAO();
-		//Board board3 = boardDAO.findBoard();
 		
-		
-		
-		final DataManager dm = new DataManager();
-		
-		dm.openFile(new File("board.xml"));
-		
-		Board board = dm.getBoard();
-		
-		final PreferencesView pv= new PreferencesView();
-		pv.getJComponent().setVisible(false);
-		
-		//Views erstellen
-		
-
-		Card emptycard = new Card(0, 0, null, false, 0, null, null, null, null, null);
-		CardController cardcontroller = new CardController();
-		cardcontroller.addModel(emptycard);
-		final CardView cardView = new CardView(cardcontroller,pv,dm);
-		cardcontroller.addView(cardView);
-		
-		
-		final BoardView boardView = new BoardView(board,cardcontroller,pv,dm); //view boardView
-		View backlogView = new BacklogView(dm,board);
+		 
 		BoardController boardController = new BoardController();
 		boardController.addModel(board);
+		final BoardView boardView = new BoardView(boardController); 
 		boardController.addView(boardView);
+	
+		boardController.createColumnViews();
 		
 		
 		JMenuBar menubar = new JMenuBar();
@@ -108,17 +88,9 @@ public class Kanban {
 		filemenu.add(openMenu);
 		openMenu.addActionListener(new ActionListener () {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					dm.openFile(new OpenFileDialog().openFile());
-				} catch (ParseException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				//Update BoardView
-				catch (InterruptedException e2) {
-					// TODO Auto-generated catch block
-					e2.printStackTrace();
-				}
+				
+				
+				
 			}
 		});
 		
@@ -126,7 +98,7 @@ public class Kanban {
 		filemenu.add(saveMenu);
 		saveMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				dm.saveFile(new SaveFileDialog().getFile());
+				//dm.saveFile(new SaveFileDialog().getFile());
 			}
 		});
 		
@@ -135,7 +107,7 @@ public class Kanban {
 		cardMenu.addActionListener(new ActionListener () {
 			public void actionPerformed(ActionEvent e) {
 				JFrame frame2 = new JFrame();
-				frame2.add(cardView);
+				//frame2.add(cardView);
 				frame2.setSize(420,270);
 				frame2.setVisible(true);
 			}
@@ -145,7 +117,7 @@ public class Kanban {
 		filemenu.add(refreshBoard);
 		refreshBoard.addActionListener(new ActionListener () {
 			public void actionPerformed(ActionEvent e) {
-				boardView.setGUI();
+				//boardView.setGUI();
 			}
 		});
 		
@@ -163,7 +135,7 @@ public class Kanban {
 		prefmenu.add(cardViewBoardWorkModusYes);
 		cardViewBoardWorkModusYes.addActionListener(new ActionListener () {
 			public void actionPerformed(ActionEvent e) {
-				boardView.setAllCardViewsEnabled();	
+				//boardView.setAllCardViewsEnabled();	
 			}
 		});
 		
@@ -171,7 +143,7 @@ public class Kanban {
 		prefmenu.add(cardViewBoardWorkModusNo);
 		cardViewBoardWorkModusNo.addActionListener(new ActionListener () {
 			public void actionPerformed(ActionEvent e) {
-				boardView.setAllCardViewsDisabled();
+				//boardView.setAllCardViewsDisabled();
 			}
 		});
 	
@@ -182,7 +154,8 @@ public class Kanban {
             public void actionPerformed(ActionEvent e)
             {
                 //Execute when button is pressed
-                pv.getJComponent().setVisible(true);
+                
+         
                 
             }
         });
@@ -195,7 +168,7 @@ public class Kanban {
 		JScrollPane jsp = new JScrollPane();
 		jsp.setViewportView(boardView.getComponent());
 		pane.addTab("Board", jsp);
-		pane.addTab("Backlog", backlogView.getComponent());
+		//pane.addTab("Backlog", backlogView.getComponent());
 	
 		
 		

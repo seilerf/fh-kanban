@@ -29,7 +29,7 @@ import edu.fh.kanban.domain.Card;
 import edu.fh.kanban.domain.ColorBox;
 
 public class PreferencesTest {
-	
+	/*
 	public static void main(String[] args) throws ParseException, InterruptedException{
 		
 final DataManager dm = new DataManager();
@@ -120,7 +120,7 @@ final DataManager dm = new DataManager();
 	 * @param e
 	 * @param name
 	 */
-	
+	/*
 	public static void ändereBoardNamen(ActionEvent e, String name) {
 		
         DataManager dm= new DataManager();
@@ -131,5 +131,5 @@ final DataManager dm = new DataManager();
         
        board.setName(name);
        System.out.println(board.getName());
-	}
+	}*/
 }

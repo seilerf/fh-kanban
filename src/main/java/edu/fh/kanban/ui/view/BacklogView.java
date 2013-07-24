@@ -46,7 +46,7 @@ public class BacklogView extends JPanel implements View{
 	private JScrollPane scrollpane;
 	private JPanel cardpanel;
 	
-	private DataManager dm;
+
 	private LinkedList<Card> cardList;
 	
 	@Override
@@ -54,7 +54,7 @@ public class BacklogView extends JPanel implements View{
 		return this;
 	}
 	
-	public BacklogView(DataManager dm, Board board){
+	public BacklogView( Board board){
 		
 		
 		

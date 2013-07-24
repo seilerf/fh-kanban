@@ -19,91 +19,79 @@ import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
-import edu.fh.kanban.dao.DataManager;
 import edu.fh.kanban.domain.Board;
 import edu.fh.kanban.domain.Card;
 import edu.fh.kanban.domain.Column;
+import edu.fh.kanban.ui.controller.BoardController;
 import edu.fh.kanban.ui.controller.CardController;
+import edu.fh.kanban.ui.controller.ColumnController;
 
 
 public class BoardView extends AbstractView implements View{
+
+
+	private LinkedList<ColumnView> columnViews = new LinkedList<ColumnView>();
 	
-	private PreferencesView prefView;
-	
-	private CardController cardController;
-	private final String columnWidth = "270dlu";//160
-	private final String rowHeight = "135dlu";//130
-	private final String padding = "4dlu";
-	private LinkedList<CardView> cardViewList = new LinkedList<CardView>(); 
 	private boolean changed;
-	private DataManager dm;
-	private Board board;
+	private BoardController boardController;
+	
 	//Constructor
-	public BoardView(Board board, CardController cardController, PreferencesView prefView, DataManager dm){
-		this.dm = dm;
-		this.prefView = prefView;
-		this.board = board;
-		this.cardController = cardController;
+	public BoardView(BoardController boardController){
+		this.boardController = boardController;
+	
+		initComponents();
+	}
+	
+	private void initComponents() {
 		//Aufbau des Boards mit der Anzahl Spalten, die für die Darstellung notwendig sind;
-		this.setLayout(new FormLayout(this.getColSpec(board.getColumnList().size()), getRowSpec(8)));
 		
-		this.writeColumns(board.getColumnList());
+		columnViews = boardController.createColumnViews(); 
+		System.out.println(boardController.getColumnList().size());
+		this.setLayout(new FormLayout(
+				boardController.getColSpec(boardController.getColumnList().size()),
+				
+				boardController.getRowSpec(8)));
+		
+		this.showColumns(boardController.getColumnControllerList());
 	}
 	
 	//Methode, die die Spalten in das GUI überträgt
-	private void writeColumns(LinkedList<Column> columns) {
+	private void showColumns(LinkedList<ColumnController> columnControllerList) {
 		
 		int count = 2;
 		//Spaltenüberschriften in das GUI schreiben
-		for (Iterator<Column> i = columns.iterator(); i.hasNext();){
-			Column column = i.next();
-			String name = column.getName();
+		for (Iterator<ColumnController> i = columnControllerList.iterator(); i.hasNext();){
+			ColumnController columnController = i.next();
+			String name = columnController.getColumn().getName();
 			JLabel columnLabel = new JLabel(name);
 			columnLabel.setAlignmentY(CENTER_ALIGNMENT);
 			columnLabel.setFont(columnLabel.getFont().deriveFont(columnLabel.getFont().getStyle() | Font.BOLD));
 			add(columnLabel, CC.xy(count, 2, CellConstraints.CENTER, CellConstraints.CENTER));
 			
-			// Karten übertragen
-			LinkedList<Card> cardList = column.getCards();
-			this.createCards(count, cardList); 
+		
+			
+			this.showCards(count, columnController.getCardControllerList()); 
 			
 			count+=2;
 		}
 		
 	}
 	
-	// Methode, die die Spaltenspezifikation für den Formbuilder erstellt und ausgibt
-	private String getColSpec(int columns) {
-		String colSpec = padding + ", " + columnWidth + ", ";
-		
-		int i = 0;
-		for (i = 0; i < columns; i++){
-			// Zusammenfügung des Strings für die Spezifikation der Spalten im FormLayoutManager
-			colSpec = colSpec + colSpec;
-		}
-		return colSpec;
-	}
+
 	
-	// Methode, die die Zeilenspezifikation für den Formbuilder erstellt und ausgibt
-	private String getRowSpec(int rows) {
-			String rowSpec = padding + ", " + rowHeight + ", ";
-			
-			for (int i = 0; i < rows; i++)
-				rowSpec = rowSpec + rowSpec;
-			
-			//String columns = "4dlu ,15dlu, ";
-			rowSpec = "4dlu, 15dlu, " + rowSpec;
-			return rowSpec;
-	}
+
 	
 	// Methode, die die Karten in das Board-GUI schreibt
-	private void createCards(int column, LinkedList<Card> cardList){
+	private void showCards(int column, LinkedList<CardController> cardControllerList){
 		int i=0;
-		if (cardList != null) {
+		if (cardControllerList != null) {
 			int row = 4;
-			for (Iterator<Card> iCard = cardList.iterator(); iCard.hasNext();){
-				Card card = iCard.next();
-				CardView cardView = new CardView(cardController,prefView,dm);
+			for (Iterator<CardController> iCardController = cardControllerList.iterator(); iCardController.hasNext();){
+				
+				CardController cardController = iCardController.next();
+				Card card = cardController.getCard();
+				CardView cardView = cardController.getCardView();
+				
 				cardView.setIdTextField(String.valueOf(card.getId()));
 				cardView.setCardTitel(card.getHeadline());
 				cardView.setDescriptionTextPane(card.getDescription());
@@ -113,53 +101,51 @@ public class BoardView extends AbstractView implements View{
 				cardView.setBlockerToggleButton(card.getBlocker());
 				cardView.setBackground(card.getBackGround());
 				cardView.setAllDisabledForBoard();
-				cardViewList.add((i), cardView);
+			
 				add(cardView, CC.xy(column, row));
 				row+=2;i+=1;
 			}
 		}
 	}
 	
-	public LinkedList<CardView> getCardViews() {
-		return cardViewList;
-	}
+
 	/**
 	 * Alle auf dem Board dargestellten Karten werden auf Disabled gesetzt.
-	 */
+	 *
 	public void setAllCardViewsDisabled() {
 		try {
 			int i=0;
-			Iterator<CardView> iCardView = cardViewList.iterator(); 
-			if(cardViewList != null) {
+			Iterator<CardView> iCardView = cardViews.iterator(); 
+			if(cardViews != null) {
 				while(iCardView.hasNext() == true) {
-					cardViewList.get(i).setAllDisabledForBoard();i+=1;
+					cardViews.get(i).setAllDisabledForBoard();i+=1;
 			}
 		}
 	  } catch(IndexOutOfBoundsException e) {
 		  
 	  }
-	}
+	}*/
 	
 	/**
 	 * Alle auf dme Board dargestellten Karten werden auf Enable
-	 */
+	 *
 	public void setAllCardViewsEnabled() {
 		try {
 			int i=0;
-			Iterator<CardView> iCardView = cardViewList.iterator(); 
-			if(cardViewList != null) {
+			Iterator<CardView> iCardView = cardViews.iterator(); 
+			if(cardViews != null) {
 			while(iCardView.hasNext() == true) {
-				cardViewList.get(i).setAllEnabledForBoard();i+=1;
+				cardViews.get(i).setAllEnabledForBoard();i+=1;
 			}
 		}
 	  } catch(IndexOutOfBoundsException e) {
 		  
 	  }
-	}
+	}*/
 	
 	public void setGUI(){
 		getComponent().removeAll();
-		this.writeColumns(board.getColumnList());
+		//this.showColumns(board.getColumnList());
 		updateUI();
 		System.out.println("Ich wurde geändert!");
 	}

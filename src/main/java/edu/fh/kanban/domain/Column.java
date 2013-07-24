@@ -2,7 +2,6 @@ package edu.fh.kanban.domain;
 
 import java.util.LinkedList;
 
-import edu.fh.kanban.dao.DataManager;
 import edu.fh.kanban.ui.controller.BoardController;
 
 public class Column extends AbstractModel{
@@ -11,12 +10,13 @@ public class Column extends AbstractModel{
 	private int limit;
 	private LinkedList<Card> cardList;
 	
+
 	//Constructor
-	public Column(String name, int limit, LinkedList<Card> cardList) {
+	public Column(String name, int limit) {
 		
 		this.name = name;
 		this.limit = limit;
-		this.cardList = cardList;
+	
 	}
 	public void addCard(Card card){
 		LinkedList<Card> oldList = cardList;
@@ -28,14 +28,16 @@ public class Column extends AbstractModel{
 			cardList = new LinkedList<Card>();
 		}
 		
-		DataManager.getBoard();
-		
 	}
-	/**
-	 * @return the cards
-	 */
-	public LinkedList<Card> getCards() {
+
+	public LinkedList<Card> getCardList() {
 		return cardList;
+	}
+	public void setCardList(LinkedList<Card> cardList) {
+		this.cardList = cardList;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	/**

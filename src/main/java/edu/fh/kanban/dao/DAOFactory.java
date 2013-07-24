@@ -1,22 +1,23 @@
 package edu.fh.kanban.dao;
 
+import edu.fh.kanban.dao.XML.XMLDAOFactory;
+
 public abstract class DAOFactory {
 	
 	public static final int XML = 1;
-	public static final int HTML = 2;
+	
 	
 	public abstract BoardDAO getBoardDAO();
 	public abstract ColumnDAO getColumnDAO();
 	public abstract CardDAO getCardDAO();
+	public abstract PreferenceDAO getPreferenceDAO();
 	
 	public static DAOFactory getDAOFactory(
 		      int whichFactory) {
 		  
 		    switch (whichFactory) {
 		      case XML: 
-		          return new XMLDAOFactory();
-		      case HTML: 
-		          return new HTMLDAOFactory();      
+		          return new XMLDAOFactory();    
 		      default: 
 		          return null;
 		    }

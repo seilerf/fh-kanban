@@ -6,7 +6,6 @@ import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
 import edu.fh.kanban.Kanban;
-import edu.fh.kanban.dao.DataManager;
 import edu.fh.kanban.domain.Board;
 import edu.fh.kanban.domain.Card;
 import edu.fh.kanban.domain.ColorBox;
@@ -38,6 +37,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.beans.PropertyChangeEvent;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -49,7 +49,7 @@ import java.util.List;
  * @author Anton
  *
  */
-public class PreferencesView extends JMenuItem implements View {
+public class PreferencesView extends AbstractView implements View {
 	LinkedList<Card> cardList;
 	LinkedList<Column> columnList;
 	private int limits;
@@ -114,9 +114,9 @@ public class PreferencesView extends JMenuItem implements View {
                 
                 String farbe = cb1.LABELS[selectedIndex];
                 
-               DataManager dm= new DataManager();
+               /*DataManager dm= new DataManager();
                Board board  = dm.getBoard();
-                cardList= dm.getAllCards(board.getColumnList());
+                cardList= dm.getAllCards(board.getColumnList());*/
                 
 		Iterator<Card> icard = cardList.iterator();
 		
@@ -272,12 +272,12 @@ public class PreferencesView extends JMenuItem implements View {
                 System.out.println("You saved the Name");
                 String boardname = name.getText();
       
-                Board board=DataManager.getBoard();
+               // Board board=DataManager.getBoard();
                 
-                System.out.println("Alter Name "+board.getName());
+              //  System.out.println("Alter Name "+board.getName());
                 
-               board.setName(boardname);
-               System.out.println("Neuer Name "+board.getName());
+               // board.setName(boardname);
+               //System.out.println("Neuer Name "+board.getName());
             }
             
         }); 
@@ -300,8 +300,8 @@ public class PreferencesView extends JMenuItem implements View {
        /**
         * Auswahl der Spalte mit Listener gibt die auswahl an setter Methode weiter 
         */
-        Board board=DataManager.getBoard();
-        LinkedList<Column> columnList= board.getColumnList();  
+        //Board board=DataManager.getBoard();
+       // LinkedList<Column> columnList= board.getColumnList();  
         
         //Die BoardSpalten aus dem Board auslesen
         
@@ -472,8 +472,8 @@ public class PreferencesView extends JMenuItem implements View {
 
 	protected void limitchanger(ActionEvent e) {
     	
-       Board board=DataManager.getBoard();
-       LinkedList<Column> columnList= board.getColumnList();
+       //Board board=DataManager.getBoard();
+      // LinkedList<Column> columnList= board.getColumnList();
        
         Iterator<Column> icolumn = columnList.iterator();
 		
@@ -508,6 +508,12 @@ public class PreferencesView extends JMenuItem implements View {
 
 	public JComponent getComponent() {
 		return this;
+	}
+
+	@Override
+	public void modelPropertyChange(PropertyChangeEvent event) {
+		
+		
 	}
 	
 }

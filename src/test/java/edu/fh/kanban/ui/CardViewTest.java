@@ -41,8 +41,8 @@ public class CardViewTest {
 	}
 	@BeforeClass
 	public static void setBeforeTesting() {
-		cardView = new CardView(cardController,prefView,dm);
-		referenz = new CardView(cardController,prefView,dm);
+		cardView = new CardView(cardController);
+		referenz = new CardView(cardController);
 		oldId = 23;
 		cardId = 10;
 		size = 4;

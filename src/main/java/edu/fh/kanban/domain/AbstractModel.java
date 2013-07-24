@@ -24,7 +24,4 @@ public abstract class AbstractModel {
 	        changes.firePropertyChange(propertyName, oldValue, newValue);
 	    }
 	    
-	    public static void callModelMethod(String name){
-	    	
-	    }
 }
