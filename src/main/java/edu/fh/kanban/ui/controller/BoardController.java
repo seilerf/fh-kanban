@@ -62,12 +62,13 @@ public class BoardController extends AbstractController{
 	        		 currentColumnController.addModel(currentColumn);
 	        	 }
 	        	 catch(NullPointerException e){
+	        		 e.printStackTrace();
 	        		 System.out.println("Die Spalte " + currentColumn.getName() + " enthält keine Karten");
 	        	 }
 		         
 		         currentColumnController.addView(currentColumnView);
 				 columnControllers.add(currentColumnController);
-				 this.addView(currentColumnView);
+				 //this.addView(currentColumnView);
 	         } 
 	    }
 
@@ -115,7 +116,7 @@ public class BoardController extends AbstractController{
 
 	public LinkedList<ColumnView> createColumnViews() {
 		
-		return null;
+		return columnViews;
 	}
 
 	

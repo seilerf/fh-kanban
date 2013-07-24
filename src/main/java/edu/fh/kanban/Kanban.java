@@ -18,9 +18,7 @@ import javax.swing.UIManager;
 
 import edu.fh.kanban.dao.BoardDAO;
 import edu.fh.kanban.dao.DAOFactory;
-import edu.fh.kanban.dao.PreferenceDAO;
 import edu.fh.kanban.domain.Board;
-import edu.fh.kanban.domain.Preference;
 import edu.fh.kanban.ui.controller.BoardController;
 import edu.fh.kanban.ui.view.BoardView;
 

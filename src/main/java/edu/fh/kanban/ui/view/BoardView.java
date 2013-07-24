@@ -40,11 +40,12 @@ public class BoardView extends AbstractView implements View{
 		this.boardController = boardController;
 	
 		initComponents();
+		System.out.println("BoardView()");
 	}
 	
 	private void initComponents() {
 		//Aufbau des Boards mit der Anzahl Spalten, die für die Darstellung notwendig sind;
-		
+		System.out.println("initComponents()");
 		columnViews = boardController.createColumnViews(); 
 		System.out.println(boardController.getColumnList().size());
 		this.setLayout(new FormLayout(
@@ -57,7 +58,7 @@ public class BoardView extends AbstractView implements View{
 	
 	//Methode, die die Spalten in das GUI überträgt
 	private void showColumns(LinkedList<ColumnController> columnControllerList) {
-		
+		System.out.println("showColumns()");
 		int count = 2;
 		//Spaltenüberschriften in das GUI schreiben
 		for (Iterator<ColumnController> i = columnControllerList.iterator(); i.hasNext();){
@@ -84,6 +85,7 @@ public class BoardView extends AbstractView implements View{
 	// Methode, die die Karten in das Board-GUI schreibt
 	private void showCards(int column, LinkedList<CardController> cardControllerList){
 		int i=0;
+		System.out.println("showCards()");
 		if (cardControllerList != null) {
 			int row = 4;
 			for (Iterator<CardController> iCardController = cardControllerList.iterator(); iCardController.hasNext();){
@@ -92,14 +94,17 @@ public class BoardView extends AbstractView implements View{
 				Card card = cardController.getCard();
 				CardView cardView = cardController.getCardView();
 				
+				System.out.println("in der BoardView:" + cardView.getBackground());
+				
 				cardView.setIdTextField(String.valueOf(card.getId()));
 				cardView.setCardTitel(card.getHeadline());
 				cardView.setDescriptionTextPane(card.getDescription());
 				cardView.setValueComboBox(card.getValue());
-				cardView.setJRadioButton(card.getBackGround(), card.getCreated(), card.getStarted(), card.getStarted());
+				
+				cardView.setJRadioButton(card.getCreated(), card.getStarted(), card.getStarted());
 				cardView.setSizeTextField(String.valueOf(card.getSize()));
 				cardView.setBlockerToggleButton(card.getBlocker());
-				cardView.setBackground(card.getBackGround());
+				//cardView.setBackground();
 				cardView.setAllDisabledForBoard();
 			
 				add(cardView, CC.xy(column, row));

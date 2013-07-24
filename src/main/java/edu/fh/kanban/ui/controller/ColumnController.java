@@ -16,6 +16,8 @@ public class ColumnController extends AbstractController {
 	
 	private LinkedList<CardController> cardControllers = new LinkedList<>();
 	private Preference pref;
+
+
 	public ColumnController(){
 		 
 	}
@@ -44,27 +46,41 @@ public class ColumnController extends AbstractController {
 	         LinkedList <Card> cardList = column.getCardList();
 	         if(cardList!=null){
 	        	 Iterator<Card> cardIterator = cardList.iterator();
-		         while(cardIterator.hasNext()){
-		        	 Card currentCard = cardIterator.next();
-		        	
-		        	 CardController currentCardController = new CardController();
-		        	 CardView currentCardView = new CardView(currentCardController);
-		        	 //Einstellungen der CardView werden gesetzt
-		        	 currentCardView.setPreference(pref);
-		        	 
-		        	 
-		        	 System.out.println("Spalte" + column.getName() + " Karte:" +currentCard.getHeadline());
-		        	 currentCardController.addModel(currentCard);
-		        	 
-		        	 //currentCardController.setPreference(preference);
-		        	 
-		        	 currentCardController.addView(currentCardView);
-		        	 cardControllers.add(currentCardController);
-		        	 this.addView(currentCardView);
-		         }
+	        	 
+	        	 //Durchlaufe die Karten
+			         while(cardIterator.hasNext()){
+			        	 Card currentCard = cardIterator.next();
+			        	 //Erstelle CardController
+			        	 CardController currentCardController = new CardController();
+			        	 //Erstelle CardView
+			        	 System.out.println("Bis hier???????");
+			        	 CardView currentCardView = new CardView(currentCardController);//-->kritisch!!!
+			        	 System.out.println("Hier her kommt er nicht?!?!?");
+			        	 
+			        	 
+			        	 //Einstellungen der CardView werden gesetzt (u.a. die Farben)
+			        	 //currentCardView.setPreference(pref);
+			        	 System.out.println("Hallo" + pref.getColorIntagible()[2] + "\n");
+			        	 
+			        	 
+			        	 
+			        	 System.out.println("Spalte" + column.getName() + " Karte:" +currentCard.getHeadline());
+			        	 
+			        	 //Das Model (Column) wird dem Controller (currentCardController) hinzugefügt
+			        	 currentCardController.addModel(currentCard);
+			        	 //Der CardView wird dem CardController zugeordnet
+			        	 currentCardController.addView(currentCardView);
+			        	 
+			        	 //Der CardController wird der List von CardController hinzugefügt
+			        	 cardControllers.add(currentCardController);
+			         }
+		         this.setCardControllers(cardControllers);
+		       
 	         }
 	         else{
+	        	 System.out.println("Es gab eine NullPointerException!!");
 	        	 throw new NullPointerException();
+	        	 
 	         }
 	          
 	    }
@@ -73,6 +89,14 @@ public class ColumnController extends AbstractController {
 	
 	public LinkedList<CardController> getCardControllerList(){
 		return cardControllers;
+	}
+	
+	public LinkedList<CardController> getCardControllers() {
+		return cardControllers;
+	}
+
+	public void setCardControllers(LinkedList<CardController> cardControllers) {
+		this.cardControllers = cardControllers;
 	}
 	
 	public Column getColumn(){

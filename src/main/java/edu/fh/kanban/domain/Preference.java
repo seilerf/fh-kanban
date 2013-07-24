@@ -8,7 +8,7 @@ public class Preference extends AbstractModel {
 	private int[] colorStandard;
 	private int[] colorExpedite;
 	private int[] colorFixed;
-	private String colorIntagible;
+	private int[] colorIntagible;
 	
 	private String limitNext;
 	private String limitDev;
@@ -51,11 +51,11 @@ public class Preference extends AbstractModel {
 		this.colorFixed = farbe3;
 	}
 
-	public String getColorIntagible() {
+	public int[] getColorIntagible() {
 		return colorIntagible;
 	}
 
-	public void setColorIntagible(String colorIntagible) {
+	public void setColorIntagible(int[] colorIntagible) {
 		this.colorIntagible = colorIntagible;
 	}
 	
