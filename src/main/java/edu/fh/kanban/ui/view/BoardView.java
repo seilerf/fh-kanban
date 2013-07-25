@@ -91,21 +91,25 @@ public class BoardView extends AbstractView implements View{
 			for (Iterator<CardController> iCardController = cardControllerList.iterator(); iCardController.hasNext();){
 				
 				CardController cardController = iCardController.next();
-				Card card = cardController.getCard();
+				Card card = cardController.getCard();//funktioniert richtig
+				System.out.println("showCards: ID:" +card.getId() + " Value:" + card.getValue());
+				
 				CardView cardView = cardController.getCardView();
 				
-				System.out.println("in der BoardView:" + cardView.getBackground());
 				
 				cardView.setIdTextField(String.valueOf(card.getId()));
 				cardView.setCardTitel(card.getHeadline());
 				cardView.setDescriptionTextPane(card.getDescription());
 				cardView.setValueComboBox(card.getValue());
+				cardView.setJPanelColorForCreatingAExistingCard(card.getValue());
 				
 				cardView.setJRadioButton(card.getCreated(), card.getStarted(), card.getStarted());
 				cardView.setSizeTextField(String.valueOf(card.getSize()));
 				cardView.setBlockerToggleButton(card.getBlocker());
-				//cardView.setBackground();
+				
 				cardView.setAllDisabledForBoard();
+				
+				System.out.println("in der BoardView:" + cardView.getBackground());
 			
 				add(cardView, CC.xy(column, row));
 				row+=2;i+=1;

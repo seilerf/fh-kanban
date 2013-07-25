@@ -64,51 +64,36 @@ public class XMLPreferenceDAO implements PreferenceDAO {
 	
 	public void readAll(Element root){
 		List<Element> prefs = (List<Element>) root.getChildren();
-		
 
-		//System.out.println(Integer.parseInt(prefs.get(0).getChildren().get(0).getChildren().get(0).getAttributeValue("f1")));
-		//System.out.println(Integer.parseInt(prefs.get(0).getChildren().get(0).getChildren().get(1).getAttributeValue("f2")));
-		System.out.println("Das war ich!");
-	
-		
-		int[] farbe1 = new int[3];
-		farbe1[0] = Integer.parseInt(prefs.get(0).getChildren().get(0).getChildren().get(0).getAttributeValue("f1"));
-		farbe1[1] =	Integer.parseInt(prefs.get(0).getChildren().get(0).getChildren().get(1).getAttributeValue("f2"));
-		farbe1[2] =	Integer.parseInt(prefs.get(0).getChildren().get(0).getChildren().get(2).getAttributeValue("f3"));
-				
-		
-		System.out.println("Das war ich!");
+		int[] intangible = new int[3];
+		intangible[0] = Integer.parseInt(prefs.get(0).getChildren().get(0).getChildren().get(0).getAttributeValue("f1"));
+		intangible[1] =	Integer.parseInt(prefs.get(0).getChildren().get(0).getChildren().get(1).getAttributeValue("f2"));
+		intangible[2] =	Integer.parseInt(prefs.get(0).getChildren().get(0).getChildren().get(2).getAttributeValue("f3"));
 
-		int[] farbe2 = new int[3];
-		farbe2[0] = Integer.parseInt(prefs.get(0).getChildren().get(1).getChildren().get(0).getAttributeValue("f1"));
-		farbe2[1] =	Integer.parseInt(prefs.get(0).getChildren().get(1).getChildren().get(1).getAttributeValue("f2"));
-		farbe2[2] =	Integer.parseInt(prefs.get(0).getChildren().get(1).getChildren().get(2).getAttributeValue("f3"));
+		int[] standard = new int[3];
+		standard[0] = Integer.parseInt(prefs.get(0).getChildren().get(1).getChildren().get(0).getAttributeValue("f1"));
+		standard[1] =	Integer.parseInt(prefs.get(0).getChildren().get(1).getChildren().get(1).getAttributeValue("f2"));
+		standard[2] =	Integer.parseInt(prefs.get(0).getChildren().get(1).getChildren().get(2).getAttributeValue("f3"));
 		
-		int[] farbe3 = new int[3];
-		farbe3[0] = Integer.parseInt(prefs.get(0).getChildren().get(2).getChildren().get(0).getAttributeValue("f1"));
-		farbe3[1] =	Integer.parseInt(prefs.get(0).getChildren().get(2).getChildren().get(1).getAttributeValue("f2"));
-		farbe3[2] =	Integer.parseInt(prefs.get(0).getChildren().get(2).getChildren().get(2).getAttributeValue("f3"));
+		int[] expedite = new int[3];
+		expedite[0] = Integer.parseInt(prefs.get(0).getChildren().get(2).getChildren().get(0).getAttributeValue("f1"));
+		expedite[1] =	Integer.parseInt(prefs.get(0).getChildren().get(2).getChildren().get(1).getAttributeValue("f2"));
+		expedite[2] =	Integer.parseInt(prefs.get(0).getChildren().get(2).getChildren().get(2).getAttributeValue("f3"));
 		
-		int[] farbe4 = new int[3];
-		farbe4[0] = Integer.parseInt(prefs.get(0).getChildren().get(3).getChildren().get(0).getAttributeValue("f1"));
-		farbe4[1] =	Integer.parseInt(prefs.get(0).getChildren().get(3).getChildren().get(1).getAttributeValue("f2"));
-		farbe4[2] =	Integer.parseInt(prefs.get(0).getChildren().get(3).getChildren().get(2).getAttributeValue("f3"));
-		
-		
-		
-		System.out.println(farbe1[0] + "" +  farbe1[1] + "" + farbe1[2]);
-		System.out.println(farbe2[0] + "" +  farbe2[1] + ""+ farbe2[2]);
-		System.out.println(farbe3[0] + "" +  farbe3[1] + ""+ farbe3[2]);
-		
-		
-		
-		
-		
-		
-		preference.setColorStandard(farbe1);
-		preference.setColorExpedite(farbe2);
-		preference.setColorFixed(farbe3);
-		//preference.setColorIntagible(color4);
+		int[] fixedDate = new int[3];
+		fixedDate[0] = Integer.parseInt(prefs.get(0).getChildren().get(3).getChildren().get(0).getAttributeValue("f1"));
+		fixedDate[1] =	Integer.parseInt(prefs.get(0).getChildren().get(3).getChildren().get(1).getAttributeValue("f2"));
+		fixedDate[2] =	Integer.parseInt(prefs.get(0).getChildren().get(3).getChildren().get(2).getAttributeValue("f3"));
+
+		System.out.println(intangible[0] + "" +  intangible[1] + "" + intangible[2]);
+		System.out.println(standard[0] + "" +  standard[1] + ""+ standard[2]);
+		System.out.println(expedite[0] + "" +  expedite[1] + ""+ expedite[2]);
+		System.out.println(fixedDate[0] + "" +  fixedDate[1] + ""+ fixedDate[2]);
+
+		preference.setColorStandard(standard);
+		preference.setColorExpedite(expedite);
+		preference.setColorFixed(fixedDate);
+		preference.setColorIntagible(intangible);
 		
 		String column1 = prefs.get(1).getChildren().get(0).getAttributeValue("limit");
 		String column2 = prefs.get(1).getChildren().get(1).getAttributeValue("limit");
@@ -121,8 +106,6 @@ public class XMLPreferenceDAO implements PreferenceDAO {
 		preference.setLimitDone(column4);
 		
 		System.out.println(column1 + column2 + column3 + column4);
-
-	
 		
 		System.out.println("-------------------------------------------------------------\n");
 		

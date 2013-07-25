@@ -304,7 +304,7 @@ public class CardView extends AbstractView implements View {
 				saveAllOldValues(Integer.parseInt(idTextField.getText()), Integer.parseInt(sizeTextField.getText()), descriptionTextPane.getText(), valueComboBox.getSelectedIndex(), getBackground(), blockerToggleButton.isSelected(), getJRadioButton());count+=1;
 			}
 			cardController.changeCardViewValues(Integer.parseInt(idTextField.getText()), Integer.parseInt(sizeTextField.getText()), descriptionTextPane.getText(), valueComboBox.getSelectedIndex(), getBackground(), blockerToggleButton.isSelected(), getJRadioButton());
-			setJPanelColor();
+			setJPanelColorForCreatingANewCard();
 			this.btnResetAll.setEnabled(true);
 		 }
 	}
@@ -315,7 +315,7 @@ public class CardView extends AbstractView implements View {
 	 */
 	private void btnDeleteAllActionPerformed(ActionEvent e) {
 		resetAllValues();
-		setJPanelColor();
+		setJPanelColorForCreatingANewCard();
 	}
 	
 	/**
@@ -359,7 +359,7 @@ public class CardView extends AbstractView implements View {
 		this.setValueComboBox(oldValue);
 		this.setBlockerToggleButton(oldBlocker);
 		this.setOldJRadioButton(oldJRadio);
-		this.setJPanelColor();
+		this.setJPanelColorForCreatingANewCard();
 	}
 	 
 	
@@ -416,7 +416,6 @@ public class CardView extends AbstractView implements View {
 	 */
 	@Override
 	public Color getBackground() {
-		System.out.println("In der CardView: getbackGround(): Hintergrundfarbe:" + background);
 		return this.background;
 		
 	}
@@ -433,7 +432,7 @@ public class CardView extends AbstractView implements View {
 			Component parent = getJPanel();
 			JOptionPane.showMessageDialog(parent,"Fehlerhafte Eingabe(JRadio/ Value/ Description)!","ERROR!" , JOptionPane.ERROR_MESSAGE);
 			resetAllValues();
-			setJPanelColor();
+			setJPanelColorForCreatingANewCard();
 			//cardController.deleteCardViewValues(Integer.parseInt(idTextField.getText()), Integer.parseInt(sizeTextField.getText()), descriptionTextPane.getText(), valueComboBox.getSelectedIndex(), getBackgroundColor(), blockerToggleButton.isSelected(), RadioButton());
 
 		}
@@ -442,10 +441,10 @@ public class CardView extends AbstractView implements View {
 	public Component getJPanel() {
 		return this;
 	}
-	/**
+	/** Zum neue Karte anlegen:
 	 * Methode zum Einfärben des Panels entsprechen mit der passenden Hintergrundfarbe bezüglich der Wertauswahl.
 	 */
-	public void setJPanelColor(){
+	public void setJPanelColorForCreatingANewCard(){
 		int x = this.valueComboBox.getSelectedIndex();
 		
 		//Auswertung der Auswahl aus der ComboBox:
@@ -458,6 +457,7 @@ public class CardView extends AbstractView implements View {
 		if(x == 1) {
 			int[] intangible = pref.getColorIntagible();
 			this.background = new Color(intangible[0],intangible[1],intangible[2]);
+		
 						
 		}
 		//Standard
@@ -479,7 +479,48 @@ public class CardView extends AbstractView implements View {
 		this.rdbtnCreated.setBackground(background);
 		this.rdbtnStarted.setBackground(background);
 		this.rdbtnDone.setBackground(background);
-		System.out.println("CardView: setJPanelColor(): Backgroundfarbe:" + background);
+		
+	}
+	
+	/** Zum anzeigen einer eingelesenen Karte:
+	 * Methode zum Einfärben des Panels entsprechen mit der passenden Hintergrundfarbe bezüglich der Wertauswahl.
+	 */
+	public void setJPanelColorForCreatingAExistingCard(int x){
+		
+		
+		//Auswertung der Auswahl aus der ComboBox:
+		
+		//keine Auswahl("Wähle aus" oder gar keine Auswahl)
+		if(x == 0||x==-1) {
+			this.background = Color.LIGHT_GRAY;
+		}
+		//Intengiable
+		if(x == 1) {
+			int[] intangible = pref.getColorIntagible();
+			this.background = new Color(intangible[0],intangible[1],intangible[2]);
+						
+		}
+		//Standard
+		if(x == 2) {
+			int[] standard = pref.getColorStandard();
+			this.background = new Color(standard[0],standard[1],standard[2]);
+
+		}
+		//Expedite
+		if(x == 3) {
+			int[] expedite = pref.getColorExpedite();
+			this.background = new Color(expedite[0],expedite[1],expedite[2]);
+		}
+		//Fixed Date
+		if(x == 4) {
+			int[] fixedDate = pref.getColorFixed();
+			this.background = new Color(fixedDate[0],fixedDate[1],fixedDate[2]);
+		}
+		//this.setBackground(background);
+		this.rdbtnCreated.setBackground(background);
+		this.rdbtnStarted.setBackground(background);
+		this.rdbtnDone.setBackground(background);
+		
 	}
 	
 	/**
@@ -551,7 +592,7 @@ public class CardView extends AbstractView implements View {
 	 */
 	public void setValueComboBox(int i) {
 		this.valueComboBox.setSelectedIndex(i);
-		this.setJPanelColor();
+		
 	}
 	
 	/**
@@ -684,8 +725,6 @@ public class CardView extends AbstractView implements View {
 
 	public void setPreference(Preference pref) {
 		this.pref = pref;
-		this.setJPanelColor();
-		
 	}
 	
 }

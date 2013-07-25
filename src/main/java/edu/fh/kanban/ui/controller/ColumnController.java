@@ -56,11 +56,12 @@ public class ColumnController extends AbstractController {
 			        	 System.out.println("Bis hier???????");
 			        	 CardView currentCardView = new CardView(currentCardController);//-->kritisch!!!
 			        	 System.out.println("Hier her kommt er nicht?!?!?");
-			        	 
+			        	 System.out.println("aktuelle Karte:" + currentCard.getId());
+			        	 currentCardView.setPreference(this.pref);
 			        	 
 			        	 //Einstellungen der CardView werden gesetzt (u.a. die Farben)
 			        	 //currentCardView.setPreference(pref);
-			        	 System.out.println("Hallo" + pref.getColorIntagible()[2] + "\n");
+			        	 System.out.println("Hallo" + pref.getColorExpedite()[2] + "\n");
 			        	 
 			        	 
 			        	 

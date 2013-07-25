@@ -72,9 +72,7 @@ public class XMLBoardDAO implements BoardDAO{
 		        /**
 		         * 
 		         */
-		     
-				
-		        
+
 		        currentBoard = new Board();
 
 		        try {

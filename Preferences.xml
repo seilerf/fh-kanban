@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Preference name= "Pref1">
 	<Colors>
-		<Standard>
-			<Farbanteil f1= "0"></Farbanteil>
-			<Farbanteil f2 = "0"></Farbanteil>
-			<Farbanteil f3 = "255"></Farbanteil>
+		<Intengible>
+			<Farbanteil f1="0"></Farbanteil>
+			<Farbanteil f2="0"></Farbanteil>
+			<Farbanteil f3="255"></Farbanteil>
+		</Intengible><Standard>
+			<Farbanteil f1= "255"></Farbanteil>
+			<Farbanteil f2 = "200"></Farbanteil>
+			<Farbanteil f3 = "0"></Farbanteil>
 		</Standard>
 		<Expedite>
 			<Farbanteil f1 = "255"></Farbanteil>
-			<Farbanteil f2 = "200"></Farbanteil>
+			<Farbanteil f2 = "0"></Farbanteil>
 			<Farbanteil f3 = "0"></Farbanteil>
 		</Expedite>
 		<FixedDate>
-			<Farbanteil f1 = "255"></Farbanteil>
-			<Farbanteil f2 = "0"></Farbanteil>
-			<Farbanteil f3 = "0"></Farbanteil>
-		</FixedDate>
-		<Intengible>
 			<Farbanteil f1 = "0"></Farbanteil>
 			<Farbanteil f2 = "255"></Farbanteil>
 			<Farbanteil f3 = "0"></Farbanteil>
-		</Intengible>
+		</FixedDate>
+		
 	</Colors>
 	<Column>
 		<Next limit = "4"></Next>
