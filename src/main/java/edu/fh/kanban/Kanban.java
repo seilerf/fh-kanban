@@ -18,8 +18,11 @@ import javax.swing.UIManager;
 
 import edu.fh.kanban.dao.BoardDAO;
 import edu.fh.kanban.dao.DAOFactory;
+import edu.fh.kanban.domain.Backlog;
 import edu.fh.kanban.domain.Board;
+import edu.fh.kanban.ui.controller.BacklogController;
 import edu.fh.kanban.ui.controller.BoardController;
+import edu.fh.kanban.ui.view.BacklogView;
 import edu.fh.kanban.ui.view.BoardView;
 
 
@@ -31,6 +34,7 @@ public class Kanban {
 	public static void main(String[] args) throws ParseException, InterruptedException {
 		final DAOFactory xmlfactory = DAOFactory.getDAOFactory(DAOFactory.XML);
 		Board board = null;
+		Backlog backlog = null;
 		LOGGER.info("Starting kanban app.");
 		
 		LOGGER.info("Setting look and feel.");
@@ -61,7 +65,8 @@ public class Kanban {
 			System.out.println("Es lag ein Fehler vor");
 		}
 		System.out.println("Karten lesen beendet");
-	
+		
+		
 		
 		 
 		BoardController boardController = new BoardController();
@@ -71,6 +76,14 @@ public class Kanban {
 	
 		boardController.createColumnViews();
 		
+		BacklogController backlogController = new BacklogController();
+		backlog = new Backlog(board.getCards());
+		backlogController.addModel(backlog);
+		final BacklogView backlogView = new BacklogView(backlogController);
+		backlogController.addView(backlogView);
+		backlogView.showBacklog();
+		
+	
 		
 		JMenuBar menubar = new JMenuBar();
 		JMenu filemenu = new JMenu("Datei");
@@ -166,7 +179,7 @@ public class Kanban {
 		JScrollPane jsp = new JScrollPane();
 		jsp.setViewportView(boardView.getComponent());
 		pane.addTab("Board", jsp);
-		//pane.addTab("Backlog", backlogView.getComponent());
+		pane.addTab("Backlog", backlogView.getComponent());
 	
 		
 		

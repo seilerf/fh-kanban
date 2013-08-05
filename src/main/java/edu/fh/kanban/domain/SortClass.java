@@ -7,12 +7,16 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import edu.fh.kanban.domain.Card;
+import edu.fh.kanban.domain.CardNameComparator;
+import edu.fh.kanban.domain.CardSizeComparator;
+import edu.fh.kanban.domain.CardValueComparator;
 import edu.fh.kanban.ui.controller.BacklogController;
 
 /*
  * Autor: Inna Maier
  */
-public class SortClass extends AbstractModel{
+public class SortClass{
 	
 	public static List addIntoList(LinkedList<Card>list){
 		

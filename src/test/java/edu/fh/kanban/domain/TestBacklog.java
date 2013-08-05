@@ -1,12 +1,11 @@
-package edu.fh.kanban.example;
+package edu.fh.kanban.domain;
 
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
 import edu.fh.kanban.domain.Card;
-import edu.fh.kanban.domain.SortClass;
-import edu.fh.kanban.domain.SearchClass;
+
 
 /*
  * Autor: Inna Maier

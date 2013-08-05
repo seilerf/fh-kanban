@@ -1,7 +1,11 @@
 package edu.fh.kanban.domain;
 
+
+
 import java.util.Iterator;
 import java.util.LinkedList;
+
+import edu.fh.kanban.domain.Card;
 
 /*
  * Autor: Inna Maier
