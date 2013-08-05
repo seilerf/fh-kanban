@@ -3,6 +3,7 @@ package edu.fh.kanban.ui.view;
 import java.beans.PropertyChangeEvent;
 import java.util.Iterator;
 import java.util.LinkedList;
+
 import edu.fh.kanban.ui.controller.ColumnController;
 
 public class ColumnView extends AbstractView {
@@ -36,7 +37,8 @@ public class ColumnView extends AbstractView {
 	
 	@Override
 	public void modelPropertyChange(PropertyChangeEvent event) {
-		// TODO Auto-generated method stub
+		System.out.println("ColumnView wird akualisiert\n");
+		updateUI();
 		
 	}
 

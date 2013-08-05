@@ -133,7 +133,7 @@ public class Kanban {
 		prefmenu.add(cardViewBoardWorkModusYes);
 		cardViewBoardWorkModusYes.addActionListener(new ActionListener () {
 			public void actionPerformed(ActionEvent e) {
-				//boardView.setAllCardViewsEnabled();	
+				boardView.setAllCardViewsEnabled();	
 			}
 		});
 		
@@ -141,7 +141,7 @@ public class Kanban {
 		prefmenu.add(cardViewBoardWorkModusNo);
 		cardViewBoardWorkModusNo.addActionListener(new ActionListener () {
 			public void actionPerformed(ActionEvent e) {
-				//boardView.setAllCardViewsDisabled();
+				boardView.setAllCardViewsDisabled();
 			}
 		});
 	

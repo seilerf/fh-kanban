@@ -120,37 +120,37 @@ public class BoardView extends AbstractView implements View{
 
 	/**
 	 * Alle auf dem Board dargestellten Karten werden auf Disabled gesetzt.
-	 *
+	 */
 	public void setAllCardViewsDisabled() {
 		try {
-			int i=0;
-			Iterator<CardView> iCardView = cardViews.iterator(); 
-			if(cardViews != null) {
-				while(iCardView.hasNext() == true) {
-					cardViews.get(i).setAllDisabledForBoard();i+=1;
+			BoardController currentBoardController;
+			for(ColumnController columnController: boardController.getColumnControllerList()){
+				
+				for(CardController cardController: columnController.getCardControllerList()){
+					cardController.getCardView().setAllDisabledForBoard();
+				}
 			}
-		}
 	  } catch(IndexOutOfBoundsException e) {
-		  
+		  e.printStackTrace();
 	  }
-	}*/
+	}
 	
 	/**
 	 * Alle auf dme Board dargestellten Karten werden auf Enable
-	 *
+	 */
 	public void setAllCardViewsEnabled() {
 		try {
-			int i=0;
-			Iterator<CardView> iCardView = cardViews.iterator(); 
-			if(cardViews != null) {
-			while(iCardView.hasNext() == true) {
-				cardViews.get(i).setAllEnabledForBoard();i+=1;
+			BoardController currentBoardController;
+			for(ColumnController columnController: boardController.getColumnControllerList()){
+				
+				for(CardController cardController: columnController.getCardControllerList()){
+					cardController.getCardView().setAllEnabledForBoard();
+				}
 			}
-		}
 	  } catch(IndexOutOfBoundsException e) {
-		  
+		  e.printStackTrace();
 	  }
-	}*/
+	}
 	
 	public void setGUI(){
 		getComponent().removeAll();
@@ -171,7 +171,7 @@ public class BoardView extends AbstractView implements View{
 
 	@Override
 	public void modelPropertyChange(PropertyChangeEvent event) {
-		
-		
+		System.out.println("Boardview wird akualisiert\n");
+		updateUI();
 	}
 }

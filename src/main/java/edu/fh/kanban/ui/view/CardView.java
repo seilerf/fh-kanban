@@ -666,6 +666,11 @@ public class CardView extends AbstractView implements View {
              }
              break;
 		}
+		case CardController.BACKGROUND_PROPERTY: {
+			
+           
+            break;
+		}
 		
 		case CardController.SIZE_PROPERTY: {
 			String newStringValue = event.getNewValue().toString();
@@ -682,6 +687,11 @@ public class CardView extends AbstractView implements View {
 			if (!(newIntValue == currentSelection)) {
             	valueComboBox.setSelectedIndex(newIntValue);
             }
+			
+			
+	           setJPanelColorForCreatingAExistingCard(currentSelection);
+	           System.out.println("Background geändert");
+	          this.updateUI();
             break;
 		}
 		
