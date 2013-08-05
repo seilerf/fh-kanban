@@ -33,7 +33,7 @@ public class BoardTest {
 		String name = "TestSpalte ";
 		int limit = 3;
 		for (int i = 1; i < 4; i++)
-			columnList.add(new Column(name+i, limit, null));
+			columnList.add(new Column(name+i, limit));
 		
 		assertTrue(board.getColumnList() == null);
 		board.setColumnList(columnList);

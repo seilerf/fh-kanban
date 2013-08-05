@@ -19,7 +19,7 @@ public class ColumnTest {
 		int limit = 4;
 		this.cardList = null;
 		
-		this.column = new Column(name, limit, cardList);
+		this.column = new Column(name, limit);
 		
 		assertEquals("Name der Spalte. ", name, this.column.getName());
 		assertEquals("Limit der Spalte", limit, this.column.getLimit());
@@ -34,9 +34,9 @@ public class ColumnTest {
 		for (int i = 1; i < 5; i++)
 			this.cardList.add(new Card(2, 5, "Kartenbeschreibung", true, 2, "Karte "+i, Color.BLUE, null, null, null));
 		
-		this.column = new Column(colName, limit, cardList);
+		this.column = new Column(colName, limit);
 		
-		assertFalse(this.column.getCards().isEmpty());
+		assertFalse(this.column.getCardList().isEmpty());
 	}
 	
 	public static junit.framework.Test suite() {

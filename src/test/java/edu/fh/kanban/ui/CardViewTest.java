@@ -9,13 +9,13 @@ import javax.swing.JRadioButton;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import edu.fh.kanban.dao.DataManager;
 import edu.fh.kanban.domain.Board;
 import edu.fh.kanban.ui.controller.CardController;
 import edu.fh.kanban.ui.view.CardView;
 import edu.fh.kanban.ui.view.PreferencesView;
 import static org.hamcrest.CoreMatchers.*;
 //import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
+
 
 public class CardViewTest {
 	private static CardView cardView;
@@ -35,9 +35,9 @@ public class CardViewTest {
 	private static boolean rdbtnStarted;
 	private static boolean rdbtnDone;
 	private static boolean rdbtnReferenz;
-	private static DataManager dm;
-	public CardViewTest(DataManager dm){
-		this.dm = dm;
+
+	public CardViewTest(){
+		
 	}
 	@BeforeClass
 	public static void setBeforeTesting() {
