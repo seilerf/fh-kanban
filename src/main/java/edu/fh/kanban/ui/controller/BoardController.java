@@ -3,12 +3,16 @@ package edu.fh.kanban.ui.controller;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import javax.swing.JMenuBar;
+
 import com.jgoodies.forms.layout.LayoutMap;
 
 import edu.fh.kanban.domain.AbstractModel;
 import edu.fh.kanban.domain.Board;
 import edu.fh.kanban.domain.Column;
+import edu.fh.kanban.ui.view.BoardView;
 import edu.fh.kanban.ui.view.ColumnView;
+import edu.fh.kanban.ui.view.View;
 
 public class BoardController extends AbstractController{
 	public final static String GUICHANGE_PROPERTY = "GUI";
@@ -118,6 +122,7 @@ public class BoardController extends AbstractController{
 		
 		return columnViews;
 	}
+	
 
 	
 }

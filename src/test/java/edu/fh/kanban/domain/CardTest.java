@@ -43,7 +43,7 @@ public class CardTest {
 		headline = null;
 		backGround = null;
 		
-		card = new Card(id, value, description, blocker, size, headline, backGround, created, started, done);
+		card = new Card(id, value, description, blocker, size, headline, created, started, done);
 	}
 	
 	@Test
@@ -93,7 +93,7 @@ public class CardTest {
 	public void testGetStarted() throws ParseException { 
 		card.setStarted();
 		Date referenz = sdf.parse(date);
-		assertEquals("Hat sich das Datum der Karte geändert?", referenz, card.getStarted());
+		assertEquals("Hat sich das Datum der Karte geändert?", referenz, card.getStartedString());
 	}
 	
 	@Test
@@ -115,7 +115,7 @@ public class CardTest {
 		if(i==1) {
 			card.setStarted();
 			Date referenz = sdf.parse(date);
-			assertEquals("Hat sich das Datum der Karte geändert?", referenz, card.getStarted());
+			assertEquals("Hat sich das Datum der Karte geändert?", referenz, card.getStartedString());
 		}
 		if(i==2) {
 			card.setDone();

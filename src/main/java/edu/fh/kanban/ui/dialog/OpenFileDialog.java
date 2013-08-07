@@ -6,10 +6,12 @@ import java.io.File;
 
 import javax.swing.JFileChooser;
 
+import edu.fh.kanban.dao.XML.XMLDAOProperties;
+
 public class OpenFileDialog {
 
-    public File openFile() {
-        final JFileChooser chooser = new JFileChooser("Verzeichnis wählen");
+	public void openFileDialog() {
+		final JFileChooser chooser = new JFileChooser("Verzeichnis wählen");
         chooser.setDialogType(JFileChooser.OPEN_DIALOG);
         chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
         final File file = new File("/home");
@@ -30,10 +32,11 @@ public class OpenFileDialog {
 
         if (result == JFileChooser.APPROVE_OPTION) {
             File inputFile = chooser.getSelectedFile();
+            XMLDAOProperties.setFile(inputFile);
             System.out.println("Eingabepfad:" + inputFile.getPath());
         }
         System.out.println("Abbruch");
         chooser.setVisible(false);
-        return file;
-    }
+
+	}
 }

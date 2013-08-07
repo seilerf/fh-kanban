@@ -6,14 +6,16 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import edu.fh.kanban.dao.XML.XMLDAOProperties;
+
 public class SaveFileDialog extends JFrame {
 	
-	private File file;
 
-    public SaveFileDialog() {
+    
+    public void showSaveDialog(){
     	JFileChooser chooser;
     	String path = System.getProperty("user.home");
-        this.file = new File(path.trim());
+        XMLDAOProperties.setFile(new File(path.trim()));
 
         chooser = new JFileChooser(path);
         chooser.setDialogType(JFileChooser.SAVE_DIALOG);
@@ -35,11 +37,9 @@ public class SaveFileDialog extends JFrame {
 
             chooser.setVisible(false);
         }
-        this.file = new File(path);
+        XMLDAOProperties.setFile(new File(path));
         chooser.setVisible(false);
+        this.setVisible(true);
     }
 
-    public File getFile() {
-    	return this.file;
-    }
 }

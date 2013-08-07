@@ -28,6 +28,7 @@ public class XMLDAOFactory extends DAOFactory {
 
 		@Override
 		public BoardDAO getBoardDAO() {
+			
 			return new XMLBoardDAO();
 		}
 

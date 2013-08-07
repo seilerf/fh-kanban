@@ -19,12 +19,12 @@ public class PDFWriterExample {
 		
 		LinkedList<Card> list = new LinkedList<Card>();
 	    //3. Parameter Value, 6. Parameter Size
-	    list.add(new Card(1,  1, "a", false, 2, "Ich", null, null, null, null));
-	    list.add(new Card(2, 10, "b", false, 5, "du", null, null, null, null));
-	    list.add(new Card(3, 7, "c", false, 3, "er", null, null, null, null));
-	    list.add(new Card(4, 4, "d", false, 8, "sie", null, null, null, null));
-	    list.add(new Card(5, 1, "e", false, 8, "es", null, null, null, null));
-	    list.add(new Card(6, 5, "f", false, 1, "Bla", null, null, null, null));
+	    list.add(new Card(1,  1, "a", false, 2, "Ich", null, null, null));
+	    list.add(new Card(2, 10, "b", false, 5, "du",  null, null, null));
+	    list.add(new Card(3, 7, "c", false, 3, "er",  null, null, null));
+	    list.add(new Card(4, 4, "d", false, 8, "sie", null, null, null));
+	    list.add(new Card(5, 1, "e", false, 8, "es", null, null, null));
+	    list.add(new Card(6, 5, "f", false, 1, "Bla", null, null, null));
 	    
 	    String test = "PDFtest.pdf";
         createPdf(test, list);
@@ -62,7 +62,7 @@ public class PDFWriterExample {
         	
         	String writeString = c.getId()+";"+c.getValue()+";"+c.getDescription()+";"
                     +c.getBlocker()+";"+c.getSize()+";"+c.getHeadline()+";"
-                    +c.getBackGround()+";"+c.getCreated()+";"+c.getStarted()+";"+c.getDone()+"\n";
+                    +c.getBackGround()+";"+c.getCreated()+";"+c.getStartedString()+";"+c.getDone()+"\n";
         	
         	cb.newlineShowText(writeString);
         

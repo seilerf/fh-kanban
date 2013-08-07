@@ -1,5 +1,7 @@
 package edu.fh.kanban.ui.view;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -7,9 +9,14 @@ import java.util.ListIterator;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
 
 
 
@@ -34,11 +41,12 @@ public class BoardView extends AbstractView implements View{
 	
 	private boolean changed;
 	private BoardController boardController;
+
 	
 	//Constructor
 	public BoardView(BoardController boardController){
 		this.boardController = boardController;
-	
+		
 		initComponents();
 		System.out.println("BoardView()");
 	}
@@ -46,6 +54,8 @@ public class BoardView extends AbstractView implements View{
 	private void initComponents() {
 		//Aufbau des Boards mit der Anzahl Spalten, die für die Darstellung notwendig sind;
 		System.out.println("initComponents()");
+		
+		
 		columnViews = boardController.createColumnViews(); 
 		System.out.println(boardController.getColumnList().size());
 		this.setLayout(new FormLayout(
@@ -77,9 +87,6 @@ public class BoardView extends AbstractView implements View{
 		}
 		
 	}
-	
-
-	
 
 	
 	// Methode, die die Karten in das Board-GUI schreibt

@@ -16,21 +16,21 @@ public class Card extends AbstractModel {
 	private String description;
 	private boolean blocker;
 	private Date created;
+
 	private Date started;
 	private Date done;
 	private int size;
 	private String headline;
 	private Color backGround;
-	
+	private SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 																												
-	public Card(int id, int value, String description, boolean blocker, int size, String headline, Color backGround, Date created, Date started, Date done) {
+	public Card(int id, int value, String description, boolean blocker, int size, String headline, Date created, Date started, Date done) {
 		this.id = id;
 		this.value = value;
 		this.description = description;
 		this.blocker = blocker;
 		this.size = size;
 		this.headline = headline;
-		this.backGround = backGround;
 		this.created = created;
 		this.started = started;
 		this.done = done;
@@ -111,18 +111,18 @@ public class Card extends AbstractModel {
 		if(i==0) {
 			Date oldCalendarCreated = setCreated();
 			firePropertyChange(CardController.JRADIOBUTTON_PROPERTY,oldCalendarCreated,started);
-			System.out.println("Mein neues Started-Datum:" + this.getCreated());
+			System.out.println("Mein neues Started-Datum:" + this.getCreatedString());
 			
 		}
 		if(i==1) {
 			Date oldCalendarStarted = setStarted();
 			firePropertyChange(CardController.JRADIOBUTTON_PROPERTY,oldCalendarStarted,started);
-			System.out.println("Mein neues Started-Datum:" + this.getStarted());
+			System.out.println("Mein neues Started-Datum:" + this.getStartedString());
 		}
 		if(i==2) {
 			Date oldCalendarDone = setDone();
 			firePropertyChange(CardController.JRADIOBUTTON_PROPERTY,oldCalendarDone,done);
-			System.out.println("Mein neues Done-Datum:" + this.getDone());
+			System.out.println("Mein neues Done-Datum:" + this.getDoneString());
 		}
 	}
 	
@@ -134,8 +134,9 @@ public class Card extends AbstractModel {
 		return this.backGround;
 	}
 	//Getter Erstellungsdatum
-	public Date getCreated() {
-			return created;
+	public String getCreatedString() {
+		
+			return formatter.format(created);
 	}
 	//Setter Erstellungsdatum
 	public Date setStarted() throws ParseException {
@@ -145,8 +146,8 @@ public class Card extends AbstractModel {
 		return started;
 	}
 	//Getter Startdatum
-	public Date getStarted() {
-		return started;
+	public String getStartedString() {
+		return formatter.format(started);
 	}
 	//Setter Startdatum
 	public Date setCreated() throws ParseException {
@@ -156,8 +157,8 @@ public class Card extends AbstractModel {
 		return created;
 	}
 	//Getter Datum der Fertigstellung
-	public Date getDone() {
-		return done;
+	public String getDoneString() {
+		return formatter.format(done);
 	}
 	//Setter Datum der Fertigstellung
 	public Date setDone() throws ParseException {
@@ -170,6 +171,22 @@ public class Card extends AbstractModel {
 	public boolean getBlocker() {
 		return this.blocker;
 	}
+	
+	public Date getCreated() {
+		return created;
+	}
+
+
+
+	public Date getStarted() {
+		return started;
+	}
+
+
+	public Date getDone() {
+		return done;
+	}
+
 	/**
 	 * Setter für das Blocker-Attribut
 	 * @param b

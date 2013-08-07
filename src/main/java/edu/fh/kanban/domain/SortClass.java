@@ -31,7 +31,7 @@ public class SortClass{
 				Card c = lit.next();
 				
 				cards.add(new Card(c.getId(),c.getSize(),c.getDescription(),
-						c.getBlocker(),c.getSize(),c.getHeadline(),c.getBackGround(), c.getCreated(), c.getStarted(), c.getDone()));
+						c.getBlocker(),c.getSize(),c.getHeadline(), c.getCreated(), c.getStarted(), c.getDone()));
 			}
 		}
 		return cards;

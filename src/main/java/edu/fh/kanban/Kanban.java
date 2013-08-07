@@ -17,114 +17,130 @@ import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
 
 import edu.fh.kanban.dao.BoardDAO;
-import edu.fh.kanban.dao.DAOFactory;
+import edu.fh.kanban.dao.XML.XMLDAOProperties;
 import edu.fh.kanban.domain.Backlog;
 import edu.fh.kanban.domain.Board;
 import edu.fh.kanban.ui.controller.BacklogController;
 import edu.fh.kanban.ui.controller.BoardController;
+import edu.fh.kanban.ui.dialog.OpenFileDialog;
+import edu.fh.kanban.ui.dialog.SaveFileDialog;
 import edu.fh.kanban.ui.view.BacklogView;
 import edu.fh.kanban.ui.view.BoardView;
+import edu.fh.kanban.ui.view.CreateCardFrame;
 
 
 public class Kanban {
 
 	static Logger LOGGER = Logger.getLogger(Kanban.class.getName());
-	
+	static JFrame frame = new JFrame();
+
+
 	
 	public static void main(String[] args) throws ParseException, InterruptedException {
-		final DAOFactory xmlfactory = DAOFactory.getDAOFactory(DAOFactory.XML);
-		Board board = null;
-		Backlog backlog = null;
-		LOGGER.info("Starting kanban app.");
 		
+
 		LOGGER.info("Setting look and feel.");
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+		LOGGER.info("Starting kanban app.");
 		
-		LOGGER.info("Creating UI components.");
-
-		//Views erstellen
-
-		//View backlogView = new BacklogView(dm,board);
-		//Inna: Bitte den Konstruktor anpassen auf:
-		//BacklogView(BacklogController) (siehe Links..)
-		/** Beispiel DAOs: Objekt in Ressource suchen:
-		 * 1. Erzeugung einer speziellen DAOFactory (z.B. xmlFactory), die Board-, Card- und ColumnDAOs erzeugen kann
-		 * 2. Erzeugung eines Board-/Card- oder Column DAOs aus der speziellen DAOFactory
-		 * 3. Suchedes Objektes (hier Board, Card oder Column) durch DAO
-		 */
-		
-		BoardDAO boardDAO = xmlfactory.getBoardDAO();
+		LOGGER.info("Loading data.");
 		try{
-			board = boardDAO.findBoard(new File("Board.xml"));
+			BoardDAO boardDAO;
+			Board board;
+			BoardView boardView;
+			
+			boardDAO = XMLDAOProperties.getXmlFactory().getBoardDAO();
+			board = boardDAO.findBoard();
+
+			
+			BoardController boardController;
+			Backlog backlog;
+			BacklogView backlogView;
+			BacklogController backlogController;
+			
+			boardController = new BoardController();
+			boardController.addModel(board);
+			boardView = new BoardView(boardController); 
+			boardController.addView(boardView);
+		
+			boardController.createColumnViews();
+
+			backlogController = new BacklogController();
+			backlog = new Backlog(board.getCards());
+			backlogController.addModel(backlog);
+			backlogView = new BacklogView(backlogController);
+			backlogController.addView(backlogView);
+			backlogView.showBacklog();
+
+			initComponents(board,boardView,boardDAO,backlogView);
+			
+			
 		}
 		catch(NullPointerException e){
-			System.out.println("Es lag ein Fehler vor");
+			System.out.println("Fehler beim GUI erstellen");
+			e.printStackTrace();
 		}
 		System.out.println("Karten lesen beendet");
-		
-		
-		
-		 
-		BoardController boardController = new BoardController();
-		boardController.addModel(board);
-		final BoardView boardView = new BoardView(boardController); 
-		boardController.addView(boardView);
+
+	}
+
 	
-		boardController.createColumnViews();
+	public static void initComponents(final Board board, final BoardView boardView, final BoardDAO boardDAO,
+						final BacklogView backlogView){
+
+		JMenuBar jMenuBar;
+		JMenuItem openMenu;
+		JMenuItem saveMenu;
+		JMenuItem cardMenu;
+		JMenuItem refreshBoard;
+		JMenu prefmenu;
+		JMenu filemenu;
+		final SaveFileDialog saveFileDialog = new SaveFileDialog();
+		final OpenFileDialog openFileDialog = new OpenFileDialog();
 		
-		BacklogController backlogController = new BacklogController();
-		backlog = new Backlog(board.getCards());
-		backlogController.addModel(backlog);
-		final BacklogView backlogView = new BacklogView(backlogController);
-		backlogController.addView(backlogView);
-		backlogView.showBacklog();
-		
-	
-		
-		JMenuBar menubar = new JMenuBar();
-		JMenu filemenu = new JMenu("Datei");
-		menubar.add(filemenu);
-		
-		
+		jMenuBar = new JMenuBar();
+		prefmenu = new JMenu("Einstellungen");
+		filemenu = new JMenu("Datei");
+
 		/**
 		 * Zu der Menüoption -> File wurde eine Menü-Optionen hinzugefügt:
 		 * 1: Karte erstellen (==> ermöglicht das Anlegen einer neuen Karte)
 		 */
 		
-		JMenuItem openMenu = new JMenuItem("Board öffnen...");
+		openMenu = new JMenuItem("Board öffnen...");
 		filemenu.add(openMenu);
 		openMenu.addActionListener(new ActionListener () {
 			public void actionPerformed(ActionEvent e) {
-				
-				
-				
+				openFileDialog.openFileDialog();
 			}
 		});
 		
-		JMenuItem saveMenu = new JMenuItem("Board speichern...");
+		saveMenu = new JMenuItem("Board speichern...");
 		filemenu.add(saveMenu);
 		saveMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//dm.saveFile(new SaveFileDialog().getFile());
+				saveFileDialog.showSaveDialog();
+				boardDAO.insertBoard(board);
+				
 			}
 		});
 		
-		JMenuItem cardMenu = new JMenuItem("Karte erstellen");
+		cardMenu = new JMenuItem("Karte erstellen");
 		filemenu.add(cardMenu);
 		cardMenu.addActionListener(new ActionListener () {
 			public void actionPerformed(ActionEvent e) {
-				JFrame frame2 = new JFrame();
-				//frame2.add(cardView);
-				frame2.setSize(420,270);
-				frame2.setVisible(true);
+				CreateCardFrame createCardFrame = new CreateCardFrame();
+				
+				createCardFrame.setSize(420,270);
+				createCardFrame.setVisible(true);
 			}
 		}); 
 		
-		JMenuItem refreshBoard = new JMenuItem("Board aktualisieren");
+		refreshBoard = new JMenuItem("Board aktualisieren");
 		filemenu.add(refreshBoard);
 		refreshBoard.addActionListener(new ActionListener () {
 			public void actionPerformed(ActionEvent e) {
@@ -132,11 +148,7 @@ public class Kanban {
 			}
 		});
 		
-		
-		JMenu prefmenu= new JMenu("Einstellungen");
-		//prefmenu.add(menuItem)
-		menubar.add(prefmenu);
-		
+
 		/**
 		 * Zu der Menüoption -> Einstellugen wurden 2 Menü-Optionen hizugefügt:
 		 * 1: Boardkarten bearbeiten (=> ermöglicht das Bearbeiten der Karten auf dem Board.
@@ -164,27 +176,23 @@ public class Kanban {
         item.addActionListener(new ActionListener() {        	 
             public void actionPerformed(ActionEvent e)
             {
-                //Execute when button is pressed
-                
-         
-                
+ 
             }
         });
-
-		//Controller erstellen
+        
+        jMenuBar.add(filemenu);
 		
+		//prefmenu.add(menuItem)
+		jMenuBar.add(prefmenu);
 		
-	
 		JTabbedPane pane = new JTabbedPane();
 		JScrollPane jsp = new JScrollPane();
 		jsp.setViewportView(boardView.getComponent());
 		pane.addTab("Board", jsp);
 		pane.addTab("Backlog", backlogView.getComponent());
-	
 		
 		
-		JFrame frame = new JFrame();
-		frame.setJMenuBar(menubar);
+		frame.setJMenuBar(jMenuBar);
 		frame.setLayout(new BorderLayout());
 		frame.setTitle("Teamproject 2013 - Kanban");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -194,11 +202,11 @@ public class Kanban {
 		frame.add(pane);
 		//Toolkit.getDefaultToolkit().setDynamicLayout(true);
 		frame.setVisible(true);
-		
-		
-		
 	}
 	
-
+	
 }
+
+
+
 

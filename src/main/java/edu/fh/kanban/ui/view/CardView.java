@@ -97,7 +97,7 @@ public class CardView extends AbstractView implements View {
 		
 		System.out.println("Konstruktoraufruf!:");
 		
-		setBackground(SystemColor.menu);
+		this.background = Color.LIGHT_GRAY;
 		this.tb = new TitledBorder(new LineBorder(new Color(0, 0, 0)), cardTitel, TitledBorder.CENTER, TitledBorder.TOP, null, null);
 		setBorder(tb);
 		FormLayout formLayout = new FormLayout(new ColumnSpec[] {
@@ -720,10 +720,10 @@ public class CardView extends AbstractView implements View {
 			Object newObject = event.getNewValue();
 			Card newCard = 	(Card) newObject;
 			boolean newBlocker = newCard.getBlocker();
-			if(newCard.getCreated()!= null && newCard.getStarted() == null) {
+			if(newCard.getCreated()!= null && newCard.getStartedString() == null) {
 				rdbtnCreated.isSelected();
 			}
-			if(newCard.getStarted()!= null && newCard.getDone() == null) {
+			if(newCard.getStartedString()!= null && newCard.getDone() == null) {
 				rdbtnStarted.isSelected();
 			}
 			if(newCard.getDescription()!= null) {
