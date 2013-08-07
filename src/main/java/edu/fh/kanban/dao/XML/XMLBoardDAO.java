@@ -44,14 +44,14 @@ public class XMLBoardDAO implements BoardDAO{
 	
 	public XMLBoardDAO(){
 		
-		xmlColumnDAO = XMLDAOProperties.xmlFactory.getColumnDAO();
+		xmlColumnDAO = XMLProperties.xmlFactory.getColumnDAO();
 
 	}
 	
 	@Override
 	public Board findBoard() throws ParseException, InterruptedException, NullPointerException {
 		
-			importFromXML(XMLDAOProperties.file);
+			importFromXML(XMLProperties.file);
 		
 		return currentBoard;
 		
@@ -165,7 +165,7 @@ public class XMLBoardDAO implements BoardDAO{
 				
 				LinkedList<Card> cardList = new LinkedList<Card>();
 		    	for (int i = 0; i < column.getChildren().size(); i++){
-		    		Card currentCard = XMLDAOProperties.xmlFactory.getCardDAO().findCard(column,i);
+		    		Card currentCard = XMLProperties.xmlFactory.getCardDAO().findCard(column,i);
 		    		cardList.add(currentCard);
 		    		//new Card(id, value, description, blocker, size, headline, backGround, created, started, done)
 		    	}
@@ -193,10 +193,10 @@ public class XMLBoardDAO implements BoardDAO{
 		
 		try {
 
-		org.w3c.dom.Element rootElement = XMLDAOProperties.xmlDoc.createElement("Board");
+		org.w3c.dom.Element rootElement = XMLProperties.xmlDoc.createElement("Board");
 		rootElement.setAttribute("name", currentBoard.getName());
 		//Der Baum wird dem xmlDoc per appendChild() hinzugefügt (Es werden "Elemente" übergeben)
-		XMLDAOProperties.xmlDoc.appendChild(rootElement);
+		XMLProperties.xmlDoc.appendChild(rootElement);
 		System.out.println("XMLDoc wurde rootElement hinzugefügt\n");
 	 
 		
@@ -212,8 +212,8 @@ public class XMLBoardDAO implements BoardDAO{
 		// Inhalt in eine XML-Datei schreiben
 		TransformerFactory transformerFactory = TransformerFactory.newInstance();
 		Transformer transformer = transformerFactory.newTransformer();
-		DOMSource source = new DOMSource(XMLDAOProperties.xmlDoc);
-		StreamResult outstream = new StreamResult(XMLDAOProperties.file);
+		DOMSource source = new DOMSource(XMLProperties.xmlDoc);
+		StreamResult outstream = new StreamResult(XMLProperties.file);
 	 
 		transformer.transform(source, outstream);
 		

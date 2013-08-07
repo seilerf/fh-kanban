@@ -8,7 +8,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import edu.fh.kanban.dao.DAOFactory;
 
-public class XMLDAOProperties {
+public class XMLProperties {
 	
 	protected static DAOFactory xmlFactory = DAOFactory.getDAOFactory(DAOFactory.XML);
 	
@@ -34,7 +34,7 @@ public class XMLDAOProperties {
 	}
 
 	public static void setXmlFactory(DAOFactory xmlFactory) {
-		XMLDAOProperties.xmlFactory = xmlFactory;
+		XMLProperties.xmlFactory = xmlFactory;
 	}
 
 	public static File getFile() {
@@ -42,7 +42,7 @@ public class XMLDAOProperties {
 	}
 
 	public static void setFile(File file) {
-		XMLDAOProperties.file = file;
+		XMLProperties.file = file;
 	}
 
 

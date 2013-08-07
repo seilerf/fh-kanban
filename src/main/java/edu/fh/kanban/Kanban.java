@@ -4,8 +4,15 @@ import java.awt.BorderLayout;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.ParseException;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.logging.Logger;
 
 import javax.swing.JFrame;
@@ -16,10 +23,20 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.pdf.BaseFont;
+import com.itextpdf.text.pdf.PdfWriter;
+
 import edu.fh.kanban.dao.BoardDAO;
-import edu.fh.kanban.dao.XML.XMLDAOProperties;
+import edu.fh.kanban.dao.CardDAO;
+import edu.fh.kanban.dao.DAOFactory;
+import edu.fh.kanban.dao.CSV.CSVUtil;
+import edu.fh.kanban.dao.PDF.PDFUtil;
+import edu.fh.kanban.dao.XML.XMLProperties;
 import edu.fh.kanban.domain.Backlog;
 import edu.fh.kanban.domain.Board;
+import edu.fh.kanban.domain.Card;
 import edu.fh.kanban.ui.controller.BacklogController;
 import edu.fh.kanban.ui.controller.BoardController;
 import edu.fh.kanban.ui.dialog.OpenFileDialog;
@@ -53,7 +70,7 @@ public class Kanban {
 			Board board;
 			BoardView boardView;
 			
-			boardDAO = XMLDAOProperties.getXmlFactory().getBoardDAO();
+			boardDAO = XMLProperties.getXmlFactory().getBoardDAO();
 			board = boardDAO.findBoard();
 
 			
@@ -179,6 +196,82 @@ public class Kanban {
  
             }
         });
+        
+        JMenu export= new JMenu("Export");
+		jMenuBar.add(export);
+		
+		JMenuItem pdfExport = new JMenuItem("Export in PDF");
+		export.add(pdfExport);
+		pdfExport.addActionListener(new ActionListener() {
+		
+		DAOFactory pdfFactory = DAOFactory.getDAOFactory(DAOFactory.PDF);
+		CardDAO pdfCardDAO = pdfFactory.getCardDAO();
+		
+		
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				try {
+					LinkedList<Card> cards = board.getCards();
+					Iterator<Card> cIt = cards.iterator();
+					PDFUtil.setBoardName(board.getName());
+					PDFUtil.document = new Document();
+					PDFUtil.document.addTitle(PDFUtil.boardName.concat("_Export"));
+					PDFUtil.writer = PdfWriter.getInstance(PDFUtil.document, new FileOutputStream(PDFUtil.boardName.concat(".pdf")));
+					PDFUtil.document.open();
+				        try {
+				        	PDFUtil.bf = BaseFont.createFont();
+						} catch (IOException e1) {
+						
+							e1.printStackTrace();
+						}
+				        
+					PDFUtil.cb = PDFUtil.writer.getDirectContent();
+					PDFUtil.cb.beginText();
+					PDFUtil.cb.setFontAndSize(PDFUtil.bf, 30);
+					PDFUtil.cb.moveText(200, 505);
+					PDFUtil.cb.showText("Backlog Export");
+					PDFUtil.cb.endText();
+					
+					while(cIt.hasNext()){
+							pdfCardDAO.insertCard(cIt.next());
+					}
+					
+					PDFUtil.document.close();
+					
+				} catch (FileNotFoundException | DocumentException e1) {
+					e1.printStackTrace();
+				}
+			
+			}
+		});
+		JMenuItem csvExport = new JMenuItem("Export in CSV");
+		export.add(csvExport);
+		csvExport.addActionListener(new ActionListener() {
+		
+			DAOFactory csvFactory = DAOFactory.getDAOFactory(DAOFactory.CSV);
+			CardDAO csvCardDAO = csvFactory.getCardDAO();
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {	
+				
+				try {
+					LinkedList<Card> cards = board.getCards();
+					Iterator<Card> cIt = cards.iterator();
+					CSVUtil.setBw(new BufferedWriter(new FileWriter(CSVUtil.boardName.concat(".csv"))));
+					while(cIt.hasNext()){
+						csvCardDAO.insertCard(cIt.next());
+					}
+					CSVUtil.bw.close();//BufferWriter schliessen
+				} catch (IOException e1) {
+					
+					e1.printStackTrace();
+				}
+				
+			}
+
+	});
         
         jMenuBar.add(filemenu);
 		

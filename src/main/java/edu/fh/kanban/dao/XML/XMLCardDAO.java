@@ -84,7 +84,7 @@ public class XMLCardDAO implements CardDAO {
 	public int insertCard(Card card) {
 		NodeList columnNodes;
 		
-		org.w3c.dom.Element xmlCard = XMLDAOProperties.xmlDoc.createElement("Card");
+		org.w3c.dom.Element xmlCard = XMLProperties.xmlDoc.createElement("Card");
 		xmlCard.setAttribute("id", String.valueOf(card.getId()));
 		xmlCard.setAttribute("value", String.valueOf(card.getValue()));
 		xmlCard.setAttribute("headline", card.getHeadline());
@@ -95,7 +95,7 @@ public class XMLCardDAO implements CardDAO {
 		xmlCard.setAttribute("started", card.getStartedString() );//"1"
 		xmlCard.setAttribute("done", card.getDoneString());//"1"
 		xmlCard.setAttribute("size", String.valueOf(card.getSize()));	
-		XMLDAOProperties.xmlDoc.getFirstChild().getLastChild().appendChild(xmlCard);
+		XMLProperties.xmlDoc.getFirstChild().getLastChild().appendChild(xmlCard);
 		
 		
 
