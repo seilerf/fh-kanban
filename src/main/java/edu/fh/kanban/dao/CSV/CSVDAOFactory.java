@@ -22,8 +22,8 @@ public class CSVDAOFactory extends DAOFactory {
 
 	@Override
 	public CardDAO getCardDAO() {
-	
-		return null;
+		CSVCardDAO csvCardDAO = new CSVCardDAO();
+		return csvCardDAO;
 	}
 
 	@Override

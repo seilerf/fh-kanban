@@ -259,8 +259,11 @@ public class Kanban {
 				try {
 					LinkedList<Card> cards = board.getCards();
 					Iterator<Card> cIt = cards.iterator();
+					System.out.println("Test");
 					CSVUtil.setBw(new BufferedWriter(new FileWriter(CSVUtil.boardName.concat(".csv"))));
+					
 					while(cIt.hasNext()){
+						System.out.println("Exportiere nächste Karte:\n");
 						csvCardDAO.insertCard(cIt.next());
 					}
 					CSVUtil.bw.close();//BufferWriter schliessen

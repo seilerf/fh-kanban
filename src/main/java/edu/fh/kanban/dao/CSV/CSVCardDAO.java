@@ -31,7 +31,7 @@ public class CSVCardDAO implements CardDAO {
 	                SpeicherString=c.getId()+";"+c.getValue()+";"+c.getDescription()+";"
 	                    +c.getBlocker()+";"+c.getSize()+";"+c.getHeadline()+";"
 	                    +c.getBackGround()+";"+c.getCreated()+";"+c.getStarted()+";"+c.getDone()+"\n"; // ; ist Trennzeichen
-	            
+	                
 	                CSVUtil.bw.write(SpeicherString); //String schreiben
 	                CSVUtil.bw.flush();//Puffer leeren
 	            

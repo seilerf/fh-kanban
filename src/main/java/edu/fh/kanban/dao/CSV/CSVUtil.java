@@ -4,8 +4,9 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 
 public class CSVUtil {
-	public static String boardName;
-	public static BufferedWriter bw; 
+	public static String boardName = "Testboard";
+	public static BufferedWriter bw;
+	
 	public static BufferedWriter getBw() {
 		return bw;
 	}
