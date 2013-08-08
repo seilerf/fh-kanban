@@ -274,6 +274,7 @@ public class CardView extends AbstractView implements View {
 	
 	public void setCardTitel(String n) {
 		this.tb.setTitle(n);
+		this.setName(n);
 		
 	}
 	

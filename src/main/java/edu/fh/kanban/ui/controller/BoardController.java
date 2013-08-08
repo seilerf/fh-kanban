@@ -1,9 +1,16 @@
 package edu.fh.kanban.ui.controller;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 
 import com.jgoodies.forms.layout.LayoutMap;
 
@@ -11,6 +18,7 @@ import edu.fh.kanban.domain.AbstractModel;
 import edu.fh.kanban.domain.Board;
 import edu.fh.kanban.domain.Column;
 import edu.fh.kanban.ui.view.BoardView;
+import edu.fh.kanban.ui.view.CardView;
 import edu.fh.kanban.ui.view.ColumnView;
 import edu.fh.kanban.ui.view.View;
 
@@ -20,6 +28,10 @@ public class BoardController extends AbstractController{
 	private final String columnWidth = "270dlu";//160
 	private final String rowHeight = "135dlu";//130
 	private final String padding = "4dlu";
+	
+	private final JPopupMenu contextMenu = new JPopupMenu();
+	protected CardView cardViewToMove = null;
+	protected Column columnToMoveFrom = null;
 	
 	private LinkedList<ColumnController> columnControllers = new LinkedList<>();
 	private LinkedList<ColumnView> columnViews = new LinkedList<>();
@@ -32,6 +44,54 @@ public class BoardController extends AbstractController{
 	 * zugeordnet werden
 	 */
 	public BoardController(){
+		
+	}
+	
+	public void createContextMenu(){
+		System.out.println("Kontextmenü wird erstellt...");
+		JMenu moveMenu = new JMenu("Karte verschieben");
+		
+		ActionListener al = new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				for (Iterator<ColumnController> colControllers = getColumnControllerList().iterator(); colControllers.hasNext();){
+					ColumnController colController = colControllers.next();
+					
+					if (e.getActionCommand().matches(colController.getColumn().getName())){
+						// Move Card to selected Column...
+						System.out.println("Zielspalte: " + e.getActionCommand());
+						System.out.println("Actionlistener kennt: " + cardViewToMove);
+						break;
+					}
+				}
+			}
+		};
+				
+		for (Iterator<Column> colIterator = getColumnList().iterator(); colIterator.hasNext();){
+			JMenuItem colMenuItem = new JMenuItem(colIterator.next().getName());
+			colMenuItem.addActionListener(al);
+			moveMenu.add(colMenuItem);
+		}
+		contextMenu.add(moveMenu);
+		
+		for (Iterator<ColumnController> colControllers = this.getColumnControllerList().iterator(); colControllers.hasNext();){
+			ColumnController columnController = colControllers.next();
+			
+			for (Iterator<CardController> cardControllers = columnController.getCardControllerList().iterator(); cardControllers.hasNext();){
+				CardController cardController = cardControllers.next();
+				CardView cardView = cardController.getCardView();
+				
+				cardView.addMouseListener(new MouseAdapter() {
+					public void mouseReleased(MouseEvent me) {
+						if (me.isPopupTrigger())
+							contextMenu.show(me.getComponent(), me.getX(), me.getY());
+							System.out.println("Component: " + me.getComponent().getName() + 
+									"\nX: " + me.getX() + 
+									"\nY: " + me.getY());
+							cardViewToMove = (CardView) me.getComponent();
+					}
+		    	});
+			}
+		}
 		
 	}
 	

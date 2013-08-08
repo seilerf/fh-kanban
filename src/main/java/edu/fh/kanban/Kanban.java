@@ -95,6 +95,8 @@ public class Kanban {
 
 			initComponents(board,boardView,boardDAO,backlogView);
 			
+			boardController.createContextMenu();
+			
 			
 		}
 		catch(NullPointerException e){
