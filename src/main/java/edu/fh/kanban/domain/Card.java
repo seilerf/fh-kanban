@@ -79,8 +79,9 @@ public class Card extends AbstractModel {
 	public void setValue(Integer value) {
 		int oldValue = this.value;
 		this.value = value;
-		firePropertyChange(CardController.SIZE_PROPERTY,oldValue,description);
 		System.out.println("Mein neuer Value:" + this.getValue());
+		firePropertyChange(CardController.VALUE_PROPERTY,oldValue,value);
+		
 	}
 	//Getter Beschreibung
 	public String getDescription() {
@@ -108,20 +109,21 @@ public class Card extends AbstractModel {
 	}
 	
 	public void setDate(Integer i) throws ParseException {
+		
 		if(i==0) {
 			Date oldCalendarCreated = setCreated();
-			firePropertyChange(CardController.JRADIOBUTTON_PROPERTY,oldCalendarCreated,started);
+			firePropertyChange(CardController.JRADIOBUTTON_PROPERTY,null,this);
 			System.out.println("Mein neues Started-Datum:" + this.getCreatedString());
 			
 		}
 		if(i==1) {
 			Date oldCalendarStarted = setStarted();
-			firePropertyChange(CardController.JRADIOBUTTON_PROPERTY,oldCalendarStarted,started);
+			firePropertyChange(CardController.JRADIOBUTTON_PROPERTY,null,this);
 			System.out.println("Mein neues Started-Datum:" + this.getStartedString());
 		}
 		if(i==2) {
 			Date oldCalendarDone = setDone();
-			firePropertyChange(CardController.JRADIOBUTTON_PROPERTY,oldCalendarDone,done);
+			firePropertyChange(CardController.JRADIOBUTTON_PROPERTY,null,this);
 			System.out.println("Mein neues Done-Datum:" + this.getDoneString());
 		}
 	}

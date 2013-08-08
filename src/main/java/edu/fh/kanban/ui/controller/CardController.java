@@ -46,7 +46,6 @@ public class CardController extends AbstractController {
 		setModelProperty(SIZE_PROPERTY, newWorkload);
 		setModelProperty(DESCRIPTION_PROPERTY, newDescription);
 		setModelProperty(VALUE_PROPERTY, newValue);
-		setModelProperty(BACKGROUND_PROPERTY, backColor);
 		setModelProperty(BLOCKER_PROPERTY, newBlocker);
 		setModelProperty(JRADIOBUTTON_PROPERTY, newJRadio);
 	}

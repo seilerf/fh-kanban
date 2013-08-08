@@ -2,6 +2,7 @@ package edu.fh.kanban.ui.controller;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
@@ -78,15 +79,29 @@ public abstract class AbstractController implements PropertyChangeListener {
             	//(Der Rückgabetyp wird der neue Rückgabewert des erstellten
             	// Setters)
             	System.out.println("Suche...");
-            	Method method = model.getClass().getMethod("set"+propertyName, new Class[] {
-            			newValue.getClass()
-                   });
-            	System.out.println("Gefunden.");
-                method.invoke(model, newValue);
+            	Method method;
+				try {
+					method = model.getClass().getMethod("set"+propertyName, new Class[] {
+							newValue.getClass()
+					   });
+				
+					System.out.println("Gefunden.");
+                
+					method.invoke(model, newValue);
+				}
+				 catch (IllegalAccessException | IllegalArgumentException
+						| InvocationTargetException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				
+            } catch (NoSuchMethodException | SecurityException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
                 System.out.println("gestartet");
 
-            } catch (Exception ex) {
-            	 System.err.println(ex.getMessage());
+            } catch (NullPointerException e) {
+            	 System.err.println(e.getMessage());
             	 System.out.println("Konnte nicht gefunden werden!");
             }
         }

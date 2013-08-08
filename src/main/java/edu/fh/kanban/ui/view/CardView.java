@@ -657,7 +657,7 @@ public class CardView extends AbstractView implements View {
 
 	@Override
 	public void modelPropertyChange(PropertyChangeEvent event) {
-		
+		System.out.println("in mPC() ankegekommen");
 		switch (event.getPropertyName()) {
 		case CardController.CARDID_PROPERTY: {
 			 String newStringValue = event.getNewValue().toString();
@@ -682,16 +682,26 @@ public class CardView extends AbstractView implements View {
 		}
 		
 		case CardController.VALUE_PROPERTY: {
-			Integer newIntValue = Integer.parseInt(event.getNewValue().toString());
-			Integer currentSelection = Integer.parseInt(valueComboBox.getSelectedItem().toString());
-			if (!(newIntValue == currentSelection)) {
-            	valueComboBox.setSelectedIndex(newIntValue);
-            }
+			try{
+				System.out.println("CardView: Event angekommen");
+				int newIntValue = Integer.parseInt(event.getNewValue().toString());
+				System.out.println("Value eingelesen");
+				int currentSelection = valueComboBox.getSelectedIndex();
+				if (!(newIntValue == currentSelection)) {
+	            	valueComboBox.setSelectedIndex(newIntValue);
+	            }
+				
+				
+		           setJPanelColorForCreatingAExistingCard(currentSelection);
+		           System.out.println("Background geändert");
+		          
+		          //this.removeAll();
+		          this.updateUI();
+			}catch(NullPointerException e){
+				e.printStackTrace();
+			}
+			System.out.println("Ende: Value Property");
 			
-			
-	           setJPanelColorForCreatingAExistingCard(currentSelection);
-	           System.out.println("Background geändert");
-	          this.updateUI();
             break;
 		}
 		
@@ -718,15 +728,15 @@ public class CardView extends AbstractView implements View {
 		
 		case CardController.JRADIOBUTTON_PROPERTY: {
 			Object newObject = event.getNewValue();
-			Card newCard = 	(Card) newObject;
-			boolean newBlocker = newCard.getBlocker();
-			if(newCard.getCreated()!= null && newCard.getStartedString() == null) {
+			Card card = 	(Card) newObject;
+			
+			if(card!= null && card.getStartedString() == null) {
 				rdbtnCreated.isSelected();
 			}
-			if(newCard.getStartedString()!= null && newCard.getDone() == null) {
+			if(card.getStartedString()!= null && card.getDone() == null) {
 				rdbtnStarted.isSelected();
 			}
-			if(newCard.getDescription()!= null) {
+			if(card.getDescription()!= null) {
 				rdbtnDone.isSelected();
 			}
 		}

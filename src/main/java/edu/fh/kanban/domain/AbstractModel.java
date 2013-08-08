@@ -5,7 +5,7 @@ import java.beans.PropertyChangeSupport;
 
 public abstract class AbstractModel {
 	
-	protected static PropertyChangeSupport changes;
+	protected PropertyChangeSupport changes;
 		
 		//Konstruktur erzeugt für jedes Model ein Änderungsobjekt
 	    public AbstractModel() {
@@ -20,7 +20,7 @@ public abstract class AbstractModel {
 	        changes.removePropertyChangeListener(listener);
 	    }
 	    //Methode zum Auslösen eines Änderungs-Events
-	    protected static void firePropertyChange(String propertyName, Object oldValue, Object newValue) {
+	    protected void firePropertyChange(String propertyName, Object oldValue, Object newValue) {
 	        changes.firePropertyChange(propertyName, oldValue, newValue);
 	    }
 	    

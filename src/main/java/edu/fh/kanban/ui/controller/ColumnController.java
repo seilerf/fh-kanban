@@ -53,9 +53,8 @@ public class ColumnController extends AbstractController {
 			        	 //Erstelle CardController
 			        	 CardController currentCardController = new CardController();
 			        	 //Erstelle CardView
-			        	 System.out.println("Bis hier???????");
 			        	 CardView currentCardView = new CardView(currentCardController);//-->kritisch!!!
-			        	 System.out.println("Hier her kommt er nicht?!?!?");
+			       
 			        	 System.out.println("aktuelle Karte:" + currentCard.getId());
 			        	 currentCardView.setPreference(this.pref);
 			        	 
@@ -71,6 +70,7 @@ public class ColumnController extends AbstractController {
 			        	 currentCardController.addModel(currentCard);
 			        	 //Der CardView wird dem CardController zugeordnet
 			        	 currentCardController.addView(currentCardView);
+			        	 currentCard.addPropertyChangeListener(currentCardController);
 			        	 
 			        	 //Der CardController wird der List von CardController hinzugefügt
 			        	 cardControllers.add(currentCardController);
