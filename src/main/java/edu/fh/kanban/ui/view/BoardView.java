@@ -175,10 +175,15 @@ public class BoardView extends AbstractView implements View{
 	public JComponent getComponent() {
 		return this;
 	}
+	
+	public void updateGUI(){
+		
+	}
 
 	@Override
 	public void modelPropertyChange(PropertyChangeEvent event) {
 		System.out.println("Boardview wird akualisiert\n");
-		updateUI();
+		this.removeAll();
+		this.initComponents();
 	}
 }

@@ -16,24 +16,28 @@ import com.jgoodies.forms.layout.LayoutMap;
 
 import edu.fh.kanban.domain.AbstractModel;
 import edu.fh.kanban.domain.Board;
+import edu.fh.kanban.domain.Card;
 import edu.fh.kanban.domain.Column;
+import edu.fh.kanban.ui.view.AbstractView;
 import edu.fh.kanban.ui.view.BoardView;
 import edu.fh.kanban.ui.view.CardView;
 import edu.fh.kanban.ui.view.ColumnView;
 import edu.fh.kanban.ui.view.View;
 
 public class BoardController extends AbstractController{
-	public final static String GUICHANGE_PROPERTY = "GUI";
+
 	
 	private final String columnWidth = "270dlu";//160
 	private final String rowHeight = "135dlu";//130
 	private final String padding = "4dlu";
 	
+	public static final String BOARDCHANGED_PROPERTY = "BoardChanged";
+	
 	private final JPopupMenu contextMenu = new JPopupMenu();
 	protected CardView cardViewToMove = null;
 	protected Column columnToMoveFrom = null;
 	
-	private LinkedList<ColumnController> columnControllers = new LinkedList<>();
+	private static LinkedList<ColumnController> columnControllers = new LinkedList<>();
 	private LinkedList<ColumnView> columnViews = new LinkedList<>();
 	/*!!!Achtung!!!
 	 * bevor der Controller aufgerufen wird müssen ihm seine
@@ -46,7 +50,11 @@ public class BoardController extends AbstractController{
 	public BoardController(){
 		
 	}
-	
+	public Board getBoard(){
+		Board board;
+		board = (Board)models.get(0);
+		return board;
+	}
 	public void createContextMenu(){
 		System.out.println("Kontextmenü wird erstellt...");
 		JMenu moveMenu = new JMenu("Karte verschieben");
@@ -182,6 +190,17 @@ public class BoardController extends AbstractController{
 		
 		return columnViews;
 	}
+
+	
+	
+	
+
+
+	
+
+	
+
+
 	
 
 	

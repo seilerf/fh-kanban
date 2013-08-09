@@ -14,9 +14,10 @@ import edu.fh.kanban.ui.controller.CardController;
 
 public class ColumnController extends AbstractController {
 	
-	private LinkedList<CardController> cardControllers = new LinkedList<>();
+	private LinkedList<CardController> cardControllers = new LinkedList<CardController>();
 	private Preference pref;
-
+	
+	public static final String COLUMNCHANGED_PROPERTY = "Changed";
 
 	public ColumnController(){
 		 
@@ -112,11 +113,13 @@ public class ColumnController extends AbstractController {
 	public LinkedList<Card> getCardList(){
 		 
 		LinkedList <Card> cardList = null;
+		
 		for (AbstractModel model: models) {
 			Column column = (Column) model;
 			cardList = column.getCardList();
 		 }
 		return cardList;
 	 }
+
 	
 }

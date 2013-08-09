@@ -152,7 +152,7 @@ public class Kanban {
 		filemenu.add(cardMenu);
 		cardMenu.addActionListener(new ActionListener () {
 			public void actionPerformed(ActionEvent e) {
-				CreateCardFrame createCardFrame = new CreateCardFrame(boardController.getColumnControllerList().get(0).getPreference());
+				CreateCardFrame createCardFrame = new CreateCardFrame(boardController);
 				
 				createCardFrame.setSize(420,270);
 				createCardFrame.setVisible(true);

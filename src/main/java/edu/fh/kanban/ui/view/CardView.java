@@ -14,6 +14,7 @@ import com.jgoodies.forms.factories.DefaultComponentFactory;
 import edu.fh.kanban.domain.Card;
 import edu.fh.kanban.domain.Column;
 import edu.fh.kanban.domain.Preference;
+import edu.fh.kanban.ui.controller.BoardController;
 import edu.fh.kanban.ui.controller.CardController;
 
 import java.awt.Component;
@@ -77,7 +78,10 @@ public class CardView extends AbstractView implements View {
 	private JButton btnResetAll;
 	private String id;
 	public static final int  ID_LENGHT = 3;
-	
+	private JButton saveNewCardButton;
+	private JComboBox columnComboBox;
+	private Card currentCard;
+
 	private int oldValue;
 	private boolean oldBlocker;
 	private Color oldBackColor;
@@ -209,9 +213,18 @@ public class CardView extends AbstractView implements View {
 		});
 		
 		this.btnSaveAll = new JButton("Save");
+		
 		add(this.btnSaveAll, "6, 12, fill, fill");
 		if(getCardTitel().isEmpty()==true) {
 			this.btnSaveAll.setEnabled(false);
+		}
+		btnSaveAll.setVisible(false);
+		
+		
+		this.saveNewCardButton = new JButton("Save");
+		add(this.saveNewCardButton, "6, 12, fill, fill");
+		if(getCardTitel().isEmpty()==true) {
+			this.saveNewCardButton.setEnabled(false);
 		}
 		
 		this.btnSaveAll.addActionListener(new ActionListener()  {
@@ -226,6 +239,16 @@ public class CardView extends AbstractView implements View {
 					
 				}				
 			}
+		});
+		
+		this.saveNewCardButton.addActionListener(new ActionListener()  {
+			public void actionPerformed(ActionEvent e) {
+					btnSaveNewCardActionPerformed(e);
+					Component parent = getJPanel();
+					JOptionPane.showMessageDialog(parent,"Keine Nullwerte/ Ungütlige Werte(ID/Size/Description)!","ERROR!" , JOptionPane.ERROR_MESSAGE);		
+			}
+
+			
 		});
 		
 		this.btnDeleteAll = new JButton("Delete");
@@ -245,6 +268,15 @@ public class CardView extends AbstractView implements View {
 		lblSpalte.setHorizontalAlignment(SwingConstants.RIGHT);
 		add(lblSpalte, "8, 14");
 		
+		columnComboBox = new JComboBox();
+		columnComboBox.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		columnComboBox.setAlignmentX(SwingConstants.RIGHT);
+		this.columnComboBox.setModel(new DefaultComboBoxModel(new String[] {"Wähle aus", "1: Next", "2: Development", "3: Test","4:Done"}));
+		add(columnComboBox, "10, 14");
+		
+		
+		
+		
 	
 	
 		if(getCardTitel().isEmpty()==true) {
@@ -258,7 +290,7 @@ public class CardView extends AbstractView implements View {
 		});
 		
 	}
-	
+
 	public void setOldCardId(int i) {
 		this.oldCardId = i;
 	}
@@ -275,6 +307,7 @@ public class CardView extends AbstractView implements View {
 	public void setCardTitel(String n) {
 		this.tb.setTitle(n);
 		this.setName(n);
+		this.saveNewCardButton.setEnabled(true);
 		
 	}
 	
@@ -325,6 +358,49 @@ public class CardView extends AbstractView implements View {
 	 */
 	private void btnResetAllActionPerformed(ActionEvent e) {
 		setAllToOldValues();
+	}
+	
+	private void btnSaveNewCardActionPerformed(ActionEvent e) {
+		Date created;
+		Date started;
+		Date done;
+		int i = getJRadioButton();
+		if(i==0){
+			created = new Date();
+			started = null;
+			done = null;
+			System.out.println(created);
+		}
+		else if(i==1){
+			created = null;
+			started = new Date();
+			done = null;
+		}
+		else if(i==2){
+			created = null;
+			started = null;
+			done = new Date();
+		}
+		else{
+			created = null;
+			started = null;
+			done = null;
+		}
+		
+		currentCard.setId(Integer.parseInt(idTextField.getText()));
+		currentCard.setValue(valueComboBox.getSelectedIndex());
+		currentCard.setBlocker(blockerToggleButton.isSelected());
+		currentCard.setDescription(descriptionTextPane.getText());
+		currentCard.setSize(Integer.parseInt(sizeTextField.getText()));
+		currentCard.setHeadline(this.cardTitel);
+		currentCard.setCreated(created);
+		currentCard.setDone(done);
+		currentCard.setStarted(started);
+		
+		
+		cardController.addModel(currentCard);
+		cardController.addView(this);
+		currentCard.setChanged(columnComboBox.getSelectedIndex());
 	}
 	
 	/**
@@ -384,7 +460,9 @@ public class CardView extends AbstractView implements View {
 		this.btnAddTitel.setEnabled(false);
 		this.btnResetAll.setEnabled(false);
 		this.btnResetAll.setVisible(false);
-		
+		this.saveNewCardButton.setEnabled(false);
+		this.saveNewCardButton.setVisible(false);
+
 	}
 	
 	/**
@@ -404,6 +482,7 @@ public class CardView extends AbstractView implements View {
 		this.btnSaveAll.setVisible(true);
 		this.btnResetAll.setVisible(true);
 		this.btnResetAll.setEnabled(true);
+		
 		
 	}
 	
@@ -547,7 +626,12 @@ public class CardView extends AbstractView implements View {
 		}
 		return -1;
 	}
-	
+	public Card getNewCard(){
+		return currentCard;
+	}
+	public void setNewCard(Card currentCard){
+		this.currentCard = currentCard;
+	}
 	/**
 	 * Zurücksetzen aller Attribut-Werte
 	 */
@@ -660,6 +744,13 @@ public class CardView extends AbstractView implements View {
 	public void modelPropertyChange(PropertyChangeEvent event) {
 		System.out.println("in mPC() ankegekommen");
 		switch (event.getPropertyName()) {
+		case CardController.NEWCARD_PROPERTY: {
+			System.out.println("neue Karte hinzugefügt");
+	         cardController.addCardbyColumn(event);
+            break;
+		}
+		
+		
 		case CardController.CARDID_PROPERTY: {
 			 String newStringValue = event.getNewValue().toString();
              if (!idTextField.getText().equals(newStringValue)) {
@@ -747,6 +838,18 @@ public class CardView extends AbstractView implements View {
 	public void setPreference(Preference pref) {
 		this.pref = pref;
 	}
+
+	public Card getCreatedCard() {
+		return this.currentCard;
+		
+	}
+
+	public void setColumnList(LinkedList<Column> columnList) {
+		
+		
+	}
+
+
 	
 }
 

@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import edu.fh.kanban.ui.controller.BoardController;
 import edu.fh.kanban.ui.controller.CardController;
 
 public class Card extends AbstractModel {
@@ -200,6 +201,28 @@ public class Card extends AbstractModel {
 		this.blocker = b;
 		firePropertyChange(CardController.BLOCKER_PROPERTY,oldBlocker,blocker);
 		System.out.println("Mein neuer Blockerzustand:" + this.getBlocker());
+	}
+
+	public void setChanged(int index) {
+		firePropertyChange(CardController.NEWCARD_PROPERTY,index,this);
+		firePropertyChange(BoardController.BOARDCHANGED_PROPERTY, null, null);
+		System.out.println("Kartenänderung ausgelöst");
+		
+	}
+
+	public void setCreated(Date created2) {
+		this.created = created2;
+		
+	}
+
+	public void setDone(Date done2) {
+		this.done = done2;
+		
+	}
+
+	public void setStarted(Date started2) {
+		this.started = started2;
+		
 	}
 
 }

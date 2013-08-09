@@ -1,6 +1,9 @@
 package edu.fh.kanban.ui.controller;
 
 import java.awt.Color;
+import java.beans.PropertyChangeEvent;
+import java.util.Iterator;
+import java.util.LinkedList;
 
 import edu.fh.kanban.domain.AbstractModel;
 import edu.fh.kanban.domain.Card;
@@ -21,7 +24,26 @@ public class CardController extends AbstractController {
 	public static final String BLOCKER_PROPERTY = "Blocker";
 	public static final String JRADIOBUTTON_PROPERTY = "Date";
 	public static final String CARDIDTEXTF_PROPERTY = "IdTextField";
+	public static final String NEWCARD_PROPERTY = "Changed";
+	
 
+	public LinkedList<ColumnController> columnControllers;
+
+	public LinkedList<ColumnController> getParentColumnControllers() {
+		return columnControllers;
+	}
+	public void setParentColumnControllers(
+			LinkedList<ColumnController> parentColumnControllers) {
+		this.columnControllers = parentColumnControllers;
+	}
+
+    
+    public void addCardbyColumn(PropertyChangeEvent e){
+    	int i = Integer.parseInt(e.getOldValue().toString())-1;
+    	columnControllers.get(i).getCardControllerList().addLast(this);
+    	
+
+    }
 	public Card getCard(){
 		Card card = null;
 		for (AbstractModel model: models) {

@@ -6,16 +6,20 @@ import javax.swing.JPanel;
 
 import edu.fh.kanban.domain.Card;
 import edu.fh.kanban.domain.Preference;
+import edu.fh.kanban.ui.controller.BoardController;
 import edu.fh.kanban.ui.controller.CardController;
 
 public class CreateCardFrame extends JFrame {
-	public CreateCardFrame(Preference pref){
-		
+	public CreateCardFrame(BoardController boardController){
+		Preference pref = boardController.getColumnControllerList().get(0).getPreference();
+		Card card = new Card(0,0,null,false,0,null,null,null,null);
 		CardController cardController = new CardController();
-		
 		CardView cardView = new CardView(cardController);
-		cardController.addView(cardView);
+		cardView.setNewCard(card);
 		cardView.setPreference(pref);
+		cardController.addModel(card);
+		cardController.setParentColumnControllers(boardController.getColumnControllerList());
+		card.addPropertyChangeListener(boardController);
 		this.add(cardView);
 		
 	}

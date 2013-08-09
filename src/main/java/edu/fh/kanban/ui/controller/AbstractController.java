@@ -1,10 +1,12 @@
 package edu.fh.kanban.ui.controller;
 
+import java.awt.event.ActionEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Deque;
 
 import edu.fh.kanban.domain.AbstractModel;
 import edu.fh.kanban.ui.view.AbstractView;
@@ -19,13 +21,14 @@ public abstract class AbstractController implements PropertyChangeListener {
 	protected ArrayList <AbstractView>views;
 	//Eine Arrayliste die sich die Modelle merken kann (bzw. die Referenzen)
     protected ArrayList <AbstractModel>models;
+  
 
     public AbstractController() {
         views = new ArrayList<AbstractView>();
         models = new ArrayList<AbstractModel>();
     }
 
-
+    
     public void addModel(AbstractModel model) {
         models.add(model);
         model.addPropertyChangeListener(this);
@@ -45,7 +48,7 @@ public abstract class AbstractController implements PropertyChangeListener {
     }
 
 
- 
+    //Aufgerufen nach firePropertyChange()
     public void propertyChange(PropertyChangeEvent evt) {
 
         for (AbstractView view: views) {

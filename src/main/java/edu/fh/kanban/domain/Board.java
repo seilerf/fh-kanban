@@ -27,6 +27,9 @@ public class Board extends AbstractModel {
 	public String getName() {
 		return name;
 	}
+	public void setChanged() {
+		firePropertyChange(BoardController.BOARDCHANGED_PROPERTY,null,null);		
+	}
 	
 
 	
@@ -59,6 +62,8 @@ public class Board extends AbstractModel {
 	public LinkedList<Column> getColumnList() {
 		return columnList;
 	}
+	
+	
 	
 	public LinkedList<Card> getCards(){
 		//Kartenliste anlegen
