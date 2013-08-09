@@ -28,10 +28,10 @@ public class ColumnController extends AbstractController {
 	    this.createCardControllers();
 	}
 	
-	public void getPreference(){
+	public Preference getPreference(){
 		  DAOFactory xmlfactory = DAOFactory.getDAOFactory(DAOFactory.XML);
 	      PreferenceDAO prefDAO = xmlfactory.getPreferenceDAO();
-	     pref = prefDAO.findPreference();
+	     return pref = prefDAO.findPreference();
 		
 	}
 

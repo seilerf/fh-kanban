@@ -5,15 +5,15 @@ import java.awt.Color;
 public class Preference extends AbstractModel {
 
 	private String name;
-	private int[] colorStandard;
-	private int[] colorExpedite;
-	private int[] colorFixed;
-	private int[] colorIntagible;
+	private static int[] colorStandard;
+	private static int[] colorExpedite;
+	private static int[] colorFixed;
+	private static int[] colorIntagible;
 	
-	private String limitNext;
-	private String limitDev;
-	private String limitTest;
-	private String limitDone;
+	private static String limitNext;
+	private static String limitDev;
+	private static String limitTest;
+	private static String limitDone;
 
 	public Preference(){
 		

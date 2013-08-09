@@ -12,7 +12,7 @@ import edu.fh.kanban.ui.view.CardView;
 
 public class CardController extends AbstractController {
 	
-	private Preference preference;
+	private static Preference preference;
 	public static final String CARDID_PROPERTY   = "Id";
 	public static final String SIZE_PROPERTY = "Size";
 	public static final String DESCRIPTION_PROPERTY = "Description";
