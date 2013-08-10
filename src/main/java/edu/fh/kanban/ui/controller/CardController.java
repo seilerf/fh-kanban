@@ -29,12 +29,12 @@ public class CardController extends AbstractController {
 
 	public LinkedList<ColumnController> columnControllers;
 
-	public LinkedList<ColumnController> getParentColumnControllers() {
+	public LinkedList<ColumnController> getColumnControllers() {
 		return columnControllers;
 	}
-	public void setParentColumnControllers(
-			LinkedList<ColumnController> parentColumnControllers) {
-		this.columnControllers = parentColumnControllers;
+	public void setColumnControllers(
+			LinkedList<ColumnController> columnControllers) {
+		this.columnControllers = columnControllers;
 	}
 
     
@@ -42,6 +42,7 @@ public class CardController extends AbstractController {
     	int i = Integer.parseInt(e.getOldValue().toString())-1;
     	System.out.println("KARTE HINZUGEFÜGT");
     	columnControllers.get(i).getCardControllerList().addLast(this);
+    	columnControllers.get(i).getCardList().add((Card)models.get(0));
     	
 
     }

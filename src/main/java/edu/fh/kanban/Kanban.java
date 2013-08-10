@@ -44,6 +44,7 @@ import edu.fh.kanban.ui.dialog.SaveFileDialog;
 import edu.fh.kanban.ui.view.BacklogView;
 import edu.fh.kanban.ui.view.BoardView;
 import edu.fh.kanban.ui.view.CreateCardFrame;
+import edu.fh.kanban.ui.view.PreferencesView;
 
 
 public class Kanban {
@@ -154,7 +155,7 @@ public class Kanban {
 			public void actionPerformed(ActionEvent e) {
 				CreateCardFrame createCardFrame = new CreateCardFrame(boardController);
 				
-				createCardFrame.setSize(420,270);
+				createCardFrame.setSize(450,270);
 				createCardFrame.setVisible(true);
 			}
 		}); 
@@ -195,7 +196,8 @@ public class Kanban {
         item.addActionListener(new ActionListener() {        	 
             public void actionPerformed(ActionEvent e)
             {
- 
+            	PreferencesView prefView = new PreferencesView();
+            	prefView.setVisible(true);
             }
         });
         
