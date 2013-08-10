@@ -9,7 +9,9 @@ import edu.fh.kanban.domain.AbstractModel;
 import edu.fh.kanban.domain.Card;
 import edu.fh.kanban.domain.Column;
 import edu.fh.kanban.domain.Preference;
+import edu.fh.kanban.ui.view.AbstractView;
 import edu.fh.kanban.ui.view.CardView;
+import edu.fh.kanban.ui.view.ColumnView;
 import edu.fh.kanban.ui.controller.CardController;
 
 public class ColumnController extends AbstractController {
@@ -36,6 +38,14 @@ public class ColumnController extends AbstractController {
 		
 	}
 
+	public ColumnView getColumnView(){
+		ColumnView columnView = null;
+		for (AbstractView view: views) {
+			columnView = (ColumnView) view;
+		 }
+		
+		return columnView;
+	}
 
 	private void createCardControllers() {
 		

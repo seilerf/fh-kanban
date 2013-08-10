@@ -311,6 +311,10 @@ public class CardView extends AbstractView implements View {
 		
 	}
 	
+	public CardController getController(){
+		return this.cardController;
+	}
+	
 	/**
 	 * 
 	 * @param e

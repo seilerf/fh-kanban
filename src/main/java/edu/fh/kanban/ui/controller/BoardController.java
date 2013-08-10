@@ -34,8 +34,7 @@ public class BoardController extends AbstractController{
 	public static final String BOARDCHANGED_PROPERTY = "BoardChanged";
 	
 	private final JPopupMenu contextMenu = new JPopupMenu();
-	protected CardView cardViewToMove = null;
-	protected Column columnToMoveFrom = null;
+	protected CardController cardToMove = null;
 	
 	private static LinkedList<ColumnController> columnControllers = new LinkedList<>();
 	private LinkedList<ColumnView> columnViews = new LinkedList<>();
@@ -64,11 +63,23 @@ public class BoardController extends AbstractController{
 				for (Iterator<ColumnController> colControllers = getColumnControllerList().iterator(); colControllers.hasNext();){
 					ColumnController colController = colControllers.next();
 					
+					// SpaltenController ermitteln, zu dem die ausgewählte Karte aktuell gehört
+					for (Iterator<CardController> cardControllerIterator = colController.getCardControllers().iterator(); cardControllerIterator.hasNext();){
+						if (cardToMove == cardControllerIterator.next()){
+							ColumnController columnFrom = colController;
+							System.out.println("Quellspalte: " + columnFrom.getColumn().getName());
+							System.out.println("Actionlistener kennt: " + cardToMove.getCard().getHeadline());
+							// Entferne Karte aus der Column
+							columnFrom.getColumnView().remove(cardToMove.getCardView());
+						}
+					}
+					
+					// SpaltenController ermitteln, zu dem die ausgewählte Karte hinzugefügt werden soll
 					if (e.getActionCommand().matches(colController.getColumn().getName())){
-						// Move Card to selected Column...
-						System.out.println("Zielspalte: " + e.getActionCommand());
-						System.out.println("Actionlistener kennt: " + cardViewToMove);
-						break;
+						ColumnController columnTo = colController;
+						System.out.println("Zielspalte: " + columnTo.getColumn().getName());
+						System.out.println("Actionlistener kennt: " + cardToMove.getCard().getHeadline());
+						columnTo.getColumnView().add(cardToMove.getCardView());
 					}
 				}
 			}
@@ -95,11 +106,16 @@ public class BoardController extends AbstractController{
 							System.out.println("Component: " + me.getComponent().getName() + 
 									"\nX: " + me.getX() + 
 									"\nY: " + me.getY());
-							cardViewToMove = (CardView) me.getComponent();
+							CardView cardView = (CardView) me.getComponent();
+							cardToMove = cardView.getController();
 					}
 		    	});
 			}
 		}
+		
+	}
+	
+	public void moveCard(){
 		
 	}
 	
