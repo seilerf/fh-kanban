@@ -84,7 +84,7 @@ public class CardTest {
 	
 	@Test
 	public void testGetCreated() throws ParseException { 
-		String testString = card.setCreated(new Date());
+		String testString = card.setCreatedString(new Date());
 		assertEquals("Hat sich das Datum der Karte geändert?", testString, card.getCreatedString());
 		
 	}
@@ -92,14 +92,14 @@ public class CardTest {
 	@Test
 	public void testGetStarted() throws ParseException { 
 	
-		String testString = card.setStarted(new Date());
+		String testString = card.setStartedString(new Date());
 		assertEquals("Hat sich das Datum der Karte geändert?", testString, card.getStartedString());
 	}
 	
 	@Test
 	public void testGetDone() throws ParseException { 
 		
-		String testString = card.setDone(new Date());
+		String testString = card.setDoneString(new Date());
 		System.out.println(testString);
 		System.out.println(card.getDone());
 		assertEquals("Hat sich das Datum der Karte geändert?", testString, card.getDoneString());
@@ -110,17 +110,17 @@ public class CardTest {
 		int i = testNumber;
 		String testString;
 		if(i==0) {
-			testString = card.setCreated(new Date());
+			testString = card.setCreatedString(new Date());
 		
 			assertEquals("Hat sich das Datum der Karte geändert?", testString, card.getCreatedString());
 		}
 		if(i==1) {
-			testString = card.setStarted(new Date());
+			testString = card.setStartedString(new Date());
 		
 			assertEquals("Hat sich das Datum der Karte geändert?", testString, card.getStartedString());
 		}
 		if(i==2) {
-			testString = card.setDone(new Date());
+			testString = card.setDoneString(new Date());
 		
 			assertEquals("Hat sich das Datum der Karte geändert?", testString, card.getDone());
 		}
