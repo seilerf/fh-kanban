@@ -96,7 +96,7 @@ public class Kanban {
 
 			initComponents(board,boardView,boardDAO,backlogController,backlogView,boardController);
 			
-			boardController.createContextMenu();
+			boardView.createContextMenu();
 			
 			
 		}

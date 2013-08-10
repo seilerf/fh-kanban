@@ -2,7 +2,10 @@ package edu.fh.kanban.ui.view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeEvent;
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.ListIterator;
@@ -15,7 +18,11 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JTextField;
+
+
+
 
 
 
@@ -42,6 +49,9 @@ public class BoardView extends AbstractView implements View{
 	
 	private boolean changed;
 	private BoardController boardController;
+	
+	private final JPopupMenu contextMenu = new JPopupMenu();
+	protected CardController cardToMove = null;
 
 	
 	//Constructor
@@ -82,9 +92,84 @@ public class BoardView extends AbstractView implements View{
 			
 		
 			
-			this.showCards(count, columnController.getCardControllerList()); 
+			this.showCards(count, columnController.getCardControllers()); 
 			
 			count+=2;
+		}
+		
+	}
+	
+	public void createContextMenu(){
+		System.out.println("Kontextmenü wird erstellt...");
+		JMenu moveMenu = new JMenu("Karte verschieben");
+		
+		ActionListener al = new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				for (Iterator<ColumnController> colControllers = boardController.getColumnControllerList().iterator(); colControllers.hasNext();){
+					ColumnController colController = colControllers.next();
+					try{
+					// SpaltenController ermitteln, zu dem die ausgewählte Karte aktuell gehört
+					for (Iterator<CardController> cardControllerIterator = colController.getCardControllers().iterator(); cardControllerIterator.hasNext();){
+						if (cardToMove == cardControllerIterator.next()){
+							ColumnController columnFrom = colController;
+							System.out.println("Quellspalte: " + columnFrom.getColumn().getName());
+							System.out.println("Actionlistener kennt: " + cardToMove.getCard().getHeadline());
+							// Entferne Karte aus der Column
+							columnFrom.getColumnView().remove(cardToMove.getCardView());
+							columnFrom.getCardControllers().remove(cardToMove);
+							boardController.getBoard().setChanged();
+						}
+					}}
+					catch(ConcurrentModificationException e1){
+						e1.printStackTrace();
+					}
+					
+					// SpaltenController ermitteln, zu dem die ausgewählte Karte hinzugefügt werden soll
+					if (e.getActionCommand().matches(colController.getColumn().getName())){
+						System.out.println("beim Hinzufügen angekommen!\n");
+						ColumnController columnTo = colController;
+						System.out.println("Zielspalte: " + columnTo.getColumn().getName());
+						System.out.println("Actionlistener kennt: " + cardToMove.getCard().getHeadline());
+						
+						
+						columnTo.addCardController(cardToMove);
+						columnTo.getColumn().addCard(cardToMove.getCard());
+						
+						
+						columnTo.getColumnView().add(cardToMove.getCardView());
+						boardController.getBoard().setChanged();
+					}
+				}
+			}
+		};
+				
+		for (Iterator<Column> colIterator = boardController.getColumnList().iterator(); colIterator.hasNext();){
+			JMenuItem colMenuItem = new JMenuItem(colIterator.next().getName());
+			colMenuItem.addActionListener(al);
+			moveMenu.add(colMenuItem);
+		}
+		contextMenu.add(moveMenu);
+		
+		for (Iterator<ColumnController> colControllers = boardController.getColumnControllerList().iterator(); colControllers.hasNext();){
+			ColumnController columnController = colControllers.next();
+			
+			for (Iterator<CardController> cardControllers = columnController.getCardControllers().iterator(); cardControllers.hasNext();){
+				CardController cardController = cardControllers.next();
+				CardView cardView = cardController.getCardView();
+				
+				cardView.addMouseListener(new MouseAdapter() {
+					public void mouseReleased(MouseEvent me) {
+						if (me.isPopupTrigger())
+							contextMenu.show(me.getComponent(), me.getX(), me.getY());
+							System.out.println("Component: " + me.getComponent().getName() + 
+									"\nX: " + me.getX() + 
+									"\nY: " + me.getY());
+							CardView cardView = (CardView) me.getComponent();
+							cardToMove = cardView.getController();
+							
+					}
+		    	});
+			}
 		}
 		
 	}
@@ -134,7 +219,7 @@ public class BoardView extends AbstractView implements View{
 			BoardController currentBoardController;
 			for(ColumnController columnController: boardController.getColumnControllerList()){
 				
-				for(CardController cardController: columnController.getCardControllerList()){
+				for(CardController cardController: columnController.getCardControllers()){
 					cardController.getCardView().setAllDisabledForBoard();
 				}
 			}
@@ -151,7 +236,7 @@ public class BoardView extends AbstractView implements View{
 			BoardController currentBoardController;
 			for(ColumnController columnController: boardController.getColumnControllerList()){
 				
-				for(CardController cardController: columnController.getCardControllerList()){
+				for(CardController cardController: columnController.getCardControllers()){
 					cardController.getCardView().setAllEnabledForBoard();
 				}
 			}
@@ -189,6 +274,7 @@ public class BoardView extends AbstractView implements View{
 			System.out.println("Boardview wird akualisiert\n");
 			this.removeAll();
 			this.initComponents();
+			this.updateUI();
             break;
 		}
 		}

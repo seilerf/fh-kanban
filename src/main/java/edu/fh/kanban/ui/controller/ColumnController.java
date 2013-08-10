@@ -99,11 +99,7 @@ public class ColumnController extends AbstractController {
 		
 	}
 	
-	public LinkedList<CardController> getCardControllerList(){
-		return cardControllers;
-	}
-	
-	public LinkedList<CardController> getCardControllers() {
+	public LinkedList<CardController> getCardControllers(){
 		return cardControllers;
 	}
 
@@ -130,6 +126,17 @@ public class ColumnController extends AbstractController {
 		 }
 		return cardList;
 	 }
-
 	
+	public void addCardController(CardController cardController){
+		
+		
+		if(cardControllers!=null){
+			cardControllers.add(cardController);
+		}
+		else{
+			cardControllers = new LinkedList<CardController>();
+		}
+		
+	}
+
 }
