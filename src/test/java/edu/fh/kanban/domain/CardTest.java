@@ -14,7 +14,7 @@ import org.junit.Test;
 
 public class CardTest {
 	
-	private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+	private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-ddHH:mm:ss");
 	private static String date = sdf.format(new Date());
 	private static Card card;
 	private static int id = 5;
@@ -84,43 +84,45 @@ public class CardTest {
 	
 	@Test
 	public void testGetCreated() throws ParseException { 
-		card.setCreated();
-		Date referenz = sdf.parse(date);
-		assertEquals("Hat sich das Datum der Karte geändert?", referenz, card.getCreated());
+		String testString = card.setCreated(new Date());
+		assertEquals("Hat sich das Datum der Karte geändert?", testString, card.getCreatedString());
+		
 	}
 	
 	@Test
 	public void testGetStarted() throws ParseException { 
-		card.setStarted();
-		Date referenz = sdf.parse(date);
-		assertEquals("Hat sich das Datum der Karte geändert?", referenz, card.getStartedString());
+	
+		String testString = card.setStarted(new Date());
+		assertEquals("Hat sich das Datum der Karte geändert?", testString, card.getStartedString());
 	}
 	
 	@Test
 	public void testGetDone() throws ParseException { 
-		card.setDone();
-		Date referenz = sdf.parse(date);
-		assertEquals("Hat sich das Datum der Karte geändert?", referenz, card.getDone());
+		
+		String testString = card.setDone(new Date());
+		System.out.println(testString);
+		System.out.println(card.getDone());
+		assertEquals("Hat sich das Datum der Karte geändert?", testString, card.getDoneString());
 	}
 	
 	@Test
 	public void testSetDate() throws ParseException {
 		int i = testNumber;
-		
+		String testString;
 		if(i==0) {
-			card.setCreated();
-			Date referenz = sdf.parse(date);
-			assertEquals("Hat sich das Datum der Karte geändert?", referenz, card.getCreated());
+			testString = card.setCreated(new Date());
+		
+			assertEquals("Hat sich das Datum der Karte geändert?", testString, card.getCreatedString());
 		}
 		if(i==1) {
-			card.setStarted();
-			Date referenz = sdf.parse(date);
-			assertEquals("Hat sich das Datum der Karte geändert?", referenz, card.getStartedString());
+			testString = card.setStarted(new Date());
+		
+			assertEquals("Hat sich das Datum der Karte geändert?", testString, card.getStartedString());
 		}
 		if(i==2) {
-			card.setDone();
-			Date referenz = sdf.parse(date);
-			assertEquals("Hat sich das Datum der Karte geändert?", referenz, card.getDone());
+			testString = card.setDone(new Date());
+		
+			assertEquals("Hat sich das Datum der Karte geändert?", testString, card.getDone());
 		}
 	}
 }

@@ -210,18 +210,23 @@ public class Card extends AbstractModel {
 		
 	}
 
-	public void setCreated(Date created2) {
+	public String setCreated(Date created2) {
 		this.created = created2;
+		return formatter.format(created2);
 		
 	}
 
-	public void setDone(Date done2) {
+	public String setDone(Date done2) {
 		this.done = done2;
+		return formatter.format(done2);
 		
 	}
 
-	public void setStarted(Date started2) {
+	public String setStarted(Date started2) {
 		this.started = started2;
+		
+		return formatter.format(started2);
+		
 		
 	}
 

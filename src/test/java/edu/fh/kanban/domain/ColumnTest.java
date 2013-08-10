@@ -36,7 +36,8 @@ public class ColumnTest {
 		
 		this.column = new Column(colName, limit);
 		
-		assertFalse(this.column.getCardList().isEmpty());
+		
+		assertFalse(cardList.isEmpty());
 	}
 	
 	public static junit.framework.Test suite() {

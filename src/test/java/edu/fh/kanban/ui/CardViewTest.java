@@ -92,27 +92,6 @@ public class CardViewTest {
 		assertEquals("Wurden die Komponenten auf den selben Zustand gesetzt?",cardView.getSizeTextField().isEnabled(),referenz.getSizeTextField().isEnabled());
 	}
 	
-	@Test
-	public void testSetJPanelColor() {
-
-		if(randomNumber == 0||randomNumber==-1) {
-			backColor = Color.LIGHT_GRAY;
-		}
-		if(randomNumber == 1) {
-			backColor = Color.blue;
-		}
-		if(randomNumber == 2) {
-			backColor = Color.orange;
-		}
-		if(randomNumber == 3) {
-			backColor = Color.red;
-		}
-		if(randomNumber == 4) {
-			backColor = Color.green;
-		}
-		cardView.setBackground(backColor);
-		assertEquals("Wurde auf die passende HintergrundFarbe gesetzt?",cardView.getBackground(),Color.blue);
-	}
 	
 	@Test
 	public void testGetJRadioButton() {
