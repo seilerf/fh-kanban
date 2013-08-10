@@ -204,6 +204,7 @@ public class Card extends AbstractModel {
 	}
 
 	public void setChanged(int index) {
+		System.out.println("SETCHNGED");
 		firePropertyChange(CardController.NEWCARD_PROPERTY,index,this);
 		firePropertyChange(BoardController.BOARDCHANGED_PROPERTY, null, null);
 		System.out.println("Kartenänderung ausgelöst");

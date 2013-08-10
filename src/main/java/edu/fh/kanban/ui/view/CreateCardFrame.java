@@ -17,7 +17,6 @@ public class CreateCardFrame extends JFrame {
 		CardView cardView = new CardView(cardController);
 		cardView.setNewCard(card);
 		cardView.setPreference(pref);
-		cardController.addModel(card);
 		cardController.setParentColumnControllers(boardController.getColumnControllerList());
 		card.addPropertyChangeListener(boardController);
 		this.add(cardView);

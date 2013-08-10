@@ -40,6 +40,7 @@ public class CardController extends AbstractController {
     
     public void addCardbyColumn(PropertyChangeEvent e){
     	int i = Integer.parseInt(e.getOldValue().toString())-1;
+    	System.out.println("KARTE HINZUGEFÜGT");
     	columnControllers.get(i).getCardControllerList().addLast(this);
     	
 

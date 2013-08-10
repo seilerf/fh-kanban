@@ -462,6 +462,8 @@ public class CardView extends AbstractView implements View {
 		this.btnResetAll.setVisible(false);
 		this.saveNewCardButton.setEnabled(false);
 		this.saveNewCardButton.setVisible(false);
+		this.columnComboBox.setVisible(false);
+		this.columnComboBox.setEditable(false);
 
 	}
 	
@@ -742,7 +744,7 @@ public class CardView extends AbstractView implements View {
 
 	@Override
 	public void modelPropertyChange(PropertyChangeEvent event) {
-		System.out.println("in mPC() ankegekommen");
+		
 		switch (event.getPropertyName()) {
 		case CardController.NEWCARD_PROPERTY: {
 			System.out.println("neue Karte hinzugefügt");

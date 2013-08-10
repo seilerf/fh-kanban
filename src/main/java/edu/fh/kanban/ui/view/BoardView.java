@@ -21,6 +21,7 @@ import javax.swing.JTextField;
 
 
 
+
 import com.itextpdf.text.Font;
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.CellConstraints;
@@ -182,8 +183,16 @@ public class BoardView extends AbstractView implements View{
 
 	@Override
 	public void modelPropertyChange(PropertyChangeEvent event) {
-		System.out.println("Boardview wird akualisiert\n");
-		this.removeAll();
-		this.initComponents();
+		
+		switch (event.getPropertyName()) {
+		case BoardController.BOARDCHANGED_PROPERTY: {
+			System.out.println("Boardview wird akualisiert\n");
+			this.removeAll();
+			this.initComponents();
+            break;
+		}
+		}
+		
+		
 	}
 }
