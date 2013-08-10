@@ -9,10 +9,16 @@ import edu.fh.kanban.domain.Card;
 
 public class BacklogController extends AbstractController {
 
-	public static final String HEADLINE_PROPERTY   = "Headline";
 	
 	public BacklogController(){
 		
+	}
+	
+	public void addCard(Card card){
+		for(AbstractModel model: models){
+			Backlog b = (Backlog) model;
+			b.addCard(card);
+		}
 	}
 	
 	public LinkedList<Card> getCardList(){

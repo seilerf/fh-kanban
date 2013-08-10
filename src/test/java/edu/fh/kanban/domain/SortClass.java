@@ -30,7 +30,7 @@ public class SortClass{
 			while(lit.hasNext()){
 				Card c = lit.next();
 				
-				cards.add(new Card(c.getId(),c.getSize(),c.getDescription(),
+				cards.add(new Card(c.getId(),c.getValue(),c.getDescription(),
 						c.getBlocker(),c.getSize(),c.getHeadline(), c.getCreated(), c.getStarted(), c.getDone()));
 			}
 		}

@@ -52,7 +52,7 @@ public class CardViewBoard extends JPanel implements View {
 	 * Create the panel.
 	 */
 	public CardViewBoard(Card card) {
-		setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Karte", TitledBorder.CENTER, TitledBorder.TOP, null, Color.BLACK));
+		setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), card.getHeadline(), TitledBorder.CENTER, TitledBorder.TOP, null, Color.BLACK));
 		FormLayout formLayout = new FormLayout(new ColumnSpec[] {
 				FormFactory.RELATED_GAP_COLSPEC,
 				ColumnSpec.decode("45dlu"),

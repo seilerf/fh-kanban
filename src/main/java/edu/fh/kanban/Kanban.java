@@ -94,7 +94,7 @@ public class Kanban {
 			backlogController.addView(backlogView);
 			backlogView.showBacklog();
 
-			initComponents(board,boardView,boardDAO,backlogView,boardController);
+			initComponents(board,boardView,boardDAO,backlogController,backlogView,boardController);
 			
 			boardController.createContextMenu();
 			
@@ -109,7 +109,7 @@ public class Kanban {
 	}
 
 	
-	public static void initComponents(final Board board, final BoardView boardView, final BoardDAO boardDAO,
+	public static void initComponents(final Board board, final BoardView boardView, final BoardDAO boardDAO, final BacklogController backlogController,
 						final BacklogView backlogView, final BoardController boardController){
 
 		JMenuBar jMenuBar;
@@ -153,7 +153,7 @@ public class Kanban {
 		filemenu.add(cardMenu);
 		cardMenu.addActionListener(new ActionListener () {
 			public void actionPerformed(ActionEvent e) {
-				CreateCardFrame createCardFrame = new CreateCardFrame(boardController);
+				CreateCardFrame createCardFrame = new CreateCardFrame(boardController, backlogController);
 				
 				createCardFrame.setSize(450,270);
 				createCardFrame.setVisible(true);

@@ -21,7 +21,10 @@ public class Backlog extends AbstractModel{
 		changes = new PropertyChangeSupport(this);
 
 	}
-
+	
+	public void addCard(Card c){
+		cardList.add(c);
+	}
 	
 	public LinkedList<Card> getCardList(){
 		return cardList;

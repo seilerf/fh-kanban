@@ -25,7 +25,7 @@ import edu.fh.kanban.ui.controller.BacklogController;
 public class BacklogView extends AbstractView implements View{
 	
 	private JButton headlineButton;
-	private JButton workloadButton;
+	private JButton valueButton;
 	private JButton sizeButton;
 	private JButton createButton;
 	private JButton searchButton;
@@ -33,6 +33,8 @@ public class BacklogView extends AbstractView implements View{
 	private DefaultFormBuilder cardbuilder;
 	private JScrollPane scrollpane;
 	private JPanel cardpanel;
+	
+	
 	
 
 	
@@ -75,15 +77,15 @@ public class BacklogView extends AbstractView implements View{
 		ButtonBarBuilder2 buttons = ButtonBarBuilder2.createLeftToRightBuilder();
 		
 		headlineButton = new JButton("Überschrift");
-		workloadButton = new JButton("Aufwand");
-		sizeButton = new JButton("Größe");
+		valueButton = new JButton("Farbe");
+		sizeButton = new JButton("Aufwand");
 		createButton = new JButton("Erstellung");
 		searchButton = new JButton("suche");
 		
 		
 		buttons.addButton(createButton);
 	    buttons.addButton(headlineButton);
-	    buttons.addButton(workloadButton);
+	    buttons.addButton(valueButton);
 	    buttons.addButton(sizeButton);
 	  
 	    
@@ -129,7 +131,7 @@ public class BacklogView extends AbstractView implements View{
             	
             }
         });
-		workloadButton.addActionListener(new ActionListener(){
+		valueButton.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent event) {
             	removeAll();
