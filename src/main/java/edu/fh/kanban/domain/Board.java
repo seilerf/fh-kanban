@@ -87,6 +87,7 @@ public class Board extends AbstractModel {
 						System.out.println("Lese Karte...\n");
 						currentCard = cardIt.next();
 						cards.add(currentCard);
+						System.out.println("Value im Board:" + currentCard.getValue());
 						}
 					}
 				}

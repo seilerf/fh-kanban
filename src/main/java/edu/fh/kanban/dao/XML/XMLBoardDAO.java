@@ -44,14 +44,14 @@ public class XMLBoardDAO implements BoardDAO{
 	
 	public XMLBoardDAO(){
 		
-		xmlColumnDAO = XMLProperties.xmlFactory.getColumnDAO();
+		xmlColumnDAO = XMLUtil.xmlFactory.getColumnDAO();
 
 	}
 	
 	@Override
 	public Board findBoard() throws ParseException, InterruptedException, NullPointerException {
 		
-			importFromXML(XMLProperties.file);
+			importFromXML(XMLUtil.file);
 		
 		return currentBoard;
 		
@@ -165,7 +165,7 @@ public class XMLBoardDAO implements BoardDAO{
 				
 				LinkedList<Card> cardList = new LinkedList<Card>();
 		    	for (int i = 0; i < column.getChildren().size(); i++){
-		    		Card currentCard = XMLProperties.xmlFactory.getCardDAO().findCard(column,i);
+		    		Card currentCard = XMLUtil.xmlFactory.getCardDAO().findCard(column,i);
 		    		cardList.add(currentCard);
 		    		//new Card(id, value, description, blocker, size, headline, backGround, created, started, done)
 		    	}
@@ -193,10 +193,10 @@ public class XMLBoardDAO implements BoardDAO{
 		
 		try {
 
-		org.w3c.dom.Element rootElement = XMLProperties.xmlDoc.createElement("Board");
+		org.w3c.dom.Element rootElement = XMLUtil.xmlDoc.createElement("Board");
 		rootElement.setAttribute("name", currentBoard.getName());
 		//Der Baum wird dem xmlDoc per appendChild() hinzugefügt (Es werden "Elemente" übergeben)
-		XMLProperties.xmlDoc.appendChild(rootElement);
+		XMLUtil.xmlDoc.appendChild(rootElement);
 		System.out.println("XMLDoc wurde rootElement hinzugefügt\n");
 	 
 		
@@ -212,8 +212,8 @@ public class XMLBoardDAO implements BoardDAO{
 		// Inhalt in eine XML-Datei schreiben
 		TransformerFactory transformerFactory = TransformerFactory.newInstance();
 		Transformer transformer = transformerFactory.newTransformer();
-		DOMSource source = new DOMSource(XMLProperties.xmlDoc);
-		StreamResult outstream = new StreamResult(XMLProperties.file);
+		DOMSource source = new DOMSource(XMLUtil.xmlDoc);
+		StreamResult outstream = new StreamResult(XMLUtil.file);
 	 
 		transformer.transform(source, outstream);
 		

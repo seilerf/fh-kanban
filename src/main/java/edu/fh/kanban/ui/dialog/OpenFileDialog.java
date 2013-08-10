@@ -6,7 +6,7 @@ import java.io.File;
 
 import javax.swing.JFileChooser;
 
-import edu.fh.kanban.dao.XML.XMLProperties;
+import edu.fh.kanban.dao.XML.XMLUtil;
 
 public class OpenFileDialog {
 
@@ -32,7 +32,7 @@ public class OpenFileDialog {
 
         if (result == JFileChooser.APPROVE_OPTION) {
             File inputFile = chooser.getSelectedFile();
-            XMLProperties.setFile(inputFile);
+            XMLUtil.setFile(inputFile);
             System.out.println("Eingabepfad:" + inputFile.getPath());
         }
         System.out.println("Abbruch");

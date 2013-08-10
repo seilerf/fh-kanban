@@ -1,1 +1,25 @@
-<?xml version="1.0" encoding="UTF-8"?><Board name="TestBoard"><Column limit="3" maxCol="2" name="Next"><Card blocker="false" created="2013-07-14 12:00:00" description="Kartenbeschreibung, die ein wenig länger ist, als alle anderen Beschreibungen in diesem Board." done="2013-07-14 14:00:00" headline="Karte 1" id="1" size="3" started="2013-07-14 13:00:00" value="2"/><Card blocker="true" created="2013-07-14 12:00:00" description="Kartenbeschreibung" done="2013-07-14 14:00:00" headline="Karte 2" id="2" size="4" started="2013-07-14 13:00:00" value="3"/><Card blocker="true" created="2013-07-14 12:00:00" description="Kartenbeschreibung" done="2013-07-14 14:00:00" headline="Karte 3" id="3" size="7" started="2013-07-14 13:00:00" value="4"/></Column><Column limit="2" maxCol="2" name="Development"/><Column limit="4" maxCol="2" name="Test"><Card blocker="false" created="2013-07-14 12:00:00" description="Kartenbeschreibung" done="2013-07-14 14:00:00" headline="Karte 4" id="4" size="1" started="2013-07-14 13:00:00" value="4"/><Card blocker="false" created="2013-07-14 12:00:00" description="Kartenbeschreibung" done="2013-07-14 14:00:00" headline="Karte 5" id="5" size="3" started="2013-07-14 13:00:00" value="1"/></Column><Column limit="2" maxCol="2" name="Done"/></Board>
+<?xml version="1.0" encoding="UTF-8"?>
+<Board name="TestBoard">
+	<Column limit="3" maxCol="2" name="Next">
+		<Card blocker="false" created="2013-07-14 12:00:00"
+			description="Kartenbeschreibung, die ein wenig länger ist, als alle anderen Beschreibungen in diesem Board."
+			done="2013-07-14 14:00:00" headline="Karte 1" id="1" size="3"
+			started="2013-07-14 13:00:00" value="2" />
+		<Card blocker="true" created="2013-07-14 12:00:00" description="Kartenbeschreibung"
+			done="2013-07-14 14:00:00" headline="Karte 2" id="2" size="4"
+			started="2013-07-14 13:00:00" value="3" />
+		<Card blocker="true" created="2013-07-14 12:00:00" description="Kartenbeschreibung"
+			done="2013-07-14 14:00:00" headline="Karte 3" id="3" size="7"
+			started="2013-07-14 13:00:00" value="4" />
+	</Column>
+	<Column limit="2" maxCol="2" name="Development" />
+	<Column limit="4" maxCol="2" name="Test">
+		<Card blocker="false" created="2013-07-14 12:00:00" description="Kartenbeschreibung"
+			done="2013-07-14 14:00:00" headline="Karte 4" id="4" size="1"
+			started="2013-07-14 13:00:00" value="4" />
+		<Card blocker="false" created="2013-07-14 12:00:00" description="Kartenbeschreibung"
+			done="2013-07-14 14:00:00" headline="Karte 5" id="5" size="3"
+			started="2013-07-14 13:00:00" value="1" />
+	</Column>
+	<Column limit="2" maxCol="2" name="Done" />
+</Board>

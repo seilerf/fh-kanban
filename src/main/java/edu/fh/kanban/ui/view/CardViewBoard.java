@@ -22,6 +22,7 @@ import javax.swing.JLabel;
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 import edu.fh.kanban.domain.Card;
+import edu.fh.kanban.domain.Preference;
 
 import javax.swing.JTextField;
 
@@ -167,6 +168,51 @@ public class CardViewBoard extends JPanel implements View {
 		this.rdbtnCreated.setBackground(background);
 		this.rdbtnStarted.setBackground(background);
 		this.rdbtnDone.setBackground(background);	
+	}
+	
+	/** Zum anzeigen einer eingelesenen Karte:
+	 * Methode zum Einfärben des Panels entsprechen mit der passenden Hintergrundfarbe bezüglich der Wertauswahl.
+	 */
+	public void setJPanelColorForCreatingAExistingCard(int x){
+		
+		
+		//Auswertung der Auswahl aus der ComboBox:
+		
+		//keine Auswahl("Wähle aus" oder gar keine Auswahl)
+		if(x == 0||x==-1) {
+			this.background = Color.LIGHT_GRAY;
+		}
+		//Intengiable
+		else if(x == 1) {
+			int[] intangible = Preference.getColorIntagible();
+			this.background = new Color(intangible[0],intangible[1],intangible[2]);
+						
+		}
+		//Standard
+		else if(x == 2) {
+			int[] standard = Preference.getColorStandard();
+			this.background = new Color(standard[0],standard[1],standard[2]);
+
+		}
+		//Expedite
+		else if(x == 3) {
+			int[] expedite = Preference.getColorExpedite();
+			this.background = new Color(expedite[0],expedite[1],expedite[2]);
+		}
+		//Fixed Date
+		else if(x == 4) {
+			int[] fixedDate = Preference.getColorFixed();
+			this.background = new Color(fixedDate[0],fixedDate[1],fixedDate[2]);
+		}
+		else{
+			System.out.println("Kein Farbe zugeordnet");
+		}
+		this.setBackground(background);
+		this.rdbtnCreated.setBackground(background);
+		this.rdbtnStarted.setBackground(background);
+		this.rdbtnDone.setBackground(background);
+	
+		
 	}
 	
 	/**

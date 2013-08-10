@@ -134,6 +134,7 @@ public class Card extends AbstractModel {
 	 * @return
 	 */
 	public Color getBackGround() {
+		
 		return this.backGround;
 	}
 	//Getter Erstellungsdatum

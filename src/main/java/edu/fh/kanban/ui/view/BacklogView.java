@@ -57,7 +57,7 @@ public class BacklogView extends AbstractView implements View{
 		cardpanel = new JPanel();
 		JPanel buttonpanel = new JPanel();
 		
-		scrollpane = new JScrollPane(cardpanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		scrollpane = new JScrollPane();
 		
 		
 		
@@ -95,8 +95,9 @@ public class BacklogView extends AbstractView implements View{
 	    
 	   
 	    this.setLayout(new BorderLayout());
-	    this.add(scrollpane);
-	    scrollpane.setViewportView(cardpanel);
+	    
+	    
+	    
 	    
 	    buttonpanel.add(buttons.getPanel());
 	    buttonpanel.add(searchbuilder.getPanel());
@@ -104,6 +105,13 @@ public class BacklogView extends AbstractView implements View{
 	    
 	    cardpanel.add(cardbuilder.getPanel());
 	    this.add(cardpanel, BorderLayout.CENTER);
+	    
+	    
+	    scrollpane.setViewportView(cardpanel);
+	    
+	    this.add(scrollpane);
+	    
+	    
 		
 		/* ******************************************************************************** */
 		//ActionListener
@@ -113,8 +121,12 @@ public class BacklogView extends AbstractView implements View{
             	removeAll();
             	showBacklog();
             	showCardsSortedByHeadline(backlogController.getCardList());
+            	
             	//System.out.println("HeadlineButton gedrückt");
             	updateUI();
+            	
+            	
+            	
             }
         });
 		workloadButton.addActionListener(new ActionListener(){
@@ -123,8 +135,10 @@ public class BacklogView extends AbstractView implements View{
             	removeAll();
             	showBacklog();
             	showCardsSortedByValue(backlogController.getCardList());
+            	
             	//System.out.println("ValueButton gedrückt");
             	updateUI();
+            
             }
         });
 		sizeButton.addActionListener(new ActionListener(){
@@ -133,6 +147,7 @@ public class BacklogView extends AbstractView implements View{
             	removeAll();
             	showBacklog();
             	showCardsSortedbySize(backlogController.getCardList());
+            	
             	//System.out.println("SizeButton gedrückt");
             	updateUI();
             }
@@ -143,8 +158,10 @@ public class BacklogView extends AbstractView implements View{
             	removeAll();
             	showBacklog();
             	showCardsSortedByCreationTime(backlogController.getCardList());
+            	
             	//System.out.println("CreateButton gedrückt");
             	updateUI();
+         
             }
         });
 		searchButton.addActionListener(new ActionListener(){
@@ -155,7 +172,9 @@ public class BacklogView extends AbstractView implements View{
             		removeAll();
                 	showBacklog();
                 	showResultCards(searchString, backlogController.getCardList());
+               
                 	updateUI();
+                 
             	}
             	
             	
@@ -191,7 +210,7 @@ public class BacklogView extends AbstractView implements View{
   			Card c = test.next();
   			
   			CardViewBoard cardView = new CardViewBoard(c);
-  			cardView.setBackground(c.getBackGround());
+  			cardView.setJPanelColorForCreatingAExistingCard(c.getValue());
   			cardbuilder.append(cardView);
   		}
 	}
@@ -206,9 +225,10 @@ public class BacklogView extends AbstractView implements View{
 			Iterator<Card> test = list.iterator();
 	  		while(test.hasNext()){
 	  			Card c = test.next();
-	  			
+	  
 	  			CardViewBoard cardView = new CardViewBoard(c);
-	  			cardView.setBackground(c.getBackGround());
+	  			
+	  			cardView.setJPanelColorForCreatingAExistingCard(c.getValue());
 	  			cardbuilder.append(cardView);
 	  		}
 		}
@@ -227,8 +247,10 @@ public class BacklogView extends AbstractView implements View{
 			Iterator<Card> test3 = cards.iterator();
 	  		while(test3.hasNext()){
 	  			Card c = test3.next();
+	  		
 	  			CardViewBoard cardView = new CardViewBoard(c);
-	  			cardView.setBackground(c.getBackGround());
+	  			cardView.setJPanelColorForCreatingAExistingCard(c.getValue());
+	  			
 	  			cardbuilder.append(cardView);
 	  		}
 		}
@@ -247,7 +269,8 @@ public class BacklogView extends AbstractView implements View{
 	  		while(test.hasNext()){
 	  			Card c = test.next();
 	  			CardViewBoard cardView = new CardViewBoard(c);
-	  			cardView.setBackground(c.getBackGround());
+	  			
+	  			cardView.setJPanelColorForCreatingAExistingCard(c.getValue());
 	  			cardbuilder.append(cardView);
 	  		}
 		}
@@ -265,7 +288,8 @@ public class BacklogView extends AbstractView implements View{
 	  		while(test2.hasNext()){
 	  			Card c = test2.next();
 	  			CardViewBoard cardView = new CardViewBoard(c);
-	  			cardView.setBackground(c.getBackGround());
+	  			
+	  			cardView.setJPanelColorForCreatingAExistingCard(c.getValue());
 	  			cardbuilder.append(cardView);
 	  		}
 		}

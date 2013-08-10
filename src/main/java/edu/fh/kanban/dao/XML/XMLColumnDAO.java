@@ -28,7 +28,7 @@ public class XMLColumnDAO  implements ColumnDAO {
 	
 	public XMLColumnDAO(){
 		
-		xmlCardDAO = XMLProperties.xmlFactory.getCardDAO();
+		xmlCardDAO = XMLUtil.xmlFactory.getCardDAO();
 	}
 	
 	@Override
@@ -46,13 +46,13 @@ public class XMLColumnDAO  implements ColumnDAO {
 	@Override
 	public int insertColumn(Column column) {
 
-			org.w3c.dom.Element columnElement = XMLProperties.xmlDoc.createElement("Column");
+			org.w3c.dom.Element columnElement = XMLUtil.xmlDoc.createElement("Column");
 		 
 				// Attribute der Spalten ändern
 				columnElement.setAttribute("name", column.getName());
 				columnElement.setAttribute("limit", String.valueOf(column.getLimit()));
 				columnElement.setAttribute("maxCol", "2");
-				Node rootNode = XMLProperties.xmlDoc.getFirstChild();
+				Node rootNode = XMLUtil.xmlDoc.getFirstChild();
 				rootNode.appendChild(columnElement);
 				
 				LinkedList<Card> cardList = column.getCardList();

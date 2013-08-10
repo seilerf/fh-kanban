@@ -27,7 +27,7 @@ public class Preference extends AbstractModel {
 		this.name = name;
 	}
 
-	public int[] getColorStandard() {
+	public static int[] getColorStandard() {
 		return colorStandard;
 	}
 
@@ -35,7 +35,7 @@ public class Preference extends AbstractModel {
 		this.colorStandard = color1;
 	}
 
-	public int[] getColorExpedite() {
+	public static int[] getColorExpedite() {
 		return colorExpedite;
 	}
 
@@ -43,7 +43,7 @@ public class Preference extends AbstractModel {
 		this.colorExpedite = farbe2;
 	}
 
-	public int[] getColorFixed() {
+	public static int[] getColorFixed() {
 		return colorFixed;
 	}
 
@@ -51,7 +51,7 @@ public class Preference extends AbstractModel {
 		this.colorFixed = farbe3;
 	}
 
-	public int[] getColorIntagible() {
+	public static int[] getColorIntagible() {
 		return colorIntagible;
 	}
 

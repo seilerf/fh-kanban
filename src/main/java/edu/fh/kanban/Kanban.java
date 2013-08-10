@@ -33,7 +33,7 @@ import edu.fh.kanban.dao.CardDAO;
 import edu.fh.kanban.dao.DAOFactory;
 import edu.fh.kanban.dao.CSV.CSVUtil;
 import edu.fh.kanban.dao.PDF.PDFUtil;
-import edu.fh.kanban.dao.XML.XMLProperties;
+import edu.fh.kanban.dao.XML.XMLUtil;
 import edu.fh.kanban.domain.Backlog;
 import edu.fh.kanban.domain.Board;
 import edu.fh.kanban.domain.Card;
@@ -71,7 +71,7 @@ public class Kanban {
 			Board board;
 			BoardView boardView;
 			
-			boardDAO = XMLProperties.getXmlFactory().getBoardDAO();
+			boardDAO = XMLUtil.getXmlFactory().getBoardDAO();
 			board = boardDAO.findBoard();
 
 			
