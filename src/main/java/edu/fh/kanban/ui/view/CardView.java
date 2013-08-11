@@ -233,7 +233,7 @@ public class CardView extends AbstractView implements View {
 					btnSaveAllActionPerformed(e);
 				} catch (NumberFormatException ex) { 
 					Component parent = getJPanel();
-					JOptionPane.showMessageDialog(parent,"Keine Nullwerte/ Ungütlige Werte(ID/Size/Description)!","ERROR!" , JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(parent,"Keine Nullwerte/ Ungütlige Werte!","ERROR!" , JOptionPane.ERROR_MESSAGE);
 					btnDeleteAllActionPerformed(e);
 				} catch (cardViewException ex) {
 					
@@ -243,7 +243,11 @@ public class CardView extends AbstractView implements View {
 		
 		this.saveNewCardButton.addActionListener(new ActionListener()  {
 			public void actionPerformed(ActionEvent e) {
-					btnSaveNewCardActionPerformed(e);
+					try {
+						btnSaveNewCardActionPerformed(e);
+					} catch (cardViewException e1) {
+						
+					}
 					Component parent = getJPanel();
 					JOptionPane.showMessageDialog(parent,"Keine Nullwerte/ Ungütlige Werte(ID/Size/Description)!","ERROR!" , JOptionPane.ERROR_MESSAGE);		
 			}
@@ -285,7 +289,12 @@ public class CardView extends AbstractView implements View {
 		
 		this.btnResetAll.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				btnResetAllActionPerformed(e);
+				try {
+					btnResetAllActionPerformed(e);
+				} catch (cardViewException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		
@@ -322,7 +331,6 @@ public class CardView extends AbstractView implements View {
 	private void btnTitelActionPerformed(ActionEvent e) {
 		this.cardTitel = JOptionPane.showInputDialog("Eingabe des Titels:",this.cardTitel);
 		setCardTitel(cardTitel);
-		this.btnSaveAll.setEnabled(true);
 	}
 	/**
 	 * Ursprungszustand (beim ersten Anlegen) wird gespeichert um die Möglichkeit zu haben auf diesen Zustand zurücksetzen zu können.
@@ -359,12 +367,13 @@ public class CardView extends AbstractView implements View {
 	/**
 	 * 
 	 * @param e
+	 * @throws cardViewException 
 	 */
-	private void btnResetAllActionPerformed(ActionEvent e) {
+	private void btnResetAllActionPerformed(ActionEvent e) throws cardViewException {
 		setAllToOldValues();
 	}
 	
-	private void btnSaveNewCardActionPerformed(ActionEvent e) {
+	private void btnSaveNewCardActionPerformed(ActionEvent e) throws cardViewException {
 		Date created;
 		Date started;
 		Date done;
@@ -390,7 +399,7 @@ public class CardView extends AbstractView implements View {
 			started = null;
 			done = null;
 		}
-		
+		 try {
 		currentCard.setId(Integer.parseInt(idTextField.getText()));
 		currentCard.setValue(valueComboBox.getSelectedIndex());
 		currentCard.setBlocker(blockerToggleButton.isSelected());
@@ -405,6 +414,9 @@ public class CardView extends AbstractView implements View {
 		cardController.addModel(currentCard);
 		cardController.addView(this);
 		currentCard.setChanged(columnComboBox.getSelectedIndex());
+		 } catch(NumberFormatException enf) {
+			 throw new cardViewException();
+		 }
 	}
 	
 	/**
@@ -431,9 +443,10 @@ public class CardView extends AbstractView implements View {
 	
 	/**
 	 * Setzt die beim Erstellen gespeicherten Werte passend in die Gui ein.
+	 * @throws cardViewException 
 	 */
-	public void setAllToOldValues() {
-		
+	public void setAllToOldValues() throws cardViewException {
+		try {
 		this.setIdTextField(oldCardId.toString());
 		this.setSizeTextField(oldSize.toString());
 		this.setDescriptionTextPane(oldDescription);
@@ -441,6 +454,11 @@ public class CardView extends AbstractView implements View {
 		this.setBlockerToggleButton(oldBlocker);
 		this.setOldJRadioButton(oldJRadio);
 		this.setJPanelColorForCreatingANewCard();
+		} catch (NullPointerException e) {
+			
+				throw new cardViewException();
+		}		
+	
 	}
 	 
 	
@@ -516,9 +534,10 @@ public class CardView extends AbstractView implements View {
 		cardViewException() {
 			super();
 			Component parent = getJPanel();
-			JOptionPane.showMessageDialog(parent,"Fehlerhafte Eingabe(JRadio/ Value/ Description)!","ERROR!" , JOptionPane.ERROR_MESSAGE);
-			resetAllValues();
-			setJPanelColorForCreatingANewCard();
+			JOptionPane.showMessageDialog(parent,"Fehlerhafte Eingabe!","ERROR!" , JOptionPane.ERROR_MESSAGE);
+			btnResetAll.setEnabled(false);
+			//resetAllValues();
+			//setJPanelColorForCreatingANewCard();
 			//cardController.deleteCardViewValues(Integer.parseInt(idTextField.getText()), Integer.parseInt(sizeTextField.getText()), descriptionTextPane.getText(), valueComboBox.getSelectedIndex(), getBackgroundColor(), blockerToggleButton.isSelected(), RadioButton());
 
 		}
@@ -850,12 +869,5 @@ public class CardView extends AbstractView implements View {
 		
 	}
 
-	public void setColumnList(LinkedList<Column> columnList) {
-		
-		
-	}
-
-
-	
 }
 

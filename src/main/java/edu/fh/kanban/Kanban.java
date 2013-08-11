@@ -156,7 +156,7 @@ public class Kanban {
 			public void actionPerformed(ActionEvent e) {
 				CreateCardFrame createCardFrame = new CreateCardFrame(boardController, backlogController);
 				
-				createCardFrame.setSize(450,270);
+				createCardFrame.setSize(470,285);
 				createCardFrame.setVisible(true);
 			}
 		}); 
