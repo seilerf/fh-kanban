@@ -5,36 +5,20 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeEvent;
-import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.ListIterator;
 
-import javax.swing.JButton;
 import javax.swing.JComponent;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
-import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
-import javax.swing.JTextField;
-
-
-
-
-
-
-
-
 
 import com.itextpdf.text.Font;
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
-import edu.fh.kanban.domain.Board;
 import edu.fh.kanban.domain.Card;
 import edu.fh.kanban.domain.Column;
 import edu.fh.kanban.ui.controller.BoardController;
@@ -212,7 +196,6 @@ public class BoardView extends AbstractView implements View{
 	 */
 	public void setAllCardViewsDisabled() {
 		try {
-			BoardController currentBoardController;
 			for(ColumnController columnController: boardController.getColumnControllerList()){
 				
 				for(CardController cardController: columnController.getCardControllers()){
@@ -229,7 +212,6 @@ public class BoardView extends AbstractView implements View{
 	 */
 	public void setAllCardViewsEnabled() {
 		try {
-			BoardController currentBoardController;
 			for(ColumnController columnController: boardController.getColumnControllerList()){
 				
 				for(CardController cardController: columnController.getCardControllers()){
@@ -248,11 +230,6 @@ public class BoardView extends AbstractView implements View{
 		System.out.println("Ich wurde geändert!");
 	}
 	
-	// Methode, die alle GUI-Elemente für das Board-GUI erzeugt
-	public void buildBoard() {
-		
-	}
-	
 	@Override
 	public JComponent getComponent() {
 		return this;
@@ -266,13 +243,13 @@ public class BoardView extends AbstractView implements View{
 	public void modelPropertyChange(PropertyChangeEvent event) {
 		
 		switch (event.getPropertyName()) {
-		case BoardController.BOARDCHANGED_PROPERTY: {
-			System.out.println("Boardview wird akualisiert\n");
-			this.removeAll();
-			this.initComponents();
-			this.updateUI();
-            break;
-		}
+			case BoardController.BOARDCHANGED_PROPERTY: {
+				System.out.println("Boardview wird akualisiert\n");
+				this.removeAll();
+				this.initComponents();
+				this.updateUI();
+	            break;
+			}
 		}
 		
 		

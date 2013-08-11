@@ -2,12 +2,10 @@ package edu.fh.kanban.ui.controller;
 
 import java.awt.Color;
 import java.beans.PropertyChangeEvent;
-import java.util.Iterator;
 import java.util.LinkedList;
 
 import edu.fh.kanban.domain.AbstractModel;
 import edu.fh.kanban.domain.Card;
-import edu.fh.kanban.domain.Column;
 import edu.fh.kanban.domain.Preference;
 import edu.fh.kanban.ui.view.AbstractView;
 import edu.fh.kanban.ui.view.CardView;

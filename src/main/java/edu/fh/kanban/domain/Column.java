@@ -2,8 +2,6 @@ package edu.fh.kanban.domain;
 
 import java.util.LinkedList;
 
-import edu.fh.kanban.ui.controller.BoardController;
-
 public class Column extends AbstractModel{
 	
 	private String name;
@@ -19,7 +17,6 @@ public class Column extends AbstractModel{
 	
 	}
 	public void addCard(Card card){
-		LinkedList<Card> oldList = cardList;
 		
 		if(cardList!=null){
 			cardList.add(card);

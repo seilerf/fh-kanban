@@ -11,7 +11,7 @@ public class Board extends AbstractModel {
 
 	private String name;
 	private int id;
-	private Preference preference;
+	//private Preference preference;
 
 	private LinkedList<Column> columnList;
 	
@@ -43,9 +43,7 @@ public class Board extends AbstractModel {
 	}
 
 	public void setName(String name){
-		String oldName = this.name;
 		this.name = name;
-		
 	}
 
 	/**

@@ -1,8 +1,6 @@
 package edu.fh.kanban.ui.view;
 
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 import edu.fh.kanban.domain.Card;
 import edu.fh.kanban.domain.Preference;
