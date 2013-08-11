@@ -43,7 +43,7 @@ Teilnehmern/innen besprochen.
 
 # 7. Konzepte
 ## 7.1 Fachliche Strukturen
-## 7.1 Fachliche Strukturen
+![Alt text](edu_fh_kanban_domain_classes.png "Klassendiagramm Package edu.fh.kanban.domain")
 ### 7.1.1 Card
 Die Klasse Card repräsentiert die Kanban-Karten auf Domainebene. Sie mit ist mit dem CardController und der CardView über das MVC-Pattern
 verknüpft. Um ihre Werte abzurufen und zu setzen verfügt sie über die passenden Getter und Setter Funktionen. Die zur Verfügung gestellten
