@@ -44,13 +44,14 @@ import edu.fh.kanban.ui.dialog.SaveFileDialog;
 import edu.fh.kanban.ui.view.BacklogView;
 import edu.fh.kanban.ui.view.BoardView;
 import edu.fh.kanban.ui.view.CreateCardFrame;
+import edu.fh.kanban.ui.view.CreatePrefFrame;
 import edu.fh.kanban.ui.view.PreferencesView;
 
 
 public class Kanban {
 
 	static Logger LOGGER = Logger.getLogger(Kanban.class.getName());
-	static JFrame frame = new JFrame();
+	public static JFrame frame = new JFrame();
 
 
 	
@@ -196,8 +197,7 @@ public class Kanban {
         item.addActionListener(new ActionListener() {        	 
             public void actionPerformed(ActionEvent e)
             {
-            	PreferencesView prefView = new PreferencesView();
-            	prefView.setVisible(true);
+            	CreatePrefFrame cpf = new CreatePrefFrame(board,boardController);
             }
         });
         
