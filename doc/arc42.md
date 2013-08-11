@@ -37,7 +37,7 @@ Teilnehmern/innen besprochen.
 # 4. Lösungsstrategie
 
 # 5. Bausteinsicht
-![Alt text](/path/to/Bausteindiagramm.png "Bausteindiagram")
+![Alt text](Bausteindiagramm.png "Bausteindiagram")
 
 # 6. Laufzeitsicht
 
