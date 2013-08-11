@@ -427,6 +427,7 @@ public class CardView extends AbstractView implements View {
 		 } catch(NumberFormatException enf) {
 			 throw new cardViewException();
 		 }
+		 
 	}
 	
 	/**

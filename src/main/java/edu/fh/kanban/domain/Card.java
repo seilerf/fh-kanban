@@ -203,19 +203,24 @@ public class Card extends AbstractModel {
 		firePropertyChange(CardController.BLOCKER_PROPERTY,oldBlocker,blocker);
 		System.out.println("Mein neuer Blockerzustand:" + this.getBlocker());
 	}
-
+	
+	//Beim hinzufügen von Karten aufgerufen
 	public void setChanged(int index) {
 		System.out.println("SETCHNGED");
+		
 		firePropertyChange(CardController.NEWCARD_PROPERTY,index,this);
+		firePropertyChange(BoardController.CARDADDED_PROPERTY, null, null);
 		firePropertyChange(BoardController.BOARDCHANGED_PROPERTY, null, null);
 		System.out.println("Kartenänderung ausgelöst");
 		
 	}
 	
+	//Bei bearbeiten in Karten ausgelöst
 	public void setChanged() {
 		System.out.println("SETCHNGED");
 	
 		firePropertyChange(BoardController.BOARDCHANGED_PROPERTY, null, null);
+	
 		System.out.println("Kartenänderung ausgelöst");
 		
 	}

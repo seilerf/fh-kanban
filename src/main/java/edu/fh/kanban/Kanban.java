@@ -1,6 +1,7 @@
 package edu.fh.kanban;
 
 import java.awt.BorderLayout;
+import java.awt.Desktop;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -247,6 +248,14 @@ public class Kanban {
 				} catch (FileNotFoundException | DocumentException e1) {
 					e1.printStackTrace();
 				}
+				
+				System.out.println("PDFREADER:");
+				try {
+					Desktop.getDesktop().open( new File("TestBoard.pdf") );
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			
 			}
 		});
@@ -269,12 +278,23 @@ public class Kanban {
 					while(cIt.hasNext()){
 						System.out.println("Exportiere nächste Karte:\n");
 						csvCardDAO.insertCard(cIt.next());
+						
 					}
 					CSVUtil.bw.close();//BufferWriter schliessen
+					
+					 
 				} catch (IOException e1) {
 					
 					e1.printStackTrace();
 				}
+				System.out.println("PDFREADER:");
+				try {
+					Desktop.getDesktop().open( new File("TestBoard.csv") );
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			
 				
 			}
 

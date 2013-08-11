@@ -32,6 +32,7 @@ public class BoardController extends AbstractController{
 	private final String padding = "4dlu";
 	
 	public static final String BOARDCHANGED_PROPERTY = "BoardChanged";
+	public static final String CARDADDED_PROPERTY = "CardAdded";
 	
 	
 	

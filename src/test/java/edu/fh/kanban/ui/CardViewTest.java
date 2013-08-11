@@ -3,6 +3,7 @@ package edu.fh.kanban.ui;
 import static org.junit.Assert.*;
 
 import java.awt.Color;
+import java.util.Date;
 
 import javax.swing.JRadioButton;
 
@@ -35,6 +36,9 @@ public class CardViewTest {
 	private static boolean rdbtnStarted;
 	private static boolean rdbtnDone;
 	private static boolean rdbtnReferenz;
+	private static Date created;
+	private static Date done;
+	private static Date started;
 
 	public CardViewTest(){
 		
@@ -55,6 +59,9 @@ public class CardViewTest {
 		rdbtnCreated = true;
 		rdbtnStarted = false;
 		rdbtnDone = false;
+		created = new Date();
+		done = new Date();
+		started = new Date();
 		
 	}
 	
@@ -72,8 +79,8 @@ public class CardViewTest {
 	
 	@Test
 	public void testSaveAllOldValues() {
-		cardView.saveAllOldValues(cardId, size, description, value, backColor, blocker, jRadio);
-		referenz.saveAllOldValues(10, 4, "TestCardView", 1, Color.blue, true, 2);
+		cardView.saveAllOldValues(cardId, size, description, value, backColor, blocker, created,started,done);
+		referenz.saveAllOldValues(10, 4, "TestCardView", 1, Color.blue, true,new Date(),new Date(),new Date());
 		assertEquals("Wurden die IdWerte passend gespeichert?",cardView.getOldCardId(),referenz.getOldCardId());
 		//Für die anderen Werte könnten ebenfalls noch die Abfragen erfolgen
 	}
