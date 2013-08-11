@@ -49,7 +49,7 @@ Teilnehmern/innen besprochen.
 Die Klasse Card repräsentiert die Kanban-Karten auf Domainebene. Sie mit ist mit dem CardController und der CardView über das MVC-Pattern
 verknüpft. Um ihre Werte abzurufen und zu setzen verfügt sie über die passenden Getter und Setter Funktionen. Die zur Verfügung gestellten
 Attribute:
-ID: 			==> Integer
+ID:  		==> Integer
 Aufwand: 		==> Integer	
 Beschreibung:	==> String
 Blocker:		==> Boolean
