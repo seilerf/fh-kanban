@@ -4,15 +4,18 @@ import com.jgoodies.forms.builder.ButtonBarBuilder2;
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
-import edu.fh.kanban.Kanban;
 
+import edu.fh.kanban.Kanban;
 import edu.fh.kanban.domain.Board;
 import edu.fh.kanban.domain.Card;
 import edu.fh.kanban.domain.ColorBox;
 import edu.fh.kanban.domain.Column;
+import edu.fh.kanban.domain.Preference;
 import edu.fh.kanban.ui.controller.AbstractController;
 import edu.fh.kanban.ui.controller.BoardController;
+
 import java.awt.Color;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
@@ -50,7 +53,7 @@ public class PreferencesView extends AbstractController implements View {
 	private BoardController boardController;
 	private Board board;
 	
-    public PreferencesView(final Board board, BoardController boardController) {
+    public PreferencesView(final Board board, final BoardController boardController) {
     	
     	this.board= board;
     	this.boardController = boardController;
@@ -110,8 +113,16 @@ public class PreferencesView extends AbstractController implements View {
                 	Card card = (Card) icard.next();
                 	System.out.println(card.getBackGround());
                 	if(card.getValue()==1 ) {	
-                		card.setBackground(cb1.COLORS[selectedIndex]);
-                
+                	
+                		Color color = cb1.COLORS[selectedIndex];
+                		int[] colorArray =  new int[3];
+                		colorArray[0] = color.getRed();
+                		colorArray[1] = color.getGreen();
+             
+                		colorArray[2] = color.getBlue();
+                		card.addPropertyChangeListener(boardController);
+                		Preference.setColorStandard(colorArray);
+                		card.setChanged();
                 	}
                 }
             }
@@ -140,7 +151,15 @@ public class PreferencesView extends AbstractController implements View {
                 while (icard.hasNext()) {
                 	Card card = (Card) icard.next();
                 	if(card.getValue()==2 ) {
-                		card.setBackground(cb2.COLORS[selectedIndex]);
+                		Color color = cb2.COLORS[selectedIndex];
+                		int[] colorArray =  new int[3];
+                		colorArray[0] = color.getRed();
+                		colorArray[1] = color.getGreen();
+             
+                		colorArray[2] = color.getBlue();
+                		card.addPropertyChangeListener(boardController);
+                		Preference.setColorExpedite(colorArray);
+                		card.setChanged();
                 	}
                 }
             }
@@ -169,7 +188,15 @@ public class PreferencesView extends AbstractController implements View {
                 	Card card = (Card) icard.next();
                 	System.out.println(card.getBackGround());
                 	if(card.getValue()==3 ) {
-                		card.setBackground(cb3.COLORS[selectedIndex]);
+                		Color color = cb3.COLORS[selectedIndex];
+                		int[] colorArray =  new int[3];
+                		colorArray[0] = color.getRed();
+                		colorArray[1] = color.getGreen();
+             
+                		colorArray[2] = color.getBlue();
+                		card.addPropertyChangeListener(boardController);
+                		Preference.setColorFixed(colorArray);
+                		card.setChanged();
                 	}
                 }
             }
@@ -200,7 +227,15 @@ public class PreferencesView extends AbstractController implements View {
                 	Card card = (Card) icard.next();
                 	System.out.println(card.getBackGround());
                 	if(card.getValue()==4 ) {
-                		card.setBackground(cb4.COLORS[selectedIndex]);	
+                		Color color = cb4.COLORS[selectedIndex];
+                		int[] colorArray =  new int[3];
+                		colorArray[0] = color.getRed();
+                		colorArray[1] = color.getGreen();
+             
+                		colorArray[2] = color.getBlue();
+                		card.addPropertyChangeListener(boardController);
+                		Preference.setColorIntagible(colorArray);
+                		card.setChanged();
                 	}
                 }
             }

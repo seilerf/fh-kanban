@@ -30,32 +30,32 @@ public class Preference extends AbstractModel {
 		return colorStandard;
 	}
 
-	public void setColorStandard(int[] color1) {
-		this.colorStandard = color1;
+	public static void setColorStandard(int[] color1) {
+		colorStandard = color1;
 	}
 
 	public static int[] getColorExpedite() {
 		return colorExpedite;
 	}
 
-	public void setColorExpedite(int[] farbe2) {
-		this.colorExpedite = farbe2;
+	public static void setColorExpedite(int[] farbe2) {
+		colorExpedite = farbe2;
 	}
 
 	public static int[] getColorFixed() {
 		return colorFixed;
 	}
 
-	public void setColorFixed(int[] farbe3) {
-		this.colorFixed = farbe3;
+	public static void setColorFixed(int[] farbe3) {
+		colorFixed = farbe3;
 	}
 
 	public static int[] getColorIntagible() {
 		return colorIntagible;
 	}
 
-	public void setColorIntagible(int[] colorIntagible) {
-		this.colorIntagible = colorIntagible;
+	public static void setColorIntagible(int[] farbe5) {
+		colorIntagible = farbe5;
 	}
 	
 	public String getLimitNext() {
