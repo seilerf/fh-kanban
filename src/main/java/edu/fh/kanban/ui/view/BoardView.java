@@ -105,41 +105,37 @@ public class BoardView extends AbstractView implements View{
 		
 		ActionListener al = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				ColumnController columnFrom = null;
+				ColumnController columnTo = null;
 				for (Iterator<ColumnController> colControllers = boardController.getColumnControllerList().iterator(); colControllers.hasNext();){
 					ColumnController colController = colControllers.next();
-					try{
-					// SpaltenController ermitteln, zu dem die ausgewählte Karte aktuell gehört
-					for (Iterator<CardController> cardControllerIterator = colController.getCardControllers().iterator(); cardControllerIterator.hasNext();){
-						if (cardToMove == cardControllerIterator.next()){
-							ColumnController columnFrom = colController;
-							System.out.println("Quellspalte: " + columnFrom.getColumn().getName());
-							System.out.println("Actionlistener kennt: " + cardToMove.getCard().getHeadline());
-							// Entferne Karte aus der Column
-							columnFrom.getColumnView().remove(cardToMove.getCardView());
-							columnFrom.getCardControllers().remove(cardToMove);
-							boardController.getBoard().setChanged();
+						// SpaltenController ermitteln, zu dem die ausgewählte Karte aktuell gehört
+						for (Iterator<CardController> cardControllerIterator = colController.getCardControllers().iterator(); cardControllerIterator.hasNext();){
+							if (cardToMove == cardControllerIterator.next())
+								columnFrom = colController;
 						}
-					}}
-					catch(ConcurrentModificationException e1){
-						e1.printStackTrace();
-					}
 					
 					// SpaltenController ermitteln, zu dem die ausgewählte Karte hinzugefügt werden soll
-					if (e.getActionCommand().matches(colController.getColumn().getName())){
-						System.out.println("beim Hinzufügen angekommen!\n");
-						ColumnController columnTo = colController;
-						System.out.println("Zielspalte: " + columnTo.getColumn().getName());
-						System.out.println("Actionlistener kennt: " + cardToMove.getCard().getHeadline());
+					if (e.getActionCommand().matches(colController.getColumn().getName()))
+						columnTo = colController;
 						
-						
-						columnTo.addCardController(cardToMove);
-						columnTo.getColumn().addCard(cardToMove.getCard());
-						
-						
-						columnTo.getColumnView().add(cardToMove.getCardView());
-						boardController.getBoard().setChanged();
-					}
 				}
+				
+				System.out.println("Actionlistener kennt: " + cardToMove.getCard().getHeadline());
+				System.out.println("Quellspalte: " + columnFrom.getColumn().getName());
+				System.out.println("Zielspalte: " + columnTo.getColumn().getName());
+				
+				// Entferne Karte aus der Column
+				columnFrom.getCardList().remove(cardToMove.getCard());
+				columnFrom.getCardControllers().remove(cardToMove);
+				columnFrom.getColumnView().remove(cardToMove.getCardView());
+				
+				// Karte der Zielspalte hinzufügen
+				columnTo.getColumn().addCard(cardToMove.getCard());
+				columnTo.addCardController(cardToMove);
+				columnTo.getColumnView().add(cardToMove.getCardView());
+				// Aktualisierung im Board durchführen
+				boardController.getBoard().setChanged();
 			}
 		};
 				
