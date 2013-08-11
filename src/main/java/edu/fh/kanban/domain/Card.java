@@ -1,10 +1,8 @@
 package edu.fh.kanban.domain;
 
 import java.awt.Color;
-import java.awt.SystemColor;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 import edu.fh.kanban.ui.controller.BoardController;
@@ -112,18 +110,15 @@ public class Card extends AbstractModel {
 	public void setDate(Integer i) throws ParseException {
 		
 		if(i==0) {
-			Date oldCalendarCreated = setCreated();
 			firePropertyChange(CardController.JRADIOBUTTON_PROPERTY,null,this);
 			System.out.println("Mein neues Started-Datum:" + this.getCreatedString());
 			
 		}
 		if(i==1) {
-			Date oldCalendarStarted = setStarted();
 			firePropertyChange(CardController.JRADIOBUTTON_PROPERTY,null,this);
 			System.out.println("Mein neues Started-Datum:" + this.getStartedString());
 		}
 		if(i==2) {
-			Date oldCalendarDone = setDone();
 			firePropertyChange(CardController.JRADIOBUTTON_PROPERTY,null,this);
 			System.out.println("Mein neues Done-Datum:" + this.getDoneString());
 		}

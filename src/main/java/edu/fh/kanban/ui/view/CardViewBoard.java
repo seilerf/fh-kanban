@@ -3,31 +3,19 @@ package edu.fh.kanban.ui.view;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
-import java.awt.FlowLayout;
-
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
-
 import javax.swing.border.LineBorder;
-
 import java.awt.Color;
-
 import javax.swing.border.TitledBorder;
-
 import com.jgoodies.forms.factories.FormFactory;
-
 import javax.swing.JLabel;
-
 import com.jgoodies.forms.factories.DefaultComponentFactory;
-
 import edu.fh.kanban.domain.Card;
 import edu.fh.kanban.domain.Preference;
-
 import javax.swing.JTextField;
-
 import java.awt.Font;
-import java.util.Calendar;
 import java.util.Date;
 
 import javax.swing.JToggleButton;

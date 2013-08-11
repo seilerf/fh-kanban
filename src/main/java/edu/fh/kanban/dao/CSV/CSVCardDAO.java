@@ -1,11 +1,6 @@
 package edu.fh.kanban.dao.CSV;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.text.ParseException;
-import java.util.Iterator;
-import java.util.LinkedList;
-
 import org.jdom2.Element;
 
 import edu.fh.kanban.dao.CardDAO;
@@ -22,12 +17,10 @@ public class CSVCardDAO implements CardDAO {
 
 	@Override
 	public int insertCard(Card c) {
-		boolean status = false; //der Status ist zunächst auf false setzt
+		boolean status = false;
 	    String SpeicherString ="wenn Sie dies in der Datei lesen ist ein Fehler passiert";
 
-	        try{
-
-	            	
+	        try {   	
 	                SpeicherString=c.getId()+";"+c.getValue()+";"+c.getDescription()+";"
 	                    +c.getBlocker()+";"+c.getSize()+";"+c.getHeadline()+";"
 	                    +c.getBackGround()+";"+c.getCreated()+";"+c.getStarted()+";"+c.getDone()+"\n"; // ; ist Trennzeichen

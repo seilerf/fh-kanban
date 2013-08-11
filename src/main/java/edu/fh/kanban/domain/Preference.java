@@ -1,6 +1,5 @@
 package edu.fh.kanban.domain;
 
-import java.awt.Color;
 
 public class Preference extends AbstractModel {
 

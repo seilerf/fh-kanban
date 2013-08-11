@@ -31,7 +31,6 @@ public class CsvWriterAppendExample {
 	
 	public static void writeListIntoCSV(LinkedList<Card> list){
 		
-		boolean status = false; //Rückgabewert wird true falls geschrieben werden konnte
 	    String SpeicherString ="wenn Sie dies in der Datei lesen ist ein Fehler passiert";
 	        
 	    Iterator<Card> it = list.iterator();
@@ -48,11 +47,10 @@ public class CsvWriterAppendExample {
 	                    +c.getBlocker()+";"+c.getSize()+";"+c.getHeadline()+";"
 	                    +c.getBackGround()+";"+c.getCreated()+";"+c.getStartedString()+";"+c.getDone()+"\n"; // ; ist Trennzeichen, evtl durch globale Variable ersetzen
 	            
-	                bw.write(SpeicherString); //String schreiben
-	                bw.flush();//Puffer leeren
+	                bw.write(SpeicherString);
+	                bw.flush();
 	            }
-	            bw.close();//BufferWriter schliessen
-	            status=true;
+	            bw.close();
 	            
 	            System.out.println("Schreiben erfolgreich!");
 	        }catch (Exception e){}

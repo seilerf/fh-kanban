@@ -4,17 +4,11 @@ import static org.junit.Assert.*;
 
 import java.awt.Color;
 import java.util.Date;
-
-import javax.swing.JRadioButton;
-
 import org.junit.BeforeClass;
 import org.junit.Test;
-
-import edu.fh.kanban.domain.Board;
 import edu.fh.kanban.ui.controller.CardController;
 import edu.fh.kanban.ui.view.CardView;
-import edu.fh.kanban.ui.view.PreferencesView;
-import static org.hamcrest.CoreMatchers.*;
+
 //import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 
 
@@ -22,7 +16,6 @@ public class CardViewTest {
 	private static CardView cardView;
 	private static CardView referenz;
 	private static CardController cardController;
-	private static PreferencesView prefView;
 	private static int oldId;
 	private static Integer cardId;
 	private static Integer size;

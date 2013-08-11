@@ -8,10 +8,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import edu.fh.kanban.dao.XML.XMLUtil;
 
-public class SaveFileDialog extends JFrame {
-	
-
-    
+public class SaveFileDialog extends JFrame { 
     public void showSaveDialog(){
     	JFileChooser chooser;
     	String path = System.getProperty("user.home");

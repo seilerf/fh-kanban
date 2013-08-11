@@ -1,6 +1,5 @@
 package edu.fh.kanban.dao;
 
-import edu.fh.kanban.domain.Card;
 import edu.fh.kanban.domain.Preference;
 
 public interface PreferenceDAO {

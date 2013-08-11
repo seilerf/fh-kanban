@@ -4,37 +4,21 @@ import com.jgoodies.forms.builder.ButtonBarBuilder2;
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
-
 import edu.fh.kanban.Kanban;
-import edu.fh.kanban.dao.BoardDAO;
 
-import edu.fh.kanban.domain.AbstractModel;
 import edu.fh.kanban.domain.Board;
 import edu.fh.kanban.domain.Card;
 import edu.fh.kanban.domain.ColorBox;
 import edu.fh.kanban.domain.Column;
 import edu.fh.kanban.ui.controller.AbstractController;
 import edu.fh.kanban.ui.controller.BoardController;
-import edu.fh.kanban.ui.controller.ColumnController;
-
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Panel;
-
-import javax.swing.Action;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
-
-import org.jdom2.Element;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -42,11 +26,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.beans.PropertyChangeEvent;
-import java.text.ParseException;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.List;
 
 /**
  * PreferencesView stellt ein Einstellungsfenster zur Verfügung
@@ -109,7 +90,7 @@ public class PreferencesView extends AbstractController implements View {
         
         builder3.append("Standard");
         
-         cb1= new ColorBox();//final ColorBox
+         cb1= new ColorBox();
          cb1.setSelectedIndex(8);
          builder3.append(cb1);
         
@@ -117,31 +98,20 @@ public class PreferencesView extends AbstractController implements View {
             public void actionPerformed(ActionEvent e) {
             	
             	int selectedIndex = cb1.getSelectedIndex();
-            	 System.out.println(cb1.LABELS[selectedIndex]/*+" "+cb1.COLORS[selectedIndex]*/);
-                System.out.println("cb1 wurde angeklickt");
                 Color cc= cb1.COLORS[selectedIndex];
                 cb1.setBackground(cc);               
-                //System.out.println(cb1.LABELS[selectedIndex]+" "+cb1.COLORS[selectedIndex]);
                 
                 String farbe = cb1.LABELS[selectedIndex];
-                
-               /*DataManager dm= new DataManager();
-               Board board  = dm.getBoard();
-                cardList= dm.getAllCards(board.getColumnList());*/
-                
+
                 LinkedList<Card>cardLists = board.getCards();
 				Iterator<Card> icard = cardLists.iterator();
 		
                 while (icard.hasNext()) {
-                	System.out.println("Ist in der while Schleife");
                 	Card card = (Card) icard.next();
                 	System.out.println(card.getBackGround());
-                	if(card.getValue()==1 ) {
-                		System.out.println("Hat wohl was gefunden1");
+                	if(card.getValue()==1 ) {	
                 		card.setBackground(cb1.COLORS[selectedIndex]);
-                		
-                		
-                		System.out.println("Hat wohl was gefunden2");
+                
                 	}
                 }
             }
@@ -152,7 +122,7 @@ public class PreferencesView extends AbstractController implements View {
          */
         
         builder4.append("Expedite");
-        cb2= new ColorBox();//final ColorBox 
+        cb2= new ColorBox();
         cb2.setSelectedIndex(10);
         builder4.append(cb2);
         
@@ -160,25 +130,17 @@ public class PreferencesView extends AbstractController implements View {
             public void actionPerformed(ActionEvent e) {
             	
             	int selectedIndex = cb2.getSelectedIndex();
-            	 System.out.println(cb2.LABELS[selectedIndex]/*+" "+cb2.COLORS[selectedIndex]*/);
-                System.out.println("cb2 wurde angeklickt");
                 Color cc= cb2.COLORS[selectedIndex];
                 cb2.setBackground(cc);               
-               // System.out.println(cb2.LABELS[selectedIndex]+" "+cb2.COLORS[selectedIndex]);
-                
+            
                 String farbe2 = cb2.LABELS[selectedIndex];
                 LinkedList<Card>cardLists = board.getCards();
 				Iterator<Card> icard = cardLists.iterator();
-		//
+				
                 while (icard.hasNext()) {
-                	System.out.println("Ist in der while Schleife");
                 	Card card = (Card) icard.next();
-                	System.out.println(card.getBackGround());
                 	if(card.getValue()==2 ) {
-                		System.out.println("Hat wohl was gefunden1");
                 		card.setBackground(cb2.COLORS[selectedIndex]);
-                		
-                		System.out.println("Hat wohl was gefunden2");
                 	}
                 }
             }
@@ -189,32 +151,25 @@ public class PreferencesView extends AbstractController implements View {
          */
         
         builder5.append("Fixed Date");
-         cb3= new ColorBox();//final ColorBox
+         cb3= new ColorBox();
         cb3.setSelectedIndex(5);
         builder5.append(cb3);
         
         cb3.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {	
             	int selectedIndex = cb3.getSelectedIndex();
-            	 System.out.println(cb3.LABELS[selectedIndex]/*+" "+cb2.COLORS[selectedIndex]*/);
-                System.out.println("cb3 wurde angeklickt");
                 Color cc= cb3.COLORS[selectedIndex];
                 cb3.setBackground(cc);               
-               // System.out.println(cb3.LABELS[selectedIndex]+" "+cb2.COLORS[selectedIndex]);
                 
                 String farbe3 = cb3.LABELS[selectedIndex];
                 
                 LinkedList<Card>cardLists = board.getCards();
 				Iterator<Card> icard = cardLists.iterator();
                 while (icard.hasNext()) {
-                	System.out.println("Ist in der while Schleife");
                 	Card card = (Card) icard.next();
                 	System.out.println(card.getBackGround());
                 	if(card.getValue()==3 ) {
-                		System.out.println("Hat wohl was gefunden1");
                 		card.setBackground(cb3.COLORS[selectedIndex]);
-                		
-                		System.out.println("Hat wohl was gefunden2");
                 	}
                 }
             }
@@ -232,25 +187,20 @@ public class PreferencesView extends AbstractController implements View {
         cb4.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {       	
             	int selectedIndex = cb4.getSelectedIndex();
-            	
-                System.out.println("cb4 wurde angeklickt");
+
                 Color cc= cb4.COLORS[selectedIndex];
                 cb4.setBackground(cc);               
-           
-                
+
                 String farbe4 = cb4.LABELS[selectedIndex];
               
                 LinkedList<Card>cardLists = board.getCards();
 				Iterator<Card> icard = cardLists.iterator();
 	
                 while (icard.hasNext()) {
-                	System.out.println("Ist in der while Schleife");
                 	Card card = (Card) icard.next();
                 	System.out.println(card.getBackGround());
                 	if(card.getValue()==4 ) {
-                		System.out.println("Hat wohl was gefunden1");
-                		card.setBackground(cb4.COLORS[selectedIndex]);
-                		System.out.println("Hat wohl was gefunden2");
+                		card.setBackground(cb4.COLORS[selectedIndex]);	
                 	}
                 }
             }
@@ -267,7 +217,6 @@ public class PreferencesView extends AbstractController implements View {
         b.addButton(beenden);
         beenden.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
-            System.out.println("Einstellungen wird geschlossen");
             frame.setVisible(false);
         }
     }); 
@@ -285,13 +234,9 @@ public class PreferencesView extends AbstractController implements View {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("You saved the Name");
                 String boardname = name.getText();
-      
-   
-                
                 Kanban.frame.setTitle(boardname);
             
-            }
-            
+            }     
         }); 
         
         /**
@@ -303,8 +248,7 @@ public class PreferencesView extends AbstractController implements View {
         b.addButton(spaltspeichern);
         spaltspeichern.addActionListener(new ActionListener() {
  
-            public void actionPerformed(ActionEvent e)
-            {
+            public void actionPerformed(ActionEvent e) {
             	limitchanger(e);
             }
         }); 
@@ -312,8 +256,6 @@ public class PreferencesView extends AbstractController implements View {
        /**
         * Auswahl der Spalte mit Listener gibt die auswahl an setter Methode weiter 
         */
-        //Board board=DataManager.getBoard();
-       // LinkedList<Column> columnList= board.getColumnList();  
         
         //Die BoardSpalten aus dem Board auslesen
         LinkedList <Column> columnl= boardController.getColumnList();
@@ -321,8 +263,7 @@ public class PreferencesView extends AbstractController implements View {
         String[] lang ;
         lang = new String[4];
          int i=0;
-         while (icolumn.hasNext())
-         {
+         while (icolumn.hasNext())  {
     	   Column column = (Column) icolumn.next();
 			String spaltname = column.getName();
 			
@@ -362,13 +303,10 @@ public class PreferencesView extends AbstractController implements View {
   		        	JComboBox selectedChoice = (JComboBox)e.getSource();
   		        	int ii = selectedChoice.getSelectedIndex();
   		        	setselectedLimit(ii);
-  		          
-  		          System.out.println(selectedChoice.getSelectedItem());
+
   		        }
   		      } );
-  		    
-  		
-                 
+          
   		builder2.append(combo2);
   		builder2.append(combo1);
        
@@ -486,30 +424,19 @@ public class PreferencesView extends AbstractController implements View {
 
 	protected void limitchanger(ActionEvent e) {
     	
-       //Board board=DataManager.getBoard();
-      // LinkedList<Column> columnList= board.getColumnList();
 		 LinkedList <Column> columnl= boardController.getColumnList();
          Iterator<Column> icolumn = columnl.iterator();
 		
-	      while (icolumn.hasNext())
-	        {
-	        	
-	       	 Column column = (Column) icolumn.next();
-		 
+	      while (icolumn.hasNext())    {	
+	       	 Column column = (Column) icolumn.next(); 
 			String name = column.getName();
-			
 			String ausgewähltespalte = getselectedColumn() ;
-			
-			System.out.println(name);
-			System.out.println(ausgewähltespalte);
-			
+
 			if (ausgewähltespalte.equals(name)) {		
 				
 				int ii = getselectedLimit();
 				ii+=1;
 				column.setLimit(ii);
-				System.out.println(column.getLimit());
-				System.out.println(name);
 			}
         }
 	}

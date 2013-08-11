@@ -1,7 +1,6 @@
 package edu.fh.kanban.dao.PDF;
 
 import java.io.File;
-import java.io.FileOutputStream;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.pdf.BaseFont;

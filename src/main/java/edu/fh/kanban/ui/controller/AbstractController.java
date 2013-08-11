@@ -1,12 +1,10 @@
 package edu.fh.kanban.ui.controller;
 
-import java.awt.event.ActionEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Deque;
 
 import edu.fh.kanban.domain.AbstractModel;
 import edu.fh.kanban.ui.view.AbstractView;

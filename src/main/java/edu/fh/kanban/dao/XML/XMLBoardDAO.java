@@ -1,19 +1,12 @@
 package edu.fh.kanban.dao.XML;
 
-import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
@@ -26,14 +19,11 @@ import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 
 import edu.fh.kanban.dao.BoardDAO;
-import edu.fh.kanban.dao.CardDAO;
 import edu.fh.kanban.dao.ColumnDAO;
-import edu.fh.kanban.dao.DAOFactory;
 import edu.fh.kanban.dao.PreferenceDAO;
 import edu.fh.kanban.domain.Board;
 import edu.fh.kanban.domain.Card;
 import edu.fh.kanban.domain.Column;
-import edu.fh.kanban.domain.Preference;
 
 public class XMLBoardDAO implements BoardDAO{
 
@@ -141,28 +131,20 @@ public class XMLBoardDAO implements BoardDAO{
 				catch(NullPointerException e){
 					e.printStackTrace();
 				}
-				
-		       
-		        
+	        
 		        // Spalten an das Board übergeben
 				   if (columnList.isEmpty()){
 			        	
 			        	throw new NullPointerException();
 			        }
 			        else
-			        	return columnList;
-		        
-		    
+			        	return columnList; 
 			}
 			
 			//Methode, um Karten, die einer Spalte angehören, in eine Datenstruktur zu schreiben 
 			private LinkedList<Card> readCardsFromXML(Element column) throws ParseException, InterruptedException, NullPointerException {
 				
 		    	// Alle Karten innerhalb einer Spalte in eine Liste lesen
-				
-				
-				
-				
 				LinkedList<Card> cardList = new LinkedList<Card>();
 		    	for (int i = 0; i < column.getChildren().size(); i++){
 		    		Card currentCard = XMLUtil.xmlFactory.getCardDAO().findCard(column,i);
@@ -190,14 +172,12 @@ public class XMLBoardDAO implements BoardDAO{
 	}
 	
 	public void writeXML(Board board) {
-		
 		try {
 
 		org.w3c.dom.Element rootElement = XMLUtil.xmlDoc.createElement("Board");
 		rootElement.setAttribute("name", currentBoard.getName());
 		//Der Baum wird dem xmlDoc per appendChild() hinzugefügt (Es werden "Elemente" übergeben)
 		XMLUtil.xmlDoc.appendChild(rootElement);
-		System.out.println("XMLDoc wurde rootElement hinzugefügt\n");
 	 
 		
 		// Spaltenelemente

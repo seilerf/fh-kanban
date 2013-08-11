@@ -1,8 +1,6 @@
 package edu.fh.kanban.domain;
 
-import javax.swing.JToolBar;
 import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
 
 

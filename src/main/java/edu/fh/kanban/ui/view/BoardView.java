@@ -30,14 +30,11 @@ public class BoardView extends AbstractView implements View{
 
 
 	private LinkedList<ColumnView> columnViews = new LinkedList<ColumnView>();
-	
-	private boolean changed;
 	private BoardController boardController;
 	
 	private final JPopupMenu contextMenu = new JPopupMenu();
 	protected CardController cardToMove = null;
 
-	
 	//Constructor
 	public BoardView(BoardController boardController){
 		this.boardController = boardController;
@@ -49,13 +46,11 @@ public class BoardView extends AbstractView implements View{
 	private void initComponents() {
 		//Aufbau des Boards mit der Anzahl Spalten, die für die Darstellung notwendig sind;
 		System.out.println("initComponents()");
-		
-		
+
 		columnViews = boardController.createColumnViews(); 
 		System.out.println(boardController.getColumnList().size());
 		this.setLayout(new FormLayout(
 				boardController.getColSpec(boardController.getColumnList().size()),
-				
 				boardController.getRowSpec(8)));
 		
 		this.showColumns(boardController.getColumnControllerList());
@@ -73,9 +68,7 @@ public class BoardView extends AbstractView implements View{
 			columnLabel.setAlignmentY(CENTER_ALIGNMENT);
 			columnLabel.setFont(columnLabel.getFont().deriveFont(columnLabel.getFont().getStyle() | Font.BOLD));
 			add(columnLabel, CC.xy(count, 2, CellConstraints.CENTER, CellConstraints.CENTER));
-			
-		
-			
+
 			this.showCards(count, columnController.getCardControllers()); 
 			
 			count+=2;
@@ -106,10 +99,6 @@ public class BoardView extends AbstractView implements View{
 						columnTo = colController;
 						
 				}
-				
-				System.out.println("Actionlistener kennt: " + cardToMove.getCard().getHeadline());
-				System.out.println("Quellspalte: " + columnFrom.getColumn().getName());
-				System.out.println("Zielspalte: " + columnTo.getColumn().getName());
 				
 				// Entferne Karte aus der Column
 				columnFrom.getCardList().remove(cardToMove.getCard());
@@ -150,12 +139,9 @@ public class BoardView extends AbstractView implements View{
 										"\nX: " + me.getX() + 
 										"\nY: " + me.getY());
 								CardView cardView = (CardView) me.getComponent();
-								cardToMove = cardView.getController();
-								
+								cardToMove = cardView.getController();		
 						}
 			    	});
-				
-				
 			}
 		}
 		
@@ -163,8 +149,6 @@ public class BoardView extends AbstractView implements View{
 	
 	public void updateContextMenu(PropertyChangeEvent e){
 
-
-		
 		ActionListener al = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ColumnController columnFrom = null;
@@ -219,12 +203,9 @@ public class BoardView extends AbstractView implements View{
 										"\nX: " + me.getX() + 
 										"\nY: " + me.getY());
 								CardView cardView = (CardView) me.getComponent();
-								cardToMove = cardView.getController();
-								
+								cardToMove = cardView.getController();	
 						}
 			    	});
-				
-				
 			}
 		}
 	}
@@ -239,22 +220,19 @@ public class BoardView extends AbstractView implements View{
 			for (Iterator<CardController> iCardController = cardControllerList.iterator(); iCardController.hasNext();){
 				
 				CardController cardController = iCardController.next();
-				Card card = cardController.getCard();//funktioniert richtig
+				Card card = cardController.getCard();
 				System.out.println("showCards: ID:" +card.getId() + " Value:" + card.getValue());
 				
 				CardView cardView = cardController.getCardView();
-				
-				
+
 				cardView.setIdTextField(String.valueOf(card.getId()));
 				cardView.setCardTitel(card.getHeadline());
 				cardView.setDescriptionTextPane(card.getDescription());
 				cardView.setValueComboBox(card.getValue());
 				cardView.setJPanelColorForCreatingAExistingCard(card.getValue());
-				
 				cardView.setJRadioButton(card.getCreated(), card.getStarted(), card.getStarted());
 				cardView.setSizeTextField(String.valueOf(card.getSize()));
 				cardView.setBlockerToggleButton(card.getBlocker());
-				
 				cardView.setAllDisabledForBoard();
 				
 				System.out.println("in der BoardView:" + cardView.getBackground());
@@ -300,9 +278,7 @@ public class BoardView extends AbstractView implements View{
 	
 	public void setGUI(){
 		getComponent().removeAll();
-		//this.showColumns(board.getColumnList());
 		updateUI();
-		System.out.println("Ich wurde geändert!");
 	}
 	
 	@Override
@@ -330,7 +306,5 @@ public class BoardView extends AbstractView implements View{
 			}
 			
 		}
-		
-		
 	}
 }

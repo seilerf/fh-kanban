@@ -46,7 +46,6 @@ import edu.fh.kanban.ui.view.BacklogView;
 import edu.fh.kanban.ui.view.BoardView;
 import edu.fh.kanban.ui.view.CreateCardFrame;
 import edu.fh.kanban.ui.view.CreatePrefFrame;
-import edu.fh.kanban.ui.view.PreferencesView;
 
 
 public class Kanban {
@@ -166,7 +165,7 @@ public class Kanban {
 		filemenu.add(refreshBoard);
 		refreshBoard.addActionListener(new ActionListener () {
 			public void actionPerformed(ActionEvent e) {
-				//boardView.setGUI();
+				
 			}
 		});
 		
@@ -280,7 +279,7 @@ public class Kanban {
 						csvCardDAO.insertCard(cIt.next());
 						
 					}
-					CSVUtil.bw.close();//BufferWriter schliessen
+					CSVUtil.bw.close();
 					
 					 
 				} catch (IOException e1) {
@@ -302,7 +301,6 @@ public class Kanban {
         
         jMenuBar.add(filemenu);
         jMenuBar.add(export);
-		//prefmenu.add(menuItem)
 		jMenuBar.add(prefmenu);
 		
 		JTabbedPane pane = new JTabbedPane();
@@ -317,10 +315,8 @@ public class Kanban {
 		frame.setTitle("Teamproject 2013 - Kanban");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setExtendedState(Frame.MAXIMIZED_BOTH);
-		//frame.setSize(700, 500);
 		frame.setLocationByPlatform(true);
 		frame.add(pane);
-		//Toolkit.getDefaultToolkit().setDynamicLayout(true);
 		frame.setVisible(true);
 	}
 	

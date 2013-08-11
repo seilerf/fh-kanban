@@ -1,34 +1,18 @@
 package edu.fh.kanban.ui.controller;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+
 import java.util.Iterator;
 import java.util.LinkedList;
-
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JPopupMenu;
-
-import com.jgoodies.forms.layout.LayoutMap;
-
 import edu.fh.kanban.domain.AbstractModel;
 import edu.fh.kanban.domain.Board;
-import edu.fh.kanban.domain.Card;
 import edu.fh.kanban.domain.Column;
-import edu.fh.kanban.ui.view.AbstractView;
-import edu.fh.kanban.ui.view.BoardView;
-import edu.fh.kanban.ui.view.CardView;
 import edu.fh.kanban.ui.view.ColumnView;
-import edu.fh.kanban.ui.view.View;
 
 public class BoardController extends AbstractController{
 
 	
-	private final String columnWidth = "270dlu";//160
-	private final String rowHeight = "135dlu";//130
+	private final String columnWidth = "270dlu";
+	private final String rowHeight = "135dlu";
 	private final String padding = "4dlu";
 	
 	public static final String BOARDCHANGED_PROPERTY = "BoardChanged";
@@ -97,7 +81,6 @@ public class BoardController extends AbstractController{
 		         
 		         currentColumnController.addView(currentColumnView);
 				 columnControllers.add(currentColumnController);
-				 //this.addView(currentColumnView);
 	         } 
 	    }
 
@@ -121,10 +104,8 @@ public class BoardController extends AbstractController{
 			
 			for (int i = 0; i < rows; i++)
 				rowSpec = rowSpec + rowSpec;
-			
-			//String columns = "4dlu ,15dlu, ";
-			rowSpec = "4dlu, 15dlu, " + rowSpec;
-			return rowSpec;
+				rowSpec = "4dlu, 15dlu, " + rowSpec;
+					return rowSpec;
 	}
 
 	public LinkedList<ColumnController> getColumnControllerList() {

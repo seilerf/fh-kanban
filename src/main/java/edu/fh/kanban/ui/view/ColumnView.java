@@ -7,8 +7,7 @@ import java.util.LinkedList;
 import edu.fh.kanban.ui.controller.ColumnController;
 
 public class ColumnView extends AbstractView {
-	
-	
+
 	private LinkedList<CardView> cardViews = new LinkedList<CardView>(); 
 	private ColumnController columnController;
 	public ColumnView(ColumnController columnController){
@@ -24,8 +23,7 @@ public class ColumnView extends AbstractView {
 			
 		}
 	}
-	
-	
+
 	public LinkedList<CardView> getCardViews() {
 		return cardViews;
 	}
@@ -33,15 +31,10 @@ public class ColumnView extends AbstractView {
 	public void setCardViews(LinkedList<CardView> cardViews) {
 		this.cardViews = cardViews;
 	}
-	
-	
+
 	@Override
 	public void modelPropertyChange(PropertyChangeEvent event) {
 		System.out.println("ColumnView wird akualisiert\n");
-		updateUI();
-		
+		updateUI();	
 	}
-
-
-
 }

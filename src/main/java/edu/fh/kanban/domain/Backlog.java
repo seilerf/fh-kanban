@@ -35,9 +35,9 @@ public class Backlog extends AbstractModel{
 	
 	
 	
-	public List addIntoList(LinkedList<Card>list){
+	public List<Card> addIntoList(LinkedList<Card>list){
 		
-		List cards = new ArrayList();
+		List<Card> cards = new ArrayList<Card>();
 		
 		if(list==null){
 			System.out.println("Cardliste leer!");
@@ -57,13 +57,13 @@ public class Backlog extends AbstractModel{
 	/*
 	 * Sortiert die Karten nach value in aufsteigender Reihenfolge
 	 */
-	public List sortByValue(){
+	public List<Card> sortByValue(){
 		
 		//Comparator Object vom Typ CardValueComparator
 		Comparator<Card> comp = new CardValueComparator();
 		
 		//Hilfsliste zum Sortieren der Karten
-		List cards = addIntoList(cardList);
+		List<Card> cards = addIntoList(cardList);
 		
 		//Funktionsaufruf zum Sortieren
 		Collections.sort(cards,comp);
@@ -75,7 +75,7 @@ public class Backlog extends AbstractModel{
 	/*
 	 * Sortiert die Karten nach Size in aufsteigender Reihenfolge
 	 */
-	public List sortBySize(){
+	public List<Card> sortBySize(){
 		
 		//Comparator Object vom Typ CardSizeComparator
 		Comparator<Card> comp = new CardSizeComparator();
@@ -93,13 +93,13 @@ public class Backlog extends AbstractModel{
 	/*
 	 * Sortiert die Karten nach headline in aufsteigender Reihenfolge
 	 */
-	public List sortByHeadline(){
+	public List<Card> sortByHeadline(){
 		
 		//Comparator Object vom Typ CardNameComparator
 		Comparator<Card> comp = new CardNameComparator();
 		
 		//Hilfsliste zum Sortieren der Karten
-		List cards = addIntoList(cardList);
+		List<Card> cards = addIntoList(cardList);
 		//Funktionsaufruf zum Sortieren
 		Collections.sort(cards,comp);
 		
@@ -129,22 +129,22 @@ public class Backlog extends AbstractModel{
 			Card c = lit.next();
 			//Groß- und Kleinschreibung wird berücksichtigt
 			if(c.getHeadline().toLowerCase().contains(searchString) ||
-			   c.getHeadline().toUpperCase().contains(searchString)){		//headline
+			   c.getHeadline().toUpperCase().contains(searchString)){		
 				searchList.add(c);
 			}
 			else {
-				if(c.getDescription().contains(searchString)){	//description
+				if(c.getDescription().contains(searchString)){	
 					searchList.add(c);
 				
 				}
 				else{
 					Integer size = c.getSize();
-					if(size.toString().contains(searchString)){		//size
+					if(size.toString().contains(searchString)){		
 						searchList.add(c);
 					}
 					else{
 						Integer value = c.getValue();
-						if(value.toString().contains(searchString)){	//value = CoS????
+						if(value.toString().contains(searchString)){	
 							searchList.add(c);
 						}
 					}
@@ -157,8 +157,5 @@ public class Backlog extends AbstractModel{
 		
 		return searchList;
 	}
-	
-	
-	
-	
+
 }

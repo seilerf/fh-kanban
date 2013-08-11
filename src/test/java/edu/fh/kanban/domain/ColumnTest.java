@@ -2,10 +2,7 @@ package edu.fh.kanban.domain;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
-
-import java.awt.Color;
 import java.util.LinkedList;
-
 import junit.framework.JUnit4TestAdapter;
 
 public class ColumnTest {
@@ -35,8 +32,6 @@ public class ColumnTest {
 			this.cardList.add(new Card(2, 5, "Kartenbeschreibung", true, 2, "Karte "+i, null, null, null));
 		
 		this.column = new Column(colName, limit);
-		
-		
 		assertFalse(cardList.isEmpty());
 	}
 	

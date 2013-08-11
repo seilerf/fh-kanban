@@ -33,8 +33,8 @@ public class BacklogController extends AbstractController {
 		return cardList;
 	}
 	
-	public List sortByHeadline(){
-		List cardList = null;
+	public List<?> sortByHeadline(){
+		List<?> cardList = null;
 		for(AbstractModel model: models){
 			Backlog b = (Backlog) model;
 			cardList = b.sortByHeadline();
@@ -43,8 +43,8 @@ public class BacklogController extends AbstractController {
 		return cardList;
 	}
 	
-	public List sortByValue(){
-		List cardList = null;
+	public List<?> sortByValue(){
+		List<?> cardList = null;
 		for(AbstractModel model: models){
 			Backlog b = (Backlog) model;
 			cardList = b.sortByValue();
@@ -52,8 +52,8 @@ public class BacklogController extends AbstractController {
 		
 		return cardList;
 	}
-	public List sortBySize(){
-		List cardList = null;
+	public List<?> sortBySize(){
+		List<?> cardList = null;
 		for(AbstractModel model: models){
 			Backlog b = (Backlog) model;
 			cardList = b.sortBySize();
@@ -70,8 +70,5 @@ public class BacklogController extends AbstractController {
 		
 		return cardList;
 	}
-	
-
-	
 	
 }

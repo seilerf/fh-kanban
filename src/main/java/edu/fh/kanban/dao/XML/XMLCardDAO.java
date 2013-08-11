@@ -1,13 +1,11 @@
 package edu.fh.kanban.dao.XML;
 
-import java.awt.Color;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.jdom2.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import edu.fh.kanban.dao.CardDAO;
@@ -54,27 +52,6 @@ public class XMLCardDAO implements CardDAO {
 		int size = Integer.valueOf(column.getChildren().get(i).getAttributeValue("size"));
 		String headline = column.getChildren().get(i).getAttributeValue("headline");
 		
-		
-		int rgb = 0;
-		Color backGround=null;
-		/*if (column.getChildren().get(i).getAttributeValue("backGround") != ""){
-			rgb = Integer.valueOf(column.getChildren().get(i).getAttributeValue("backGround"));
-			if(rgb == 1) {
-				backGround = Color.blue;
-			}
-			if(rgb == 2) {
-				backGround = Color.orange;
-			}
-			if(rgb == 3) {
-				backGround = Color.red;
-			}
-			if(rgb == 4) {
-				backGround = Color.green;
-			}
-		} else {
-			// Wenn keine Farbe in der XML-Datei hinterlegt ist, wird die Karte mit einem leicht grauen Hintergrund versehen
-			backGround = Color.LIGHT_GRAY;
-			}*/
 		System.out.println("ID: " +id + " Value: " +  value + " Beschreibung" + description);
 		currentCard  = new Card(id, value, description, blocker, size, headline, created, started, done);
 		return currentCard;
@@ -96,8 +73,6 @@ public class XMLCardDAO implements CardDAO {
 		xmlCard.setAttribute("done", card.getDoneString());//"1"
 		xmlCard.setAttribute("size", String.valueOf(card.getSize()));	
 		XMLUtil.xmlDoc.getFirstChild().getLastChild().appendChild(xmlCard);
-		
-		
 
 		return 1;
 	}

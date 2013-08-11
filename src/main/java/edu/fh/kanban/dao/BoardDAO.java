@@ -1,6 +1,5 @@
 package edu.fh.kanban.dao;
 
-import java.io.File;
 import java.text.ParseException;
 
 import edu.fh.kanban.domain.Board;

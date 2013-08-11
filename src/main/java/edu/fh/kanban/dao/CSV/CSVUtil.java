@@ -1,7 +1,6 @@
 package edu.fh.kanban.dao.CSV;
 
 import java.io.BufferedWriter;
-import java.io.FileWriter;
 
 public class CSVUtil {
 	public static String boardName = "Testboard";

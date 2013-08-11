@@ -33,13 +33,6 @@ public class BacklogView extends AbstractView implements View{
 	private DefaultFormBuilder cardbuilder;
 	private JScrollPane scrollpane;
 	private JPanel cardpanel;
-	
-	
-	
-
-	
-	
-	
 	private BacklogController backlogController;
 	
 	@Override
@@ -58,14 +51,9 @@ public class BacklogView extends AbstractView implements View{
 		
 		cardpanel = new JPanel();
 		JPanel buttonpanel = new JPanel();
-		
 		scrollpane = new JScrollPane();
-		
-		
-		
-		//FormLayout cardLayout = new FormLayout("160dlu,10dlu,160dlu,10dlu,160dlu", "130dlu,130dlu,130dlu");
+
 		FormLayout cardLayout = new FormLayout("160dlu,10dlu,160dlu,10dlu,160dlu", getRows(backlogController.getCardList()));
-		//FormLayout cardLayout = new FormLayout("160dlu,10dlu,160dlu,10dlu,160dlu");
 		FormLayout searchLayout = new FormLayout("200dlu,10dlu,p");
         
 		cardbuilder = new DefaultFormBuilder(cardLayout);
@@ -81,40 +69,30 @@ public class BacklogView extends AbstractView implements View{
 		sizeButton = new JButton("Aufwand");
 		createButton = new JButton("Erstellung");
 		searchButton = new JButton("suche");
-		
-		
+
 		buttons.addButton(createButton);
 	    buttons.addButton(headlineButton);
 	    buttons.addButton(valueButton);
 	    buttons.addButton(sizeButton);
-	  
-	    
+  
 	    search = new JTextField();
 	    
 	    searchbuilder.append(search);
 	    searchbuilder.add(searchButton);
-	    
-	    
-	   
+
 	    this.setLayout(new BorderLayout());
-	    
-	    
-	    
-	    
+
 	    buttonpanel.add(buttons.getPanel());
 	    buttonpanel.add(searchbuilder.getPanel());
 	    this.add(buttonpanel, BorderLayout.NORTH);
 	    
 	    cardpanel.add(cardbuilder.getPanel());
 	    this.add(cardpanel, BorderLayout.CENTER);
-	    
-	    
+
 	    scrollpane.setViewportView(cardpanel);
 	    
 	    this.add(scrollpane);
-	    
-	    
-		
+
 		/* ******************************************************************************** */
 		//ActionListener
 		headlineButton.addActionListener(new ActionListener(){
@@ -123,12 +101,9 @@ public class BacklogView extends AbstractView implements View{
             	removeAll();
             	showBacklog();
             	showCardsSortedByHeadline(backlogController.getCardList());
-            	
-            	//System.out.println("HeadlineButton gedrückt");
+
             	updateUI();
-            	
-            	
-            	
+	
             }
         });
 		valueButton.addActionListener(new ActionListener(){
@@ -137,8 +112,7 @@ public class BacklogView extends AbstractView implements View{
             	removeAll();
             	showBacklog();
             	showCardsSortedByValue(backlogController.getCardList());
-            	
-            	//System.out.println("ValueButton gedrückt");
+
             	updateUI();
             
             }
@@ -149,8 +123,7 @@ public class BacklogView extends AbstractView implements View{
             	removeAll();
             	showBacklog();
             	showCardsSortedbySize(backlogController.getCardList());
-            	
-            	//System.out.println("SizeButton gedrückt");
+
             	updateUI();
             }
         });
@@ -160,8 +133,7 @@ public class BacklogView extends AbstractView implements View{
             	removeAll();
             	showBacklog();
             	showCardsSortedByCreationTime(backlogController.getCardList());
-            	
-            	//System.out.println("CreateButton gedrückt");
+
             	updateUI();
          
             }
@@ -187,19 +159,16 @@ public class BacklogView extends AbstractView implements View{
 	public String getRows(LinkedList<Card> list){
 		String s = "130dlu";
 		int anzahl=list.size();
-		//System.out.println("Elemente "+ anzahl);
 		if(anzahl%3==0){
 			anzahl=anzahl/3;
 		}else{
 			anzahl=anzahl/3+1;
-			//System.out.println("Anzahl reihen: "+anzahl);
 		}
 		if(anzahl>1){
 			for(int i=2; i<=anzahl; i++){
 				s= s.concat(",130dlu");
 			}
 		}
-		//System.out.println(s);
 		return s;
 	}
 	
@@ -216,8 +185,7 @@ public class BacklogView extends AbstractView implements View{
   			cardbuilder.append(cardView);
   		}
 	}
-	
-	
+
 	public void showCardsSortedByCreationTime(LinkedList<Card> list){
 		
 		if(list == null){
@@ -233,10 +201,7 @@ public class BacklogView extends AbstractView implements View{
 	  			cardView.setJPanelColorForCreatingAExistingCard(c.getValue());
 	  			cardbuilder.append(cardView);
 	  		}
-		}
-		
-		
-		
+		}	
 	}
 	public void showCardsSortedByHeadline(LinkedList<Card> list){
 		
@@ -295,8 +260,7 @@ public class BacklogView extends AbstractView implements View{
 	  			cardbuilder.append(cardView);
 	  		}
 		}
-		
-		
+	
 	}
 
 	@Override

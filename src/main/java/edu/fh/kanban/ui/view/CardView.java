@@ -1,6 +1,5 @@
 package edu.fh.kanban.ui.view;
 
-import javax.swing.JPanel;
 
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
@@ -12,9 +11,7 @@ import javax.swing.JLabel;
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 import edu.fh.kanban.domain.Card;
-import edu.fh.kanban.domain.Column;
 import edu.fh.kanban.domain.Preference;
-import edu.fh.kanban.ui.controller.BoardController;
 import edu.fh.kanban.ui.controller.CardController;
 
 import java.awt.Component;
@@ -26,32 +23,21 @@ import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.InputMethodListener;
 
 import javax.swing.JToggleButton;
 import javax.swing.border.TitledBorder;
 import javax.swing.border.LineBorder;
-import javax.swing.plaf.BorderUIResource.TitledBorderUIResource;
-import javax.swing.ButtonModel;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComponent;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 
 import org.apache.commons.lang3.RandomStringUtils;
-
-import java.awt.SystemColor;
 import java.beans.PropertyChangeEvent;
-import java.io.File;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.Iterator;
-import java.util.LinkedList;
-
 import javax.swing.SwingConstants;
 
 public class CardView extends AbstractView implements View {
@@ -81,7 +67,6 @@ public class CardView extends AbstractView implements View {
 	private JButton saveNewCardButton;
 	private JComboBox columnComboBox;
 	private Card currentCard;
-
 	private int oldValue;
 	private boolean oldBlocker;
 	private Color oldBackColor;
@@ -89,7 +74,6 @@ public class CardView extends AbstractView implements View {
 	private Integer oldCardId;
 	private Integer oldSize;
 	private int oldJRadio;
-	private int count = 0;
 	private JLabel lblSpalte;
 	
 	/**
@@ -189,10 +173,10 @@ public class CardView extends AbstractView implements View {
 		add(this.rdbtnStarted, "4, 8, left, fill");
 		
 		this.rdbtnDone = new JRadioButton("Done");
-		;
 		this.buttonGroup.add(rdbtnDone);
 		this.rdbtnDone.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		add(this.rdbtnDone, "4, 10, left, fill");
+	
 		
 		JLabel beschreibungLabel = DefaultComponentFactory.getInstance().createLabel("Beschreibung:");
 		beschreibungLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -248,8 +232,7 @@ public class CardView extends AbstractView implements View {
 					} catch (cardViewException e1) {
 						Component parent = getJPanel();
 						JOptionPane.showMessageDialog(parent,"Keine Nullwerte/ Ungütlige Werte(ID/Size/Description)!","ERROR!" , JOptionPane.ERROR_MESSAGE);
-					}
-							
+					}			
 			}
 
 			
@@ -279,9 +262,6 @@ public class CardView extends AbstractView implements View {
 		add(columnComboBox, "10, 14");
 		
 		
-		
-		
-	
 	
 		if(getCardTitel().isEmpty()==true) {
 			this.btnResetAll.setEnabled(false);
@@ -679,6 +659,11 @@ public class CardView extends AbstractView implements View {
 	}
 	public void setNewCard(Card currentCard){
 		this.currentCard = currentCard;
+	}
+	public void setDateToolTipps(Card currentCard) {
+		this.rdbtnDone.setToolTipText(currentCard.getDoneString());
+		this.rdbtnStarted.setToolTipText(currentCard.getStartedString());
+		this.rdbtnCreated.setToolTipText(currentCard.getCreatedString());
 	}
 	/**
 	 * Zurücksetzen aller Attribut-Werte

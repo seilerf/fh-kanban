@@ -4,18 +4,14 @@ import static org.junit.Assert.*;
 
 import java.awt.Color;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import junit.framework.JUnit4TestAdapter;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class CardTest {
 	
-	private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-ddHH:mm:ss");
-	private static String date = sdf.format(new Date());
 	private static Card card;
 	private static int id = 5;
 	private static int value = 4;

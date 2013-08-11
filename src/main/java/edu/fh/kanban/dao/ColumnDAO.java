@@ -2,8 +2,6 @@ package edu.fh.kanban.dao;
 
 import java.util.List;
 
-import javax.xml.parsers.ParserConfigurationException;
-
 import org.jdom2.Element;
 
 import edu.fh.kanban.domain.Column;

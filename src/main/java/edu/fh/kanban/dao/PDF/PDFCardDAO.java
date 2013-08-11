@@ -1,31 +1,18 @@
 package edu.fh.kanban.dao.PDF;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.Iterator;
-import java.util.LinkedList;
-
 import org.jdom2.Element;
 
-import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.BaseFont;
-import com.itextpdf.text.pdf.PdfContentByte;
-import com.itextpdf.text.pdf.PdfWriter;
 
 import edu.fh.kanban.dao.CardDAO;
-import edu.fh.kanban.dao.CardExportDAO;
 import edu.fh.kanban.domain.Card;
 
 public class PDFCardDAO implements CardDAO{
 
-	public PDFCardDAO() {
-	}
-	
-	
-	
+	public PDFCardDAO() {}
 	
 	@Override
 	public Card findCard(Element column, int i) throws ParseException {
@@ -36,15 +23,9 @@ public class PDFCardDAO implements CardDAO{
 
 	@Override
 	public int insertCard(Card card) {
-		  
-				
-				
-				
-		try{			       
-			        
-			        		 PDFUtil.document.newPage();
-			        		 
-			        		 
+		
+		try{			           
+			        		 PDFUtil.document.newPage(); 
 			        		 PDFUtil.cb = PDFUtil.writer.getDirectContent();
 			        		 try {
 								PDFUtil.bf = BaseFont.createFont();
@@ -60,16 +41,13 @@ public class PDFCardDAO implements CardDAO{
 			        		 writeCardintoPDF(card);
 
 			        PDFUtil.cb.endText();
-			      
-			        
+  
 				} catch (DocumentException e) {
 					e.printStackTrace();
 				}
 		         
 		        return 1;
 	}
-
-
 
 	public void writeCardintoPDF(Card card){
 		
