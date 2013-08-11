@@ -20,5 +20,6 @@ public class CreateCardFrame extends JFrame {
 		card.addPropertyChangeListener(boardController);
 		this.add(cardView);
 		backlogController.addCard(card);
+
 	}
 }

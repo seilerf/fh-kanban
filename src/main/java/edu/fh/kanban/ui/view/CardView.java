@@ -246,10 +246,10 @@ public class CardView extends AbstractView implements View {
 					try {
 						btnSaveNewCardActionPerformed(e);
 					} catch (cardViewException e1) {
-						
+						Component parent = getJPanel();
+						JOptionPane.showMessageDialog(parent,"Keine Nullwerte/ Ungütlige Werte(ID/Size/Description)!","ERROR!" , JOptionPane.ERROR_MESSAGE);
 					}
-					Component parent = getJPanel();
-					JOptionPane.showMessageDialog(parent,"Keine Nullwerte/ Ungütlige Werte(ID/Size/Description)!","ERROR!" , JOptionPane.ERROR_MESSAGE);		
+							
 			}
 
 			

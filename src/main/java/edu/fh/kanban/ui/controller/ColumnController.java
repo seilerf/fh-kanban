@@ -129,6 +129,16 @@ public class ColumnController extends AbstractController {
 		return cardList;
 	 }
 	
+	public void setCardList(LinkedList<Card> cardList){
+		
+		
+		for (AbstractModel model: models) {
+			Column column = (Column) model;
+			column.setCardList(cardList);
+		 }
+
+	}
+	
 	public void addCardController(CardController cardController){
 		
 		

@@ -40,7 +40,11 @@ public class CardController extends AbstractController {
     	int i = Integer.parseInt(e.getOldValue().toString())-1;
     	System.out.println("KARTE HINZUGEFÜGT");
     	columnControllers.get(i).getCardControllers().addLast(this);
-    	columnControllers.get(i).getCardList().add((Card)models.get(0));
+    	
+    	if(columnControllers.get(i).getCardList()==null){
+    		columnControllers.get(i).setCardList(new LinkedList<Card>());
+    		columnControllers.get(i).getCardList().add((Card)models.get(0));
+    	}
     	
 
     }
