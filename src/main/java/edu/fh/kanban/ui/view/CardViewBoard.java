@@ -28,6 +28,7 @@ import javax.swing.JTextField;
 
 import java.awt.Font;
 import java.util.Calendar;
+import java.util.Date;
 
 import javax.swing.JToggleButton;
 import javax.swing.JTextPane;
@@ -143,7 +144,14 @@ public class CardViewBoard extends JPanel implements View {
 		this.rdbtnDone.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		add(this.rdbtnDone, "6, 10, center, fill");
 		
+		this.idTextField.setText(String.valueOf(card.getId()));
+		this.workloadTextField.setText(String.valueOf(card.getSize()));
+		this.valueComboBox.setSelectedIndex(card.getValue());
+		this.blockerToggleButton.setSelected(card.getBlocker());
+		this.descriptionTextPane.setText(card.getDescription());
+		setJRadioButton(card.getCreated(),card.getStarted(),card.getDone());
 		this.setVisible(true);
+		
 
 	}
 	
@@ -270,16 +278,17 @@ public class CardViewBoard extends JPanel implements View {
 	 * @param s
 	 * @param d
 	 */
-	public void setJRadioButton(Color b, Calendar c, Calendar s, Calendar d) {
+	public void setJRadioButton(Date c, Date s, Date d) {
+		
 		if(c != null && s == null && d == null) {
-			this.rdbtnCreated.isSelected();
+			this.rdbtnCreated.setSelected(true);
 		}
 		if(c != null && s != null && d == null) {
-			this.rdbtnStarted.isSelected();
+			this.rdbtnStarted.setSelected(true);
 			
 		}
 		if(c != null && s != null && d != null) {
-			this.rdbtnDone.isSelected();
+			this.rdbtnDone.setSelected(true);
 		}
 	}
 	
@@ -289,5 +298,7 @@ public class CardViewBoard extends JPanel implements View {
 	public JComponent getComponent() {
 		return this;
 	}
+	
+
 
 }
