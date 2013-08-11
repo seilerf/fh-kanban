@@ -60,13 +60,13 @@ public class ColumnController extends AbstractController {
 	        	 
 	        	 //Durchlaufe die Karten
 			         while(cardIterator.hasNext()){
-			        	 Card currentCard = cardIterator.next();
+			        	 Card c = cardIterator.next();
 			        	 //Erstelle CardController
 			        	 CardController currentCardController = new CardController();
 			        	 //Erstelle CardView
 			        	 CardView currentCardView = new CardView(currentCardController);//-->kritisch!!!
-			       
-			        	 System.out.println("aktuelle Karte:" + currentCard.getId());
+			        	 
+			        	 System.out.println("aktuelle Karte:" + c.getId());
 			        	 currentCardView.setPreference(this.pref);
 			        	 
 			        	 //Einstellungen der CardView werden gesetzt (u.a. die Farben)
@@ -75,13 +75,15 @@ public class ColumnController extends AbstractController {
 			        	 
 			        	 
 			        	 
-			        	 System.out.println("Spalte" + column.getName() + " Karte:" +currentCard.getHeadline());
+			        	 System.out.println("Spalte" + column.getName() + " Karte:" +c.getHeadline());
 			        	 
 			        	 //Das Model (Column) wird dem Controller (currentCardController) hinzugefügt
-			        	 currentCardController.addModel(currentCard);
+			        	 currentCardController.addModel(c);
 			        	 //Der CardView wird dem CardController zugeordnet
 			        	 currentCardController.addView(currentCardView);
-			        	 currentCard.addPropertyChangeListener(currentCardController);
+			        	 //Speichert alten Werte der Karte für den Reset-Button
+			        	 currentCardView.saveAllOldValues(c.getId(),c.getSize(),c.getDescription(),c.getValue(),c.getBackGround(),c.getBlocker(),c.getCreated(),c.getStarted(),c.getDone());
+			        	 c.addPropertyChangeListener(currentCardController);
 			        	 
 			        	 //Der CardController wird der List von CardController hinzugefügt
 			        	 cardControllers.add(currentCardController);

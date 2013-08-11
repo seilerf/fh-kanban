@@ -298,6 +298,8 @@ public class CardView extends AbstractView implements View {
 			}
 		});
 		
+		
+		
 	}
 
 	public void setOldCardId(int i) {
@@ -346,13 +348,12 @@ public class CardView extends AbstractView implements View {
 		
 		}
 		else {
-			if(count <= 0) { 
-				saveAllOldValues(Integer.parseInt(idTextField.getText()), Integer.parseInt(sizeTextField.getText()), descriptionTextPane.getText(), valueComboBox.getSelectedIndex(), getBackground(), blockerToggleButton.isSelected(), getJRadioButton());count+=1;
-			}
-			cardController.changeCardViewValues(Integer.parseInt(idTextField.getText()), Integer.parseInt(sizeTextField.getText()), descriptionTextPane.getText(), valueComboBox.getSelectedIndex(), getBackground(), blockerToggleButton.isSelected(), getJRadioButton());
+			
+			cardController.changeCardValues(Integer.parseInt(idTextField.getText()), Integer.parseInt(sizeTextField.getText()), descriptionTextPane.getText(), valueComboBox.getSelectedIndex(), getBackground(), blockerToggleButton.isSelected(), getJRadioButton());
 			setJPanelColorForCreatingANewCard();
 			this.btnResetAll.setEnabled(true);
 		 }
+		currentCard.setChanged(columnComboBox.getSelectedIndex());
 	}
 	
 	/**
@@ -362,6 +363,11 @@ public class CardView extends AbstractView implements View {
 	private void btnDeleteAllActionPerformed(ActionEvent e) {
 		resetAllValues();
 		setJPanelColorForCreatingANewCard();
+		System.out.println("CurrentCard: " + cardController.getCard().getHeadline() + "\n");
+		cardController.changeCardValues(0, 0 ,null, 0, null, false, 0);
+		cardController.getCard().setChanged();
+	
+		
 	}
 	
 	/**
@@ -370,7 +376,10 @@ public class CardView extends AbstractView implements View {
 	 * @throws cardViewException 
 	 */
 	private void btnResetAllActionPerformed(ActionEvent e) throws cardViewException {
+		
 		setAllToOldValues();
+		cardController.changeCardValues(Integer.parseInt(idTextField.getText()), Integer.parseInt(sizeTextField.getText()), descriptionTextPane.getText(), valueComboBox.getSelectedIndex(), getBackground(), blockerToggleButton.isSelected(), getJRadioButton());
+		cardController.getCard().setChanged();
 	}
 	
 	private void btnSaveNewCardActionPerformed(ActionEvent e) throws cardViewException {
@@ -400,6 +409,7 @@ public class CardView extends AbstractView implements View {
 			done = null;
 		}
 		 try {
+			
 		currentCard.setId(Integer.parseInt(idTextField.getText()));
 		currentCard.setValue(valueComboBox.getSelectedIndex());
 		currentCard.setBlocker(blockerToggleButton.isSelected());
@@ -430,16 +440,28 @@ public class CardView extends AbstractView implements View {
 	 * @param oldJRadio
 	 */
 
-	public void saveAllOldValues(int oldCardId, int oldWorkload, String oldDescription, int oldValue, Color oldbackColor, boolean oldBlocker, int oldJRadio) {
+	public void saveAllOldValues(int oldCardId, int oldWorkload, String oldDescription, int oldValue, Color oldbackColor, boolean oldBlocker, Date started, Date done, Date created) {
 	
+		
 		this.oldCardId = oldCardId;
 		this.oldSize = oldWorkload;
 		this.oldDescription = oldDescription;
 		this.oldValue = oldValue;
 		this.oldBackColor = oldbackColor;
 		this.oldBlocker = oldBlocker;
-		this.oldJRadio = oldJRadio;
+		if(created!=null&&done==null&&started==null){
+			this.oldJRadio = 0;
+		}
+		else if(started != null&&created!=null&&done == null){
+			this.oldJRadio = 1;
+		}
+		else if(done != null&&started !=null&&created!=null){
+			this.oldJRadio = 2;
+		}
+		
 	}
+	
+	
 	
 	/**
 	 * Setzt die beim Erstellen gespeicherten Werte passend in die Gui ein.
@@ -666,6 +688,7 @@ public class CardView extends AbstractView implements View {
 		this.valueComboBox.setSelectedIndex(0);
 		this.blockerToggleButton.setSelected(false);
 		this.buttonGroup.clearSelection();
+	
 
 	}
 	

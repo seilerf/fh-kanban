@@ -63,7 +63,7 @@ public class CardController extends AbstractController {
 	}
 	
 	
-	public void changeCardViewValues(int newCardId, int newWorkload, String newDescription, int newValue, Color backColor, boolean newBlocker, int newJRadio){
+	public void changeCardValues(int newCardId, int newWorkload, String newDescription, int newValue, Color backColor, boolean newBlocker, int newJRadio){
 		setModelProperty(CARDID_PROPERTY,newCardId);
 		setModelProperty(SIZE_PROPERTY, newWorkload);
 		setModelProperty(DESCRIPTION_PROPERTY, newDescription);

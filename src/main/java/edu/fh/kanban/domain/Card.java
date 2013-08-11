@@ -211,6 +211,14 @@ public class Card extends AbstractModel {
 		System.out.println("Kartenänderung ausgelöst");
 		
 	}
+	
+	public void setChanged() {
+		System.out.println("SETCHNGED");
+	
+		firePropertyChange(BoardController.BOARDCHANGED_PROPERTY, null, null);
+		System.out.println("Kartenänderung ausgelöst");
+		
+	}
 
 	public void setCreated(Date created2) {
 		this.created = created2;
